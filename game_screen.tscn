@@ -3,13 +3,19 @@
 [ext_resource type="Script" uid="uid://lwudqlpcf5ti" path="res://game_screen.gd" id="1_xwjjp"]
 [ext_resource type="FontFile" uid="uid://cab8p131qqmsj" path="res://assets/fonts/Undead Pixel 8.ttf" id="2_norob"]
 
-[node name="GameScreen" type="Node2D" unique_id=1366080423]
+[node name="Main" type="Node2D" unique_id=1366080423]
 script = ExtResource("1_xwjjp")
 
-[node name="WeeksDaysCount" type="Label" parent="." unique_id=1120637403]
-offset_left = 154.0
+[node name="GameCamera" type="Camera2D" parent="." unique_id=2043063389]
+anchor_mode = 0
+zoom = Vector2(4, 4)
+
+[node name="GameScreen" type="Node2D" parent="." unique_id=196972561]
+
+[node name="WeeksDaysCount" type="Label" parent="GameScreen" unique_id=1120637403]
+offset_left = 163.0
 offset_top = 3.0
-offset_right = 199.0
+offset_right = 208.0
 offset_bottom = 11.0
 theme_override_constants/line_spacing = 0
 theme_override_constants/outline_size = 1
@@ -17,19 +23,7 @@ theme_override_fonts/font = ExtResource("2_norob")
 theme_override_font_sizes/font_size = 8
 text = "W: 1 D: 1/7"
 
-[node name="CoinTracker" type="Label" parent="." unique_id=254611228]
-offset_left = 30.0
-offset_top = 3.0
-offset_right = 54.0
-offset_bottom = 11.0
-theme_override_constants/line_spacing = 0
-theme_override_constants/outline_size = 1
-theme_override_fonts/font = ExtResource("2_norob")
-theme_override_font_sizes/font_size = 8
-text = "G: 15"
-vertical_alignment = 1
-
-[node name="TimeTracker" type="Label" parent="." unique_id=761249686]
+[node name="TimeTracker" type="Label" parent="GameScreen" unique_id=761249686]
 offset_left = 213.0
 offset_top = 3.0
 offset_right = 237.0
@@ -41,7 +35,7 @@ theme_override_font_sizes/font_size = 8
 text = "NIGHT"
 vertical_alignment = 1
 
-[node name="ConfirmButton" type="Button" parent="." unique_id=2093339354]
+[node name="ConfirmButton" type="Button" parent="GameScreen" unique_id=2093339354]
 offset_left = 173.0
 offset_top = 141.0
 offset_right = 237.0
@@ -50,4 +44,131 @@ theme_override_fonts/font = ExtResource("2_norob")
 theme_override_font_sizes/font_size = 8
 text = "CONTINUE"
 
-[connection signal="pressed" from="ConfirmButton" to="." method="_on_confirm_button_pressed"]
+[node name="HealthBarLabel" type="Label" parent="GameScreen" unique_id=126298361]
+offset_left = 5.0
+offset_top = 19.0
+offset_right = 125.0
+offset_bottom = 27.0
+theme_override_fonts/font = ExtResource("2_norob")
+theme_override_font_sizes/font_size = 8
+text = "HEALTH: 100/100"
+vertical_alignment = 1
+
+[node name="InfamyBarLabel" type="Label" parent="GameScreen" unique_id=2069960797]
+offset_left = 3.0
+offset_top = 3.0
+offset_right = 71.0
+offset_bottom = 11.0
+theme_override_fonts/font = ExtResource("2_norob")
+theme_override_font_sizes/font_size = 8
+text = "INFAMY: 100/100"
+vertical_alignment = 1
+
+[node name="HungerBarLabel" type="Label" parent="GameScreen" unique_id=756567401]
+offset_left = 2.0
+offset_top = 11.0
+offset_right = 71.0
+offset_bottom = 19.0
+theme_override_fonts/font = ExtResource("2_norob")
+theme_override_font_sizes/font_size = 8
+text = "HUNGER: 100/100"
+vertical_alignment = 1
+
+[node name="GoldTrackerLabel" type="Label" parent="GameScreen" unique_id=1392403915]
+offset_left = 14.0
+offset_top = 27.0
+offset_right = 60.0
+offset_bottom = 35.0
+theme_override_fonts/font = ExtResource("2_norob")
+theme_override_font_sizes/font_size = 8
+text = "COIN: 15 G"
+vertical_alignment = 1
+
+[node name="DeathScreen" type="Node2D" parent="." unique_id=250626094]
+visible = false
+
+[node name="DeathScreenBG" type="ColorRect" parent="DeathScreen" unique_id=2143869183]
+custom_minimum_size = Vector2(240, 160)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 240.0
+offset_bottom = 160.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.57351774, 0.18331689, 0.09651811, 1)
+
+[node name="DeathScreenLabel" type="Label" parent="DeathScreen" unique_id=899544620]
+offset_right = 240.0
+offset_bottom = 160.0
+theme_override_fonts/font = ExtResource("2_norob")
+text = "YOU DIED"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="DeathScreenScore" type="Label" parent="DeathScreen" unique_id=2124828783]
+offset_top = 40.0
+offset_right = 240.0
+offset_bottom = 152.0
+theme_override_fonts/font = ExtResource("2_norob")
+theme_override_font_sizes/font_size = 8
+text = "YOU DIED"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RestartButton" type="Button" parent="DeathScreen" unique_id=775575277]
+offset_left = 80.0
+offset_top = 120.0
+offset_right = 128.0
+offset_bottom = 136.0
+theme_override_fonts/font = ExtResource("2_norob")
+theme_override_font_sizes/font_size = 8
+text = "RESTART"
+
+[node name="TitleScreen" type="Node2D" parent="." unique_id=865346955]
+
+[node name="TitleScreenBG" type="ColorRect" parent="TitleScreen" unique_id=41716912]
+custom_minimum_size = Vector2(240, 160)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 240.0
+offset_bottom = 160.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.15175653, 0.36485982, 0.436831, 1)
+
+[node name="TitleScreenLabel" type="Label" parent="TitleScreen" unique_id=1068184472]
+offset_top = 40.0
+offset_right = 240.0
+offset_bottom = 75.0
+theme_override_fonts/font = ExtResource("2_norob")
+text = "DON'T LET IT GO
+TO YOUR HEAD!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TitleScreenScore" type="Label" parent="TitleScreen" unique_id=1360747566]
+offset_top = 112.0
+offset_right = 240.0
+offset_bottom = 120.0
+theme_override_fonts/font = ExtResource("2_norob")
+theme_override_font_sizes/font_size = 8
+text = "NO RECORDED SCORE YET"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="PlayResumeButton" type="Button" parent="TitleScreen" unique_id=1752882286]
+offset_left = 96.0
+offset_top = 88.0
+offset_right = 144.0
+offset_bottom = 104.0
+theme_override_fonts/font = ExtResource("2_norob")
+theme_override_font_sizes/font_size = 8
+text = "PLAY"
+metadata/_edit_use_anchors_ = true
+
+[connection signal="pressed" from="GameScreen/ConfirmButton" to="." method="_on_confirm_button_pressed"]
+[connection signal="pressed" from="DeathScreen/RestartButton" to="." method="_on_restart_button_pressed"]
+[connection signal="pressed" from="TitleScreen/PlayResumeButton" to="." method="_on_play_resume_button_pressed"]
