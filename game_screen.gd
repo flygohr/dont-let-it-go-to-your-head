@@ -56,20 +56,26 @@ func _ready() -> void:
 	infamy = game_data["infamy"]
 	coin = game_data["coin"]
 	
+	title_screen.show()
 	# play / resume button depending on game state
 	if (current_day == 1 and current_week == 0 and time_of_day == "Day"):
 		play_resume_button.text = "PLAY"
+		if (high_score_days+(high_score_weeks*7)>0):
+			title_screen_score.text = str("Highest score: ", return_weeks_days_text(high_score_weeks,high_score_days))
+		else:
+			title_screen_score.text = "" # No high score yet
 	else:
 		play_resume_button.text = "RESUME"
-	if (high_score_days+(high_score_weeks*7)>0):
-		if (high_score_days > 1 and high_score_weeks > 1): # if both plural
-			title_screen_score.text = str("Highest score: ",high_score_weeks, " weeks and ",high_score_days," days")
-		elif (high_score_days == 1 and high_score_weeks > 1): # if only week plural
-			title_screen_score.text = str("Highest score: ",high_score_weeks, " weeks and ",high_score_days," day")
-		elif (high_score_days > 1 and high_score_weeks == 1): # if only day plural
-			title_screen_score.text = str("Highest score: ",high_score_weeks, " week and ",high_score_days," days")
-		elif (high_score_days == 1 and high_score_weeks == 1): # if both singular
-			title_screen_score.text = str("Highest score: ",high_score_weeks, " week and ",high_score_days," day")
+		var daytime_or_nighttime: String = ""
+		if (time_of_day == "Day"):
+			daytime_or_nighttime = "daytime"
+		elif (time_of_day == "Night"):
+			daytime_or_nighttime = "nighttime"
+		log(current_week)
+		log(current_day)
+		title_screen_score.text = str("Current game: ", return_weeks_days_text(current_week,current_day), ", ", daytime_or_nighttime, ".")
+		# missing current playtime under resume
+		# also missing "new game logic", if cards are drawn on a new game this basic check won't cut it. ah but it's easy, I just need to check if "current cards" or smth is active
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -115,23 +121,25 @@ func play_death():
 	if (total_days > high_score_days):
 		high_score_weeks = current_week
 		high_score_days = current_day
-		if (current_day > 1 and current_week > 1): # if both plural
-			death_screen_score.text = str("New high score: ",current_week, " weeks and ",current_day," days")
-		elif (current_day == 1 and current_week > 1): # if only week plural
-			death_screen_score.text = str("New high score: ",current_week, " weeks and ",current_day," day")
-		elif (current_day > 1 and current_week == 1): # if only day plural
-			death_screen_score.text = str("New high score: ",current_week, " week and ",current_day," days")
-		elif (current_day == 1 and current_week == 1): # if both singular
-			death_screen_score.text = str("New high score: ",current_week, " week and ",current_day," day")
+		death_screen_score.text = str("New high score: ", return_weeks_days_text(high_score_weeks,high_score_days))
 	else:
-		if (current_day > 1 and current_week > 1): # if both plural
-			death_screen_score.text = str("Score: ",current_week, " weeks and ",current_day," days")
-		elif (current_day == 1 and current_week > 1): # if only week plural
-			death_screen_score.text = str("Score: ",current_week, " weeks and ",current_day," day")
-		elif (current_day > 1 and current_week == 1): # if only day plural
-			death_screen_score.text = str("Score: ",current_week, " week and ",current_day," days")
-		elif (current_day == 1 and current_week == 1): # if both singular
-			death_screen_score.text = str("Score: ",current_week, " week and ",current_day," day")
+		death_screen_score.text = str("Score: ", return_weeks_days_text(current_week,current_day))
+
+func return_weeks_days_text(weeks, days) -> String:
+	var text_to_return: String = ""
+	
+	if (days == 1 and weeks == 1): # if both singular
+		text_to_return = str(weeks, " week and ",days," day")
+	elif (days == 1 and weeks > 1): # if only day singular
+		text_to_return = str(weeks, " weeks and ",days," day")
+		return text_to_return
+	elif (days > 1 and weeks == 1): # if only week singular
+		text_to_return = str(weeks, " week and ",days," days")
+		return text_to_return
+	else: # if both plural
+		text_to_return = str(weeks, " weeks and ",days," days")
+		return text_to_return
+	return text_to_return
 
 # save system from https://www.youtube.com/watch?v=PB8fLZR4wFU
 

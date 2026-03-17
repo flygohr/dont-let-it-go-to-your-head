@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://lwudqlpcf5ti" path="res://game_screen.gd" id="1_xwjjp"]
 [ext_resource type="FontFile" uid="uid://cab8p131qqmsj" path="res://assets/fonts/Undead Pixel 8.ttf" id="2_norob"]
+[ext_resource type="PackedScene" uid="uid://cxa744vjtwvmg" path="res://card.tscn" id="3_norob"]
 
 [node name="Main" type="Node2D" unique_id=1366080423]
 script = ExtResource("1_xwjjp")
@@ -17,6 +18,7 @@ offset_left = 163.0
 offset_top = 3.0
 offset_right = 208.0
 offset_bottom = 11.0
+mouse_behavior_recursive = 1
 theme_override_constants/line_spacing = 0
 theme_override_constants/outline_size = 1
 theme_override_fonts/font = ExtResource("2_norob")
@@ -28,6 +30,7 @@ offset_left = 213.0
 offset_top = 3.0
 offset_right = 237.0
 offset_bottom = 11.0
+mouse_behavior_recursive = 1
 theme_override_constants/line_spacing = 0
 theme_override_constants/outline_size = 1
 theme_override_fonts/font = ExtResource("2_norob")
@@ -49,6 +52,7 @@ offset_left = 5.0
 offset_top = 19.0
 offset_right = 125.0
 offset_bottom = 27.0
+mouse_behavior_recursive = 1
 theme_override_fonts/font = ExtResource("2_norob")
 theme_override_font_sizes/font_size = 8
 text = "HEALTH: 100/100"
@@ -59,6 +63,7 @@ offset_left = 3.0
 offset_top = 3.0
 offset_right = 71.0
 offset_bottom = 11.0
+mouse_behavior_recursive = 1
 theme_override_fonts/font = ExtResource("2_norob")
 theme_override_font_sizes/font_size = 8
 text = "INFAMY: 100/100"
@@ -69,6 +74,7 @@ offset_left = 2.0
 offset_top = 11.0
 offset_right = 71.0
 offset_bottom = 19.0
+mouse_behavior_recursive = 1
 theme_override_fonts/font = ExtResource("2_norob")
 theme_override_font_sizes/font_size = 8
 text = "HUNGER: 100/100"
@@ -79,10 +85,23 @@ offset_left = 14.0
 offset_top = 27.0
 offset_right = 60.0
 offset_bottom = 35.0
+mouse_behavior_recursive = 1
 theme_override_fonts/font = ExtResource("2_norob")
 theme_override_font_sizes/font_size = 8
 text = "COIN: 15 G"
 vertical_alignment = 1
+
+[node name="Cards" type="Node2D" parent="GameScreen" unique_id=2107657146]
+position = Vector2(107, 45)
+
+[node name="Card" parent="GameScreen/Cards" unique_id=740217441 instance=ExtResource("3_norob")]
+position = Vector2(-1, -2)
+
+[node name="Card2" parent="GameScreen/Cards" unique_id=895820405 instance=ExtResource("3_norob")]
+position = Vector2(-1, 30)
+
+[node name="Card3" parent="GameScreen/Cards" unique_id=292672971 instance=ExtResource("3_norob")]
+position = Vector2(-1, 62)
 
 [node name="DeathScreen" type="Node2D" parent="." unique_id=250626094]
 visible = false
@@ -96,11 +115,14 @@ offset_right = 240.0
 offset_bottom = 160.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
+mouse_behavior_recursive = 1
 color = Color(0.57351774, 0.18331689, 0.09651811, 1)
 
 [node name="DeathScreenLabel" type="Label" parent="DeathScreen" unique_id=899544620]
 offset_right = 240.0
 offset_bottom = 160.0
+mouse_behavior_recursive = 1
 theme_override_fonts/font = ExtResource("2_norob")
 text = "YOU DIED"
 horizontal_alignment = 1
@@ -110,6 +132,7 @@ vertical_alignment = 1
 offset_top = 40.0
 offset_right = 240.0
 offset_bottom = 152.0
+mouse_behavior_recursive = 1
 theme_override_fonts/font = ExtResource("2_norob")
 theme_override_font_sizes/font_size = 8
 text = "YOU DIED"
@@ -126,6 +149,7 @@ theme_override_font_sizes/font_size = 8
 text = "RESTART"
 
 [node name="TitleScreen" type="Node2D" parent="." unique_id=865346955]
+visible = false
 
 [node name="TitleScreenBG" type="ColorRect" parent="TitleScreen" unique_id=41716912]
 custom_minimum_size = Vector2(240, 160)
@@ -136,12 +160,15 @@ offset_right = 240.0
 offset_bottom = 160.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
+mouse_behavior_recursive = 1
 color = Color(0.15175653, 0.36485982, 0.436831, 1)
 
 [node name="TitleScreenLabel" type="Label" parent="TitleScreen" unique_id=1068184472]
 offset_top = 40.0
 offset_right = 240.0
 offset_bottom = 75.0
+mouse_behavior_recursive = 1
 theme_override_fonts/font = ExtResource("2_norob")
 text = "DON'T LET IT GO
 TO YOUR HEAD!"
@@ -152,6 +179,7 @@ vertical_alignment = 1
 offset_top = 112.0
 offset_right = 240.0
 offset_bottom = 120.0
+mouse_behavior_recursive = 1
 theme_override_fonts/font = ExtResource("2_norob")
 theme_override_font_sizes/font_size = 8
 text = "NO RECORDED SCORE YET"
