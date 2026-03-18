@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="dont-let-it-go-to-your-head"
-run/main_scene="uid://67m3ey2we5wu"
+run/main_scene="uid://dnqq3byx1bn66"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://icon.svg"
 

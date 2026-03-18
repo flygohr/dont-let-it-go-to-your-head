@@ -5,6 +5,8 @@ extends Node2D
 @onready var weeks_days_count: Label = $GameScreen/WeeksDaysCount
 @onready var time_tracker: Label = $GameScreen/TimeTracker
 @onready var confirm_button: Button = $GameScreen/ConfirmButton
+@onready var confirm_button_bg: ColorRect = $GameScreen/ConfirmButtonBG
+
 
 @onready var health_bar_label: Label = $GameScreen/HealthBarLabel
 @onready var infamy_bar_label: Label = $GameScreen/InfamyBarLabel
@@ -88,6 +90,8 @@ func _process(delta: float) -> void:
 	hunger_bar_label.text = str("HUNGER: ", hunger, "/100")
 
 func _on_confirm_button_pressed() -> void:
+	globals.card_selected.emit()
+	globals.can_proceed = false
 	advance_days()
 	
 func advance_days() -> void:
@@ -201,3 +205,11 @@ func _on_play_resume_button_pressed() -> void:
 	title_screen.hide()
 	var tween = get_tree().create_tween()
 	tween.tween_property(game_screen, "position", Vector2(0,0), 0.2)
+
+
+func _on_confirm_button_mouse_entered() -> void:
+	if (globals.can_proceed == true):
+		confirm_button_bg.show()
+
+func _on_confirm_button_mouse_exited() -> void:
+	confirm_button_bg.hide()

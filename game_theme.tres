@@ -1,0 +1,23 @@
+[gd_resource type="Theme" format=3 uid="uid://c3nwkja6hedpd"]
+
+[ext_resource type="FontFile" uid="uid://cab8p131qqmsj" path="res://assets/fonts/Undead Pixel 8.ttf" id="1_1fvms"]
+[ext_resource type="StyleBox" uid="uid://bllatk615j4t1" path="res://style_box_flat.tres" id="2_p1w3f"]
+[ext_resource type="StyleBox" uid="uid://5ey4hbggfh6y" path="res://button_focus.tres" id="3_pd6sc"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pd6sc"]
+content_margin_top = 3.0
+bg_color = Color(0.40784314, 0.17254902, 0.19607843, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.6117647, 0.26666668, 0.16078432, 1)
+
+[resource]
+Button/colors/font_color = Color(1, 1, 1, 1)
+Button/fonts/font = ExtResource("1_1fvms")
+Button/styles/disabled = ExtResource("2_p1w3f")
+Button/styles/focus = ExtResource("3_pd6sc")
+Button/styles/hover = ExtResource("3_pd6sc")
+Button/styles/normal = SubResource("StyleBoxFlat_pd6sc")
+Button/styles/pressed = ExtResource("3_pd6sc")

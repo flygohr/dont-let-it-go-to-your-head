@@ -22,8 +22,9 @@ Stuff to implement later:
 	- Added play / resume, death screen, high score tracking
 	- Added card scene, with hover effect, rarity colors
 - 2026-03-18
-	- Need to add select!
-	- Need to programmatically invoke cards!
-	- Need to apply selected effect
+	- Added ability to select cards, highlight selected card, block confirm until selected
+	- Polishing the layout
+	- Need to programmatically generate cards
 
 Font: https://not-jam.itch.io/undead-pixel-light-8
+Some colors from: https://lospec.com/palette-list/ty-celestial-sapien-26
