@@ -11,8 +11,8 @@ var color_select: Color = Color.html("#b1ff00")
 
 var current_screen: String = "title"
 
-@warning_ignore_start("unused_signal")
+var can_proceed = false
 
-var cards_selected: int = 0
+@warning_ignore_start("unused_signal")
 
 signal card_selected()

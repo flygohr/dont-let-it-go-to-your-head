@@ -47,13 +47,13 @@ text = "NIGHT"
 vertical_alignment = 1
 
 [node name="ConfirmButton" type="Button" parent="GameScreen" unique_id=2093339354]
-offset_left = 173.0
+offset_left = 169.0
 offset_top = 141.0
 offset_right = 237.0
 offset_bottom = 157.0
 theme_override_fonts/font = ExtResource("2_norob")
 theme_override_font_sizes/font_size = 8
-text = "CONTINUE"
+text = "CONFIRM"
 script = ExtResource("3_yla3h")
 
 [node name="HealthBarLabel" type="Label" parent="GameScreen" unique_id=126298361]
@@ -101,14 +101,14 @@ text = "COIN: 15 G"
 vertical_alignment = 1
 
 [node name="CardsSelected" type="Label" parent="GameScreen" unique_id=1325690590]
-offset_left = 12.0
-offset_top = 81.0
-offset_right = 81.0
-offset_bottom = 89.0
+offset_left = 113.0
+offset_top = 145.0
+offset_right = 165.0
+offset_bottom = 153.0
 mouse_behavior_recursive = 1
 theme_override_fonts/font = ExtResource("2_norob")
 theme_override_font_sizes/font_size = 8
-text = "CARDS SELECTED"
+text = "Pick a card"
 vertical_alignment = 1
 
 [node name="Cards" type="Node2D" parent="GameScreen" unique_id=2107657146]

@@ -8,7 +8,7 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	if(globals.cards_selected == 1):
+	if(globals.can_proceed == true):
 		disabled = false
 	else:
 		disabled = true

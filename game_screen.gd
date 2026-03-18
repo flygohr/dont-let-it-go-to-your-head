@@ -77,7 +77,6 @@ func _ready() -> void:
 		log(current_week)
 		log(current_day)
 		title_screen_score.text = str("Current game: ", return_weeks_days_text(current_week,current_day), ", ", daytime_or_nighttime, ".")
-		# missing current playtime under resume
 		# also missing "new game logic", if cards are drawn on a new game this basic check won't cut it. ah but it's easy, I just need to check if "current cards" or smth is active
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -87,7 +86,6 @@ func _process(delta: float) -> void:
 	if (hunger < 0): hunger = 0
 	elif (hunger >= 100): play_death()
 	hunger_bar_label.text = str("HUNGER: ", hunger, "/100")
-	# print_debug(globals.current_screen)
 
 func _on_confirm_button_pressed() -> void:
 	advance_days()

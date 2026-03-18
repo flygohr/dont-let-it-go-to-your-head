@@ -83,13 +83,13 @@ func select_this() -> void:
 	select = true
 	hover = true
 	globals.card_selected.emit()
-	globals.cards_selected += 1
+	globals.can_proceed = true
 	
 func unselect_this() -> void:
 	select = false
-	globals.cards_selected -= 1
+	globals.can_proceed = false
 	
 func _card_selected() -> void:
 	# unselect if not the current card being hovered
 	if (hover == false):
-		unselect_this()
+		select = false
