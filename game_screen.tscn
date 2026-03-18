@@ -5,6 +5,22 @@
 [ext_resource type="Theme" uid="uid://c3nwkja6hedpd" path="res://game_theme.tres" id="3_j7yda"]
 [ext_resource type="PackedScene" uid="uid://cxa744vjtwvmg" path="res://card.tscn" id="3_norob"]
 [ext_resource type="Script" uid="uid://sibnmefin87h" path="res://confirm_button.gd" id="3_yla3h"]
+[ext_resource type="Script" uid="uid://dghbu625b5s0w" path="res://progress_bar.gd" id="5_lxtpa"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lxtpa"]
+bg_color = Color(0.47843137, 0.38431373, 0.3764706, 0.49019608)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.4, 0.40784314, 0.38039216, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3vj30"]
+bg_color = Color(0.5882353, 0.7647059, 0.34901962, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_bottom = 1
+border_color = Color(0.4, 0.40784314, 0.38039216, 1)
 
 [node name="Main" type="Node2D" unique_id=1366080423]
 script = ExtResource("1_xwjjp")
@@ -66,7 +82,9 @@ theme_override_colors/font_color = Color(0.47843137, 0.38431373, 0.3764706, 1)
 theme_override_constants/line_spacing = 1
 theme_override_fonts/font = ExtResource("2_norob")
 theme_override_font_sizes/font_size = 8
-text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec fringilla lorem vel tellus dapibus, eu bibendum velit rutrum. "
+text = "No moon in the sky!
+-50% INFAMY
+"
 autowrap_mode = 2
 
 [node name="TextSectionTitle" type="Label" parent="GameScreen/MiddleSection" unique_id=309318019]
@@ -79,7 +97,7 @@ theme_override_colors/font_color = Color(0.3529412, 0.26666668, 0.22352941, 1)
 theme_override_constants/line_spacing = 1
 theme_override_fonts/font = ExtResource("2_norob")
 theme_override_font_sizes/font_size = 8
-text = "TITLE"
+text = "BLACK MOON"
 autowrap_mode = 2
 
 [node name="Cards" type="Node2D" parent="GameScreen/MiddleSection" unique_id=2107657146]
@@ -122,23 +140,26 @@ horizontal_alignment = 1
 [node name="InfamyOuterBG" type="ColorRect" parent="GameScreen/TopStats/InfamyTracker" unique_id=2109113322]
 offset_left = 2.0
 offset_top = 2.0
-offset_right = 56.0
+offset_right = 54.0
 offset_bottom = 22.0
 mouse_filter = 2
 color = Color(0.5686275, 0.57254905, 0.5176471, 1)
 
-[node name="InfamyInnerBG" type="ColorRect" parent="GameScreen/TopStats/InfamyTracker" unique_id=2127298454]
+[node name="InfamyProgressBar" type="ProgressBar" parent="GameScreen/TopStats/InfamyTracker" unique_id=58716003]
 offset_left = 3.0
 offset_top = 11.0
-offset_right = 55.0
+offset_right = 53.0
 offset_bottom = 21.0
-mouse_filter = 2
-color = Color(0.9019608, 0.85490197, 0.77254903, 0.6)
+theme_override_styles/background = SubResource("StyleBoxFlat_lxtpa")
+theme_override_styles/fill = SubResource("StyleBoxFlat_3vj30")
+show_percentage = false
+script = ExtResource("5_lxtpa")
+inverse = true
 
 [node name="InfamyBarLabel" type="Label" parent="GameScreen/TopStats/InfamyTracker" unique_id=2069960797]
 offset_left = 4.0
 offset_top = 13.0
-offset_right = 54.0
+offset_right = 52.0
 offset_bottom = 21.0
 mouse_behavior_recursive = 1
 theme_override_constants/line_spacing = 1
@@ -151,7 +172,7 @@ vertical_alignment = 1
 [node name="InfamyBarText" type="Label" parent="GameScreen/TopStats/InfamyTracker" unique_id=485236846]
 offset_left = 4.0
 offset_top = 4.0
-offset_right = 55.0
+offset_right = 54.0
 offset_bottom = 12.0
 mouse_behavior_recursive = 1
 theme_override_constants/line_spacing = 1
@@ -164,25 +185,29 @@ vertical_alignment = 1
 [node name="HungerTracker" type="Node2D" parent="GameScreen/TopStats" unique_id=1976932267]
 
 [node name="HungerOuterBG" type="ColorRect" parent="GameScreen/TopStats/HungerTracker" unique_id=1926250527]
-offset_left = 58.0
+offset_left = 56.0
 offset_top = 2.0
-offset_right = 112.0
+offset_right = 108.0
 offset_bottom = 22.0
 mouse_filter = 2
 color = Color(0.5686275, 0.57254905, 0.5176471, 1)
 
-[node name="HungerInnerBG" type="ColorRect" parent="GameScreen/TopStats/HungerTracker" unique_id=63111713]
-offset_left = 59.0
+[node name="HungerProgressBar" type="ProgressBar" parent="GameScreen/TopStats/HungerTracker" unique_id=1371821454]
+offset_left = 57.0
 offset_top = 11.0
-offset_right = 111.0
+offset_right = 107.0
 offset_bottom = 21.0
-mouse_filter = 2
-color = Color(0.9019608, 0.85490197, 0.77254903, 0.6)
+theme_override_styles/background = SubResource("StyleBoxFlat_lxtpa")
+theme_override_styles/fill = SubResource("StyleBoxFlat_3vj30")
+value = 100.0
+show_percentage = false
+script = ExtResource("5_lxtpa")
+inverse = true
 
 [node name="HungerBarLabel" type="Label" parent="GameScreen/TopStats/HungerTracker" unique_id=756567401]
-offset_left = 60.0
+offset_left = 58.0
 offset_top = 13.0
-offset_right = 110.0
+offset_right = 106.0
 offset_bottom = 21.0
 mouse_behavior_recursive = 1
 theme_override_fonts/font = ExtResource("2_norob")
@@ -192,9 +217,9 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="HungerBarText" type="Label" parent="GameScreen/TopStats/HungerTracker" unique_id=4664190]
-offset_left = 60.0
+offset_left = 58.0
 offset_top = 4.0
-offset_right = 112.0
+offset_right = 107.0
 offset_bottom = 12.0
 mouse_behavior_recursive = 1
 theme_override_constants/line_spacing = 1
@@ -207,25 +232,27 @@ vertical_alignment = 1
 [node name="HealthTracker" type="Node2D" parent="GameScreen/TopStats" unique_id=4904415]
 
 [node name="HealthOuterBG" type="ColorRect" parent="GameScreen/TopStats/HealthTracker" unique_id=584591543]
-offset_left = 114.0
+offset_left = 110.0
 offset_top = 2.0
-offset_right = 168.0
+offset_right = 162.0
 offset_bottom = 22.0
 mouse_filter = 2
 color = Color(0.5686275, 0.57254905, 0.5176471, 1)
 
-[node name="HealthInnerBG" type="ColorRect" parent="GameScreen/TopStats/HealthTracker" unique_id=2121522629]
-offset_left = 115.0
+[node name="HealthProgressBar" type="ProgressBar" parent="GameScreen/TopStats/HealthTracker" unique_id=2125425191]
+offset_left = 111.0
 offset_top = 11.0
-offset_right = 167.0
+offset_right = 161.0
 offset_bottom = 21.0
-mouse_filter = 2
-color = Color(0.9019608, 0.85490197, 0.77254903, 0.6)
+theme_override_styles/background = SubResource("StyleBoxFlat_lxtpa")
+theme_override_styles/fill = SubResource("StyleBoxFlat_3vj30")
+show_percentage = false
+script = ExtResource("5_lxtpa")
 
 [node name="HealthBarText" type="Label" parent="GameScreen/TopStats/HealthTracker" unique_id=48085587]
-offset_left = 116.0
+offset_left = 112.0
 offset_top = 4.0
-offset_right = 168.0
+offset_right = 161.0
 offset_bottom = 12.0
 mouse_behavior_recursive = 1
 theme_override_constants/line_spacing = 1
@@ -236,9 +263,9 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="HealthBarLabel" type="Label" parent="GameScreen/TopStats/HealthTracker" unique_id=126298361]
-offset_left = 116.0
+offset_left = 112.0
 offset_top = 13.0
-offset_right = 167.0
+offset_right = 161.0
 offset_bottom = 21.0
 mouse_behavior_recursive = 1
 theme_override_fonts/font = ExtResource("2_norob")
@@ -250,27 +277,36 @@ vertical_alignment = 1
 [node name="CoinTracker" type="Node2D" parent="GameScreen/TopStats" unique_id=2107533128]
 
 [node name="GoldTrackerInnerBG2" type="ColorRect" parent="GameScreen/TopStats/CoinTracker" unique_id=1593370416]
-offset_left = 170.0
+offset_left = 164.0
 offset_top = 2.0
-offset_right = 199.0
+offset_right = 195.0
 offset_bottom = 22.0
 mouse_filter = 2
 color = Color(0.5686275, 0.57254905, 0.5176471, 1)
 
-[node name="GoldTrackerInnerBG" type="ColorRect" parent="GameScreen/TopStats/CoinTracker" unique_id=1924557098]
-offset_left = 171.0
+[node name="GoldTrackerInnerBG3" type="ColorRect" parent="GameScreen/TopStats/CoinTracker" unique_id=1801392043]
+offset_left = 165.0
 offset_top = 11.0
-offset_right = 198.0
+offset_right = 194.0
 offset_bottom = 21.0
 mouse_filter = 2
-color = Color(0.9019608, 0.85490197, 0.77254903, 0.6)
+color = Color(0.4, 0.40784314, 0.38039216, 1)
+
+[node name="GoldTrackerInnerBG" type="ColorRect" parent="GameScreen/TopStats/CoinTracker" unique_id=1924557098]
+offset_left = 166.0
+offset_top = 12.0
+offset_right = 193.0
+offset_bottom = 20.0
+mouse_filter = 2
+color = Color(0.5254902, 0.47843137, 0.44705883, 1)
 
 [node name="GoldTrackerLabel" type="Label" parent="GameScreen/TopStats/CoinTracker" unique_id=1392403915]
-offset_left = 172.0
+offset_left = 167.0
 offset_top = 13.0
-offset_right = 198.0
+offset_right = 193.0
 offset_bottom = 21.0
 mouse_behavior_recursive = 1
+theme_override_colors/font_color = Color(1, 0.84313726, 0, 1)
 theme_override_fonts/font = ExtResource("2_norob")
 theme_override_font_sizes/font_size = 8
 text = "999 G"
@@ -278,9 +314,9 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="GoldTrackerText" type="Label" parent="GameScreen/TopStats/CoinTracker" unique_id=68360969]
-offset_left = 171.0
+offset_left = 165.0
 offset_top = 4.0
-offset_right = 199.0
+offset_right = 195.0
 offset_bottom = 12.0
 mouse_behavior_recursive = 1
 theme_override_constants/line_spacing = 1
@@ -293,23 +329,31 @@ vertical_alignment = 1
 [node name="CardsTracker" type="Node2D" parent="GameScreen/TopStats" unique_id=1346602609]
 
 [node name="CardsTrackerOuterBG" type="ColorRect" parent="GameScreen/TopStats/CardsTracker" unique_id=182440181]
-offset_left = 201.0
+offset_left = 197.0
 offset_top = 2.0
 offset_right = 238.0
 offset_bottom = 22.0
 mouse_filter = 2
 color = Color(0.5686275, 0.57254905, 0.5176471, 1)
 
-[node name="CardsTrackerInnerBG" type="ColorRect" parent="GameScreen/TopStats/CardsTracker" unique_id=295922096]
-offset_left = 202.0
+[node name="CardsTrackerInnerBG4" type="ColorRect" parent="GameScreen/TopStats/CardsTracker" unique_id=1563770557]
+offset_left = 198.0
 offset_top = 11.0
-offset_right = 236.87001
+offset_right = 237.0
 offset_bottom = 21.0
 mouse_filter = 2
-color = Color(0.9019608, 0.85490197, 0.77254903, 0.6)
+color = Color(0.4, 0.40784314, 0.38039216, 1)
+
+[node name="CardsTrackerInnerBG5" type="ColorRect" parent="GameScreen/TopStats/CardsTracker" unique_id=999531743]
+offset_left = 199.0
+offset_top = 12.0
+offset_right = 236.0
+offset_bottom = 20.0
+mouse_filter = 2
+color = Color(0.5254902, 0.47843137, 0.44705883, 1)
 
 [node name="CardsTrackerLabel" type="Label" parent="GameScreen/TopStats/CardsTracker" unique_id=1390729461]
-offset_left = 203.0
+offset_left = 199.0
 offset_top = 13.0
 offset_right = 237.0
 offset_bottom = 21.0
@@ -317,10 +361,11 @@ mouse_behavior_recursive = 1
 theme_override_fonts/font = ExtResource("2_norob")
 theme_override_font_sizes/font_size = 8
 text = "999/999"
+horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="CardsTrackerText" type="Label" parent="GameScreen/TopStats/CardsTracker" unique_id=1777815115]
-offset_left = 202.0
+offset_left = 198.0
 offset_top = 4.0
 offset_right = 238.0
 offset_bottom = 12.0
@@ -343,6 +388,7 @@ mouse_filter = 2
 color = Color(0.5686275, 0.57254905, 0.5176471, 1)
 
 [node name="ConfirmButtonBG" type="ColorRect" parent="GameScreen/BottomSection" unique_id=1649176275]
+visible = false
 offset_left = 171.0
 offset_top = 143.0
 offset_right = 237.0
@@ -377,7 +423,6 @@ vertical_alignment = 1
 position = Vector2(0, 160)
 
 [node name="DeathScreenBG" type="ColorRect" parent="DeathScreen" unique_id=2143869183]
-visible = false
 custom_minimum_size = Vector2(240, 160)
 anchors_preset = 15
 anchor_right = 1.0
@@ -389,17 +434,18 @@ grow_vertical = 2
 color = Color(0.57351774, 0.18331689, 0.09651811, 1)
 
 [node name="DeathScreenLabel" type="Label" parent="DeathScreen" unique_id=899544620]
+offset_top = -13.0
 offset_right = 240.0
-offset_bottom = 160.0
+offset_bottom = 147.0
 theme_override_fonts/font = ExtResource("2_norob")
 text = "YOU DIED"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="DeathScreenScore" type="Label" parent="DeathScreen" unique_id=2124828783]
-offset_top = 40.0
+offset_top = 27.0
 offset_right = 240.0
-offset_bottom = 152.0
+offset_bottom = 139.0
 theme_override_fonts/font = ExtResource("2_norob")
 theme_override_font_sizes/font_size = 8
 text = "YOU DIED"
@@ -407,16 +453,16 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="RestartButton" type="Button" parent="DeathScreen" unique_id=775575277]
-offset_left = 80.0
-offset_top = 120.0
-offset_right = 128.0
-offset_bottom = 136.0
+offset_left = 83.0
+offset_top = 94.0
+offset_right = 155.0
+offset_bottom = 110.0
+theme = ExtResource("3_j7yda")
 theme_override_fonts/font = ExtResource("2_norob")
 theme_override_font_sizes/font_size = 8
 text = "RESTART"
 
 [node name="TitleScreen" type="Node2D" parent="." unique_id=865346955]
-visible = false
 
 [node name="TitleScreenBG" type="ColorRect" parent="TitleScreen" unique_id=41716912]
 custom_minimum_size = Vector2(240, 160)
@@ -427,7 +473,7 @@ offset_right = 240.0
 offset_bottom = 160.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.15175653, 0.36485982, 0.436831, 1)
+color = Color(0.26666668, 0.3019608, 0.30588236, 1)
 
 [node name="TitleScreenLabel" type="Label" parent="TitleScreen" unique_id=1068184472]
 offset_top = 40.0
@@ -451,10 +497,11 @@ vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
 [node name="PlayResumeButton" type="Button" parent="TitleScreen" unique_id=1752882286]
-offset_left = 96.0
+offset_left = 70.0
 offset_top = 88.0
-offset_right = 144.0
+offset_right = 166.0
 offset_bottom = 104.0
+theme = ExtResource("3_j7yda")
 theme_override_fonts/font = ExtResource("2_norob")
 theme_override_font_sizes/font_size = 8
 text = "PLAY"

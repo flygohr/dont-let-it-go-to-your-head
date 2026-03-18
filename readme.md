@@ -5,8 +5,9 @@ Time will tell if the scope of my idea was actually manageable.
 Stuff I'm already banging my head against (and I won't be able to include, probably):
 - Responsive UI / game screen. I'll stick to a fixed viewport for now, I will learn how to make a responsive interface when I won't be in a rush
 - Animations, tweens, smooth transitions, spinners.. basically, all the juice? I'll see what I can implement, but if I realize I can't, I'll push the polish back to later
-
-Stuff to implement later:
+- Error messages like "not enough gold" or smth, should go on the bottom bar and flash red or smth
+- Clunky select, 100% bad implementation
+- Theming is all messed up
 - Different death screens for each cause of death
 
 ### Devlog:
@@ -24,7 +25,13 @@ Stuff to implement later:
 - 2026-03-18
 	- Added ability to select cards, highlight selected card, block confirm until selected
 	- Polishing the layout
+	- Tried exporting for itch just to be prepared
+- 2026-03-19
+	- Need to have cards store their effects, text, etc, and have functions to apply them upon confirmation
 	- Need to programmatically generate cards
+	- Need to actually "fill" the slots with what I draw, no need to instance and position, it can be all done with injecting code into the UI
+	- And need to check for current effects and calculate
+	- The "add more cards" mechanic is missing entirely, might need to scrap that..
 
 Font: https://not-jam.itch.io/undead-pixel-light-8
 Some colors from: https://lospec.com/palette-list/ty-celestial-sapien-26

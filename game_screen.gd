@@ -2,16 +2,23 @@ extends Node2D
 
 @onready var game_screen: Node2D = $GameScreen
 
-@onready var weeks_days_count: Label = $GameScreen/WeeksDaysCount
-@onready var time_tracker: Label = $GameScreen/TimeTracker
-@onready var confirm_button: Button = $GameScreen/ConfirmButton
-@onready var confirm_button_bg: ColorRect = $GameScreen/ConfirmButtonBG
+@onready var game_background_outer: ColorRect = $GameScreen/GameBackgroundOuter
+@onready var weeks_days_time: Label = $GameScreen/GameTime/WeeksDaysTime
 
+@onready var confirm_button: Button = $GameScreen/BottomSection/ConfirmButton
+@onready var confirm_button_bg: ColorRect = $GameScreen/BottomSection/ConfirmButtonBG
 
-@onready var health_bar_label: Label = $GameScreen/HealthBarLabel
-@onready var infamy_bar_label: Label = $GameScreen/InfamyBarLabel
-@onready var hunger_bar_label: Label = $GameScreen/HungerBarLabel
-@onready var gold_tracker_label: Label = $GameScreen/GoldTrackerLabel
+@onready var infamy_progress_bar: ProgressBar = $GameScreen/TopStats/InfamyTracker/InfamyProgressBar
+@onready var infamy_bar_label: Label = $GameScreen/TopStats/InfamyTracker/InfamyBarLabel
+
+@onready var hunger_progress_bar: ProgressBar = $GameScreen/TopStats/HungerTracker/HungerProgressBar
+@onready var hunger_bar_label: Label = $GameScreen/TopStats/HungerTracker/HungerBarLabel
+
+@onready var health_progress_bar: ProgressBar = $GameScreen/TopStats/HealthTracker/HealthProgressBar
+@onready var health_bar_label: Label = $GameScreen/TopStats/HealthTracker/HealthBarLabel
+
+@onready var gold_tracker_label: Label = $GameScreen/TopStats/CoinTracker/GoldTrackerLabel
+@onready var cards_tracker_label: Label = $GameScreen/TopStats/CardsTracker/CardsTrackerLabel
 
 @onready var title_screen: Node2D = $TitleScreen
 @onready var title_screen_score: Label = $TitleScreen/TitleScreenScore
@@ -46,6 +53,8 @@ var hunger: int = 0
 var health: int = 100
 var infamy: int = 0
 var coin: int = 5
+var total_cards: int = 40
+var current_cards: int = 40
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -59,7 +68,7 @@ func _ready() -> void:
 	health = game_data["health"]
 	infamy = game_data["infamy"]
 	coin = game_data["coin"]
-	
+		
 	globals.current_screen = "title"
 	title_screen.show()
 	# play / resume button depending on game state
@@ -83,20 +92,38 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	weeks_days_count.text = str("W: ",current_week," D: ",current_day,"/7")
-	time_tracker.text = str(time_of_day)
+	var daytime_or_nighttime: String = ""
+	if (time_of_day == "Day"):
+		daytime_or_nighttime = "daytime"
+	elif (time_of_day == "Night"):
+		daytime_or_nighttime = "nighttime"
+	weeks_days_time.text = str("Day ", current_day, "/7 of week ", current_week, ", ", daytime_or_nighttime)
+	
+	infamy_progress_bar.value = infamy
+	infamy_bar_label.text = str(infamy,"/100")
+	
+	hunger_progress_bar.value = hunger
+	hunger_bar_label.text = str(hunger,"/100")
+	
+	health_progress_bar.value = health
+	health_bar_label.text = str(health,"/100")
+	
+	gold_tracker_label.text = str(coin," G")
+	cards_tracker_label.text = str(current_cards,"/",total_cards)
+	
+	# death conditions
 	if (hunger < 0): hunger = 0
 	elif (hunger >= 100): play_death()
-	hunger_bar_label.text = str("HUNGER: ", hunger, "/100")
 
 func _on_confirm_button_pressed() -> void:
 	globals.card_selected.emit()
 	globals.can_proceed = false
+	confirm_button_bg.hide()
 	advance_days()
 	
 func advance_days() -> void:
 	if(time_of_day == "Day"):
-		time_of_day = "Night"
+		time_of_day = "Night"	
 	elif(current_day < 7 and time_of_day == "Night"):
 		current_day += 1
 		time_of_day = "Day"
