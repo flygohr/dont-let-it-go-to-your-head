@@ -1,5 +1,7 @@
 extends Node2D
 
+@onready var game_screen: Node2D = $GameScreen
+
 @onready var weeks_days_count: Label = $GameScreen/WeeksDaysCount
 @onready var time_tracker: Label = $GameScreen/TimeTracker
 @onready var confirm_button: Button = $GameScreen/ConfirmButton
@@ -56,6 +58,7 @@ func _ready() -> void:
 	infamy = game_data["infamy"]
 	coin = game_data["coin"]
 	
+	globals.current_screen = "title"
 	title_screen.show()
 	# play / resume button depending on game state
 	if (current_day == 1 and current_week == 0 and time_of_day == "Day"):
@@ -84,7 +87,7 @@ func _process(delta: float) -> void:
 	if (hunger < 0): hunger = 0
 	elif (hunger >= 100): play_death()
 	hunger_bar_label.text = str("HUNGER: ", hunger, "/100")
-	pass
+	# print_debug(globals.current_screen)
 
 func _on_confirm_button_pressed() -> void:
 	advance_days()
@@ -114,8 +117,11 @@ func advance_days() -> void:
 	})
 	
 func play_death():
-	
-	death_screen.show()
+	globals.current_screen = "death"
+	var tween = get_tree().create_tween()
+	tween.tween_property(death_screen, "position", Vector2(0,0), 0.2)
+	var tween_b = get_tree().create_tween()
+	tween_b.tween_property(game_screen, "position", Vector2(0,-160), 0.2)
 	var total_days: int = (current_week*7)+current_day
 	var high_score_total_days: int = (high_score_weeks*7)+high_score_days
 	if (total_days > high_score_days):
@@ -186,8 +192,14 @@ func reset_save() -> void:
 
 func _on_restart_button_pressed() -> void:
 	reset_save()
-	death_screen.hide()
-
-
+	globals.current_screen = "game"
+	var tween = get_tree().create_tween()
+	tween.tween_property(death_screen, "position", Vector2(0,160), 0.2)
+	var tween_b = get_tree().create_tween()
+	tween_b.tween_property(game_screen, "position", Vector2(0,0), 0.2)
+	
 func _on_play_resume_button_pressed() -> void:
+	globals.current_screen = "game"
 	title_screen.hide()
+	var tween = get_tree().create_tween()
+	tween.tween_property(game_screen, "position", Vector2(0,0), 0.2)

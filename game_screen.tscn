@@ -11,7 +11,14 @@ script = ExtResource("1_xwjjp")
 anchor_mode = 0
 zoom = Vector2(4, 4)
 
+[node name="GameBackground" type="ColorRect" parent="." unique_id=1401518979]
+offset_right = 240.0
+offset_bottom = 160.0
+mouse_filter = 2
+color = Color(0.13286197, 0.27508974, 0.57094955, 1)
+
 [node name="GameScreen" type="Node2D" parent="." unique_id=196972561]
+position = Vector2(0, -160)
 
 [node name="WeeksDaysCount" type="Label" parent="GameScreen" unique_id=1120637403]
 offset_left = 163.0
@@ -104,7 +111,7 @@ position = Vector2(-1, 30)
 position = Vector2(-1, 62)
 
 [node name="DeathScreen" type="Node2D" parent="." unique_id=250626094]
-visible = false
+position = Vector2(0, 160)
 
 [node name="DeathScreenBG" type="ColorRect" parent="DeathScreen" unique_id=2143869183]
 custom_minimum_size = Vector2(240, 160)
@@ -115,14 +122,11 @@ offset_right = 240.0
 offset_bottom = 160.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 2
-mouse_behavior_recursive = 1
 color = Color(0.57351774, 0.18331689, 0.09651811, 1)
 
 [node name="DeathScreenLabel" type="Label" parent="DeathScreen" unique_id=899544620]
 offset_right = 240.0
 offset_bottom = 160.0
-mouse_behavior_recursive = 1
 theme_override_fonts/font = ExtResource("2_norob")
 text = "YOU DIED"
 horizontal_alignment = 1
@@ -132,7 +136,6 @@ vertical_alignment = 1
 offset_top = 40.0
 offset_right = 240.0
 offset_bottom = 152.0
-mouse_behavior_recursive = 1
 theme_override_fonts/font = ExtResource("2_norob")
 theme_override_font_sizes/font_size = 8
 text = "YOU DIED"
@@ -160,15 +163,12 @@ offset_right = 240.0
 offset_bottom = 160.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 2
-mouse_behavior_recursive = 1
 color = Color(0.15175653, 0.36485982, 0.436831, 1)
 
 [node name="TitleScreenLabel" type="Label" parent="TitleScreen" unique_id=1068184472]
 offset_top = 40.0
 offset_right = 240.0
 offset_bottom = 75.0
-mouse_behavior_recursive = 1
 theme_override_fonts/font = ExtResource("2_norob")
 text = "DON'T LET IT GO
 TO YOUR HEAD!"
@@ -179,7 +179,6 @@ vertical_alignment = 1
 offset_top = 112.0
 offset_right = 240.0
 offset_bottom = 120.0
-mouse_behavior_recursive = 1
 theme_override_fonts/font = ExtResource("2_norob")
 theme_override_font_sizes/font_size = 8
 text = "NO RECORDED SCORE YET"

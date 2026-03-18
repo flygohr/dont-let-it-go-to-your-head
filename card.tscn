@@ -9,8 +9,32 @@ size = Vector2(129, 30)
 [node name="Card" type="Node2D" unique_id=740217441]
 script = ExtResource("1_rjlel")
 
-[node name="BackgroundSelect" type="Control" parent="." unique_id=397442925]
+[node name="BackgroundHover" type="Control" parent="." unique_id=630663782]
 visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+mouse_behavior_recursive = 1
+
+[node name="Rect1" type="ColorRect" parent="BackgroundHover" unique_id=1761757118]
+layout_mode = 0
+offset_left = 8.0
+offset_right = 131.0
+offset_bottom = 32.0
+mouse_filter = 2
+mouse_behavior_recursive = 1
+
+[node name="Rect2" type="ColorRect" parent="BackgroundHover" unique_id=1022812128]
+layout_mode = 0
+offset_top = 2.0
+offset_right = 40.0
+offset_bottom = 30.0
+mouse_filter = 2
+mouse_behavior_recursive = 1
+
+[node name="BackgroundSelect" type="Control" parent="." unique_id=397442925]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
@@ -25,6 +49,7 @@ offset_right = 131.0
 offset_bottom = 32.0
 mouse_filter = 2
 mouse_behavior_recursive = 1
+color = Color(0.26901972, 0.61653733, 0.6164012, 1)
 
 [node name="Rect2" type="ColorRect" parent="BackgroundSelect" unique_id=2033741541]
 layout_mode = 0
@@ -33,6 +58,7 @@ offset_right = 40.0
 offset_bottom = 30.0
 mouse_filter = 2
 mouse_behavior_recursive = 1
+color = Color(0.27058825, 0.6156863, 0.6156863, 1)
 
 [node name="BackgroundRect" type="Control" parent="." unique_id=1766575055]
 layout_mode = 3
@@ -147,5 +173,6 @@ top_level = true
 position = Vector2(65.5, 16)
 shape = SubResource("RectangleShape2D_rjlel")
 
+[connection signal="input_event" from="CardCollision" to="." method="_on_card_collision_input_event"]
 [connection signal="mouse_entered" from="CardCollision" to="." method="_on_card_collision_mouse_entered"]
 [connection signal="mouse_exited" from="CardCollision" to="." method="_on_card_collision_mouse_exited"]

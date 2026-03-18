@@ -19,5 +19,11 @@ Stuff to implement later:
     - Started working on the prototype
     - Added basic save and load, should work in browser
     - Added weeks and days advance, daytime logic
+	- Added play / resume, death screen, high score tracking
+	- Added card scene, with hover effect, rarity colors
+- 2026-03-18
+	- Need to add select!
+	- Need to programmatically invoke cards!
+	- Need to apply selected effect
 
 Font: https://not-jam.itch.io/undead-pixel-light-8
