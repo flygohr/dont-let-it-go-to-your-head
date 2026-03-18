@@ -22,7 +22,7 @@ func _ready() -> void:
 	selection_rect_2.color = globals.color_select
 	hover_rect_1.color = globals.color_hover
 	hover_rect_2.color = globals.color_hover
-	# globals.unselect_call.connect(_card_selected)
+	globals.card_selected.connect(_card_selected)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -80,9 +80,16 @@ func _on_card_collision_input_event(viewport: Node, event: InputEvent, shape_idx
 			unselect_this()
 			
 func select_this() -> void:
-	globals.unselect_others()
 	select = true
+	hover = true
+	globals.card_selected.emit()
+	globals.cards_selected += 1
 	
 func unselect_this() -> void:
 	select = false
+	globals.cards_selected -= 1
 	
+func _card_selected() -> void:
+	# unselect if not the current card being hovered
+	if (hover == false):
+		unselect_this()

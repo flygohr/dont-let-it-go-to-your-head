@@ -13,7 +13,6 @@ var current_screen: String = "title"
 
 @warning_ignore_start("unused_signal")
 
-signal card_selected()
+var cards_selected: int = 0
 
-func unselect_others():
-	print_debug("unselecting")
+signal card_selected()

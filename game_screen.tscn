@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://lwudqlpcf5ti" path="res://game_screen.gd" id="1_xwjjp"]
 [ext_resource type="FontFile" uid="uid://cab8p131qqmsj" path="res://assets/fonts/Undead Pixel 8.ttf" id="2_norob"]
 [ext_resource type="PackedScene" uid="uid://cxa744vjtwvmg" path="res://card.tscn" id="3_norob"]
+[ext_resource type="Script" uid="uid://sibnmefin87h" path="res://confirm_button.gd" id="3_yla3h"]
 
 [node name="Main" type="Node2D" unique_id=1366080423]
 script = ExtResource("1_xwjjp")
@@ -53,6 +54,7 @@ offset_bottom = 157.0
 theme_override_fonts/font = ExtResource("2_norob")
 theme_override_font_sizes/font_size = 8
 text = "CONTINUE"
+script = ExtResource("3_yla3h")
 
 [node name="HealthBarLabel" type="Label" parent="GameScreen" unique_id=126298361]
 offset_left = 5.0
@@ -96,6 +98,17 @@ mouse_behavior_recursive = 1
 theme_override_fonts/font = ExtResource("2_norob")
 theme_override_font_sizes/font_size = 8
 text = "COIN: 15 G"
+vertical_alignment = 1
+
+[node name="CardsSelected" type="Label" parent="GameScreen" unique_id=1325690590]
+offset_left = 12.0
+offset_top = 81.0
+offset_right = 81.0
+offset_bottom = 89.0
+mouse_behavior_recursive = 1
+theme_override_fonts/font = ExtResource("2_norob")
+theme_override_font_sizes/font_size = 8
+text = "CARDS SELECTED"
 vertical_alignment = 1
 
 [node name="Cards" type="Node2D" parent="GameScreen" unique_id=2107657146]
