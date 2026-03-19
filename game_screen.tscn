@@ -60,7 +60,7 @@ color = Color(0.5686275, 0.57254905, 0.5176471, 1)
 [node name="MiddleScreenBG2" type="ColorRect" parent="GameScreen/MiddleSection" unique_id=2080017904]
 offset_left = 5.0
 offset_top = 41.0
-offset_right = 94.0
+offset_right = 86.0
 offset_bottom = 137.0
 mouse_filter = 2
 color = Color(0.89411765, 0.75686276, 0.5137255, 1)
@@ -68,7 +68,7 @@ color = Color(0.89411765, 0.75686276, 0.5137255, 1)
 [node name="MiddleScreenBG3" type="ColorRect" parent="GameScreen/MiddleSection" unique_id=1845573694]
 offset_left = 6.0
 offset_top = 42.0
-offset_right = 93.0
+offset_right = 85.0
 offset_bottom = 136.0
 mouse_filter = 2
 color = Color(0.9019608, 0.85490197, 0.77254903, 1)
@@ -76,7 +76,7 @@ color = Color(0.9019608, 0.85490197, 0.77254903, 1)
 [node name="TextSectionCopy" type="Label" parent="GameScreen/MiddleSection" unique_id=1229398251]
 offset_left = 7.0
 offset_top = 53.0
-offset_right = 92.0
+offset_right = 84.0
 offset_bottom = 135.0
 mouse_behavior_recursive = 1
 theme_override_colors/font_color = Color(0.47843137, 0.38431373, 0.3764706, 1)
@@ -90,7 +90,7 @@ autowrap_mode = 2
 [node name="TextSectionTitle" type="Label" parent="GameScreen/MiddleSection" unique_id=309318019]
 offset_left = 7.0
 offset_top = 44.0
-offset_right = 100.0
+offset_right = 84.0
 offset_bottom = 52.0
 mouse_behavior_recursive = 1
 theme_override_colors/font_color = Color(0.3529412, 0.26666668, 0.22352941, 1)
@@ -105,15 +105,15 @@ position = Vector2(107, 45)
 script = ExtResource("3_3vj30")
 
 [node name="Card1" parent="GameScreen/MiddleSection/Cards" unique_id=740217441 instance=ExtResource("3_norob")]
-position = Vector2(-11, -6)
+position = Vector2(-19, -6)
 card_number_in_stack = 1
 
 [node name="Card2" parent="GameScreen/MiddleSection/Cards" unique_id=895820405 instance=ExtResource("3_norob")]
-position = Vector2(-11, 27)
+position = Vector2(-19, 27)
 card_number_in_stack = 2
 
 [node name="Card3" parent="GameScreen/MiddleSection/Cards" unique_id=292672971 instance=ExtResource("3_norob")]
-position = Vector2(-11, 60)
+position = Vector2(-19, 60)
 card_number_in_stack = 3
 
 [node name="GameTime" type="Node2D" parent="GameScreen" unique_id=923130690]

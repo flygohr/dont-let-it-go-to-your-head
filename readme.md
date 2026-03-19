@@ -43,6 +43,7 @@ Missing:
 - [ ] apply card effects on confirm (with select property)
 	- [ ] troubleshoot currently broken
 	- [ ] check for gold
+- [ ] fix progress bar colors
 - [ ] define events, their rules, and check for current event upon applying card effect
 - [ ] "event screen" for fullscreen text / tutorials / events
 - [ ] lose lives upon infamy reaching 100, first a finger, then a ear, then it's game over. use icons
