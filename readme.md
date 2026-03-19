@@ -28,15 +28,21 @@ Stuff I'm already banging my head against (and I won't be able to include, proba
 	- Tried exporting for itch just to be prepared
 - 2026-03-19
 	- Programmatically generate cards
-	- Display generated cards, generate new ones on new day
+	- Display generated cards, generate new ones on new day, saved to file
 	- Scrapped the whole "shop for cards" idea, can't make it in time otherwise
+	- Slight layout update
+	- Cleaned up labels and colors
+	- Started applying effects upon confirmation
 	
 Missing:
 - [x] store cards in savegame, check for saved cards on resume
 - [x] finish displaying cards effects
 - [x] add death conditions
-- [x] add lives
+- [ ] added lives, but broken
+	- [ ] move death conditions out of process
 - [ ] apply card effects on confirm (with select property)
+	- [ ] troubleshoot currently broken
+	- [ ] check for gold
 - [ ] define events, their rules, and check for current event upon applying card effect
 - [ ] "event screen" for fullscreen text / tutorials / events
 - [ ] lose lives upon infamy reaching 100, first a finger, then a ear, then it's game over. use icons
