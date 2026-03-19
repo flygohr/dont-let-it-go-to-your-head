@@ -27,7 +27,7 @@ extends Node2D
 @onready var death_screen: Node2D = $DeathScreen
 @onready var death_screen_score: Label = $DeathScreen/DeathScreenScore
 
-const save_file_name: String = "user://dligtyh_save_3.json"
+const save_file_name: String = "user://dligtyh_save_4.json"
 var default_save_data: Dictionary = {
 	"high_score_weeks": 0,
 	"high_score_days": 0,
@@ -37,7 +37,9 @@ var default_save_data: Dictionary = {
 	"hunger": 0,
 	"health": 100,
 	"infamy": 0,
-	"coin": 5
+	"coin": 5,
+	"current_cards": [globals.default_card_data,globals.default_card_data,globals.default_card_data],
+	"new_game": true
 }
 
 const hunger_gained_per_day: int = 10
@@ -68,12 +70,14 @@ func _ready() -> void:
 	health = game_data["health"]
 	infamy = game_data["infamy"]
 	coin = game_data["coin"]
+	globals.cards_list = game_data["current_cards"].duplicate_deep()
 		
 	globals.current_screen = "title"
 	title_screen.show()
 	# play / resume button depending on game state
-	if (current_day == 1 and current_week == 0 and time_of_day == "Day"):
+	if (game_data["new_game"] == false):
 		play_resume_button.text = "PLAY"
+		globals.generate_cards.emit()
 		if (high_score_days+(high_score_weeks*7)>0):
 			title_screen_score.text = str("Highest score: ", return_weeks_days_text(high_score_weeks,high_score_days))
 		else:
@@ -133,6 +137,8 @@ func advance_days() -> void:
 		current_week += 1
 		time_of_day = "Day"
 		
+	globals.generate_cards.emit()
+		
 	save_data({
 		"high_score_weeks": high_score_weeks,
 		"high_score_days": high_score_days,
@@ -142,7 +148,9 @@ func advance_days() -> void:
 		"hunger": hunger,
 		"health": health,
 		"infamy": infamy,
-		"coin": coin
+		"coin": coin,
+		"current_cards": globals.cards_list,
+		"new_game": false
 	})
 	
 func play_death():
@@ -151,6 +159,7 @@ func play_death():
 	tween.tween_property(death_screen, "position", Vector2(0,0), 0.2)
 	var tween_b = get_tree().create_tween()
 	tween_b.tween_property(game_screen, "position", Vector2(0,-160), 0.2)
+	reset_save()
 	var total_days: int = (current_week*7)+current_day
 	var high_score_total_days: int = (high_score_weeks*7)+high_score_days
 	if (total_days > high_score_days):
@@ -204,6 +213,7 @@ func load_data() -> Dictionary:
 	return default_save_data
 		
 func reset_save() -> void:
+	globals.cards_list.clear()
 	default_save_data["high_score_weeks"] = high_score_weeks
 	default_save_data["high_score_days"] = high_score_days
 	save_data(default_save_data)
@@ -220,7 +230,6 @@ func reset_save() -> void:
 
 
 func _on_restart_button_pressed() -> void:
-	reset_save()
 	globals.current_screen = "game"
 	var tween = get_tree().create_tween()
 	tween.tween_property(death_screen, "position", Vector2(0,160), 0.2)

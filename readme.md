@@ -27,12 +27,23 @@ Stuff I'm already banging my head against (and I won't be able to include, proba
 	- Polishing the layout
 	- Tried exporting for itch just to be prepared
 - 2026-03-19
-	- Need to have cards store their effects, text, etc, and have functions to apply them upon confirmation
-	- Need to programmatically generate cards
-	- Need to actually "fill" the slots with what I draw, no need to instance and position, it can be all done with injecting code into the UI
-	- And need to check for current effects and calculate
-	- The "add more cards" mechanic is missing entirely, might need to scrap that..
-	- Missing "event screen" for fullscreen text / tutorials / events
+	- Programmatically generate cards
+	- Display generated cards, generate new ones on new day
+	- Scrapped the whole "shop for cards" idea, can't make it in time otherwise
+	
+Missing:
+- [ ] store cards in savegame, check for saved cards on resume
+- [ ] finish displaying cards effects
+- [ ] apply card effects on confirm (with select property)
+- [ ] define events, their rules, and check for current event upon applying card effect
+- [ ] "event screen" for fullscreen text / tutorials / events
+- [ ] lose lives upon infamy reaching 100, first a finger, then a ear, then it's game over. use icons
+- [ ] implement different screens for infamy levels
+- [ ] implement tutorial first time play
+- [ ] design icons and logo
+- [ ] sounds
+- [ ] add more cards and events
+- [ ] playtesting and balancing
 
 Font: https://not-jam.itch.io/undead-pixel-light-8
 Some colors from: https://lospec.com/palette-list/ty-celestial-sapien-26

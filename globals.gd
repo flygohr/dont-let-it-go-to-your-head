@@ -29,14 +29,14 @@ var can_proceed = false
 @warning_ignore_start("unused_signal")
 
 signal card_selected()
+signal generate_cards()
 
 var cards_list: Array = []
-var starting_cards: int = 3
-var current_cards: int = starting_cards
 
 var default_card_data: Dictionary = {
 	"name": "Very long card name",
 	"type": "Theft",
+	"rarity": "common",
 	"effect": {
 		"infamy": 0,
 		"hunger": 0,

@@ -4,39 +4,105 @@ extends Node2D
 
 var theft_probability: int = 40
 
-var generation_parameters: Dictionary = {
-	"Theft" : {
-		"1": {
-			"name": "Pickpocketing",
-			"infamy": +10,
-			"hunger": 0,
-			"health": 0,
-			"coin": +5
-		},
-		"2": {
-			"name": "Rob food vendor",
-			"infamy": +20,
-			"hunger": -20,
-			"health": 0,
-			"coin": 0
-		}
-	}
-}
+var base_infamy:int = 10
+var base_hunger:int = 10
+var base_health:int = 10
+var base_coin:int = 1
+
+var theft_cards: Array = [
+	{
+		"name": "Pickpocketing",
+		"infamy": [1,3],
+		"hunger": [0,0],
+		"health": [0,0],
+		"coin": [1,3]
+	},
+	{
+		"name": "Rob food vendor",
+		"infamy": [2,5],
+		"hunger": [-2,-5],
+		"health": [0,0],
+		"coin": [0,0]
+	},
+	{
+		"name": "Rob a church",
+		"infamy": [3,6],
+		"hunger": [0,2],
+		"health": [0,0],
+		"coin": [10,30]
+	}	
+]
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	# randomly generate cards, and append them to globals.card_list dict
-	
-	for i in (globals.starting_cards): # adjust logic to account for pre-existing game / resuming
-		print_debug("Generating a card")
-		var card_data: Dictionary = globals.default_card_data
-		
-		
-		
-	
-	
-	pass # Replace with function body.
+	globals.generate_cards.connect(generate_new_cards)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
+
+func generate_new_cards() -> void:
+	# randomly generate cards, and append them to globals.card_list dict
+	
+	# score card rarity
+	# if type: legendary then it's legendary
+	# otherwise, it scores the weight of the parameters
+	
+	# in the future, implement better rarity. for now it could be simplified as number of positive effects, if 4 is rare. the rest of the card can be generated randomly
+	
+	# I just need to generate 3 cards, IF 3 are not in memory already
+	print_debug("Generating new cards")
+	globals.cards_list.clear()
+	for i in (3): # adjust logic to account for pre-existing game / resuming
+		var card_data: Dictionary = globals.default_card_data.duplicate()
+		var temp_rarity: int = 0
+		
+		var picked_card = theft_cards.pick_random()
+		
+		card_data["name"] = picked_card["name"]
+		
+		# calculate infamy and score rarity
+		if(picked_card["infamy"][0] != 0 and picked_card["infamy"][1] != 0):
+			card_data["effect"]["infamy"] = base_infamy*round(randf_range(picked_card["infamy"][0],picked_card["infamy"][1]))
+		else:
+			card_data["effect"]["infamy"] = 0
+		
+		if(card_data["effect"]["infamy"] < 0):
+			temp_rarity += 1
+		
+		# calculate hunger and score rarity
+		if(picked_card["hunger"][0] != 0 and picked_card["hunger"][1] != 0):
+			card_data["effect"]["hunger"] = base_hunger*round(randf_range(picked_card["hunger"][0],picked_card["hunger"][1]))
+		else:
+			card_data["effect"]["hunger"] = 0
+		
+		if(card_data["effect"]["hunger"] < 0):
+			temp_rarity += 1
+		
+		# calculate health and score rarity
+		if(picked_card["health"][0] != 0 and picked_card["health"][1] != 0):
+			card_data["effect"]["health"] = base_health*round(randf_range(picked_card["health"][0],picked_card["health"][1]))
+		else:
+			card_data["effect"]["health"] = 0
+		
+		if(card_data["effect"]["health"] > 0):
+			temp_rarity += 1			
+		
+		# calculate coin and score rarity
+		if(picked_card["coin"][0] != 0 and picked_card["coin"][1] != 0):
+			card_data["effect"]["coin"] = base_coin*round(randf_range(picked_card["coin"][0],picked_card["coin"][1]))
+		else:
+			card_data["effect"]["coin"] = 0
+		
+		if(card_data["effect"]["coin"] > 0):
+			temp_rarity += 1	
+		
+		match temp_rarity:
+			1: card_data["rarity"] = "common"
+			2: card_data["rarity"] = "uncommon"
+			3: card_data["rarity"] = "rare"
+			4: card_data["rarity"] = "epic"
+				
+		print_debug(card_data)
+		globals.cards_list.push_back(card_data.duplicate_deep())
+		print_debug(globals.cards_list)
