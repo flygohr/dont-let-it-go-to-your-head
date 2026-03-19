@@ -32,6 +32,7 @@ Stuff I'm already banging my head against (and I won't be able to include, proba
 	- Need to actually "fill" the slots with what I draw, no need to instance and position, it can be all done with injecting code into the UI
 	- And need to check for current effects and calculate
 	- The "add more cards" mechanic is missing entirely, might need to scrap that..
+	- Missing "event screen" for fullscreen text / tutorials / events
 
 Font: https://not-jam.itch.io/undead-pixel-light-8
 Some colors from: https://lospec.com/palette-list/ty-celestial-sapien-26

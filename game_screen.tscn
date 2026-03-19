@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://lwudqlpcf5ti" path="res://game_screen.gd" id="1_xwjjp"]
 [ext_resource type="FontFile" uid="uid://cab8p131qqmsj" path="res://assets/fonts/Undead Pixel 8.ttf" id="2_norob"]
+[ext_resource type="Script" uid="uid://lxajyc8iapd4" path="res://cards_maker.gd" id="3_3vj30"]
 [ext_resource type="Theme" uid="uid://c3nwkja6hedpd" path="res://game_theme.tres" id="3_j7yda"]
 [ext_resource type="PackedScene" uid="uid://cxa744vjtwvmg" path="res://card.tscn" id="3_norob"]
 [ext_resource type="Script" uid="uid://sibnmefin87h" path="res://confirm_button.gd" id="3_yla3h"]
@@ -102,8 +103,9 @@ autowrap_mode = 2
 
 [node name="Cards" type="Node2D" parent="GameScreen/MiddleSection" unique_id=2107657146]
 position = Vector2(107, 45)
+script = ExtResource("3_3vj30")
 
-[node name="Card" parent="GameScreen/MiddleSection/Cards" unique_id=740217441 instance=ExtResource("3_norob")]
+[node name="Card1" parent="GameScreen/MiddleSection/Cards" unique_id=740217441 instance=ExtResource("3_norob")]
 position = Vector2(-3, -6)
 
 [node name="Card2" parent="GameScreen/MiddleSection/Cards" unique_id=895820405 instance=ExtResource("3_norob")]

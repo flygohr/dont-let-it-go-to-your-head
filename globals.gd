@@ -1,7 +1,13 @@
 extends Node
 
-var bg_color_day: Color = Color.html("#80592e")
-var bg_color_night: Color = Color.html("#302b25")
+# day / night system one day
+# var bg_color_day: Color = Color.html("#80592e")
+# var bg_color_night: Color = Color.html("#302b25")
+
+
+var color_green: String = "#A6F043"
+var color_yellow: String = "#ca7c3b"
+var color_red: String = "#FF2940"
 
 var color_legendary: Color = Color.html("#fcb100")
 var color_epic: Color = Color.html("#ae4fce")
@@ -23,3 +29,18 @@ var can_proceed = false
 @warning_ignore_start("unused_signal")
 
 signal card_selected()
+
+var cards_list: Array = []
+var starting_cards: int = 3
+var current_cards: int = starting_cards
+
+var default_card_data: Dictionary = {
+	"name": "Very long card name",
+	"type": "Theft",
+	"effect": {
+		"infamy": 0,
+		"hunger": 0,
+		"health": 0,
+		"coin": 0
+	}
+}
