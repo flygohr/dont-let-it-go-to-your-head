@@ -4,6 +4,7 @@ extends Node2D
 
 var theft_probability: int = 40
 var rest_probability: int = 20
+var move_probability: int = 5
 
 var base_infamy:int = 10
 var base_hunger:int = 10
@@ -58,6 +59,30 @@ var rest_cards: Array = [
 	}
 ]
 
+var move_cards: Array = [
+	{
+		"name": "Move town",
+		"infamy": [-2,-4],
+		"hunger": [1,3],
+		"health": [0,-1],
+		"coin": [-10,-50]
+	},
+	{
+		"name": "Move principality",
+		"infamy": [-4,-8],
+		"hunger": [2,4],
+		"health": [-2,-4],
+		"coin": [-20,-100]
+	},
+	{
+		"name": "Move kingdom",
+		"infamy": [-6,-10],
+		"hunger": [4,8],
+		"health": [-3,-6],
+		"coin": [-50,-200]
+	}
+]
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	globals.generate_cards.connect(generate_new_cards)
@@ -82,7 +107,7 @@ func generate_new_cards() -> void:
 		var card_data: Dictionary = globals.default_card_data.duplicate()
 		var temp_rarity: int = 0
 		
-		var picked_list = [theft_cards, rest_cards].pick_random()
+		var picked_list = [theft_cards, rest_cards, move_cards].pick_random()
 		var picked_card = picked_list.pick_random()
 		
 		card_data["name"] = picked_card["name"]
