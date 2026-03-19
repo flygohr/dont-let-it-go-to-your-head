@@ -3,6 +3,7 @@ extends Node2D
 # generation parameters need to go here, as dictionary
 
 var theft_probability: int = 40
+var rest_probability: int = 20
 
 var base_infamy:int = 10
 var base_hunger:int = 10
@@ -33,6 +34,30 @@ var theft_cards: Array = [
 	}	
 ]
 
+var rest_cards: Array = [
+	{
+		"name": "Soup kitchen",
+		"infamy": [0,0],
+		"hunger": [-1,-3],
+		"health": [0,0],
+		"coin": [0,0]
+	},
+	{
+		"name": "Cheap Laech",
+		"infamy": [0,0],
+		"hunger": [0,0],
+		"health": [1,3],
+		"coin": [-1,-10]
+	},
+	{
+		"name": "Good samaritan",
+		"infamy": [0,0],
+		"hunger": [-1,-1],
+		"health": [0,0],
+		"coin": [1,5]
+	}
+]
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	globals.generate_cards.connect(generate_new_cards)
@@ -57,7 +82,8 @@ func generate_new_cards() -> void:
 		var card_data: Dictionary = globals.default_card_data.duplicate()
 		var temp_rarity: int = 0
 		
-		var picked_card = theft_cards.pick_random()
+		var picked_list = [theft_cards, rest_cards].pick_random()
+		var picked_card = picked_list.pick_random()
 		
 		card_data["name"] = picked_card["name"]
 		
@@ -106,3 +132,5 @@ func generate_new_cards() -> void:
 		print_debug(card_data)
 		globals.cards_list.push_back(card_data.duplicate_deep())
 		print_debug(globals.cards_list)
+	
+	globals.populate_card_slot.emit()

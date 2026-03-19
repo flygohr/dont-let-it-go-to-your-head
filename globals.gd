@@ -4,10 +4,54 @@ extends Node
 # var bg_color_day: Color = Color.html("#80592e")
 # var bg_color_night: Color = Color.html("#302b25")
 
+var hunger: int = 0
+var health: int = 100
+var infamy: int = 0
+var coin: int = 5
+
+var lives: int = 2
+
+const save_file_name: String = "user://dligtyh_save_7.json"
+
+var default_card_data: Dictionary = {
+	"name": "Very long card name",
+	"type": "Theft",
+	"rarity": "common",
+	"effect": {
+		"infamy": 0,
+		"hunger": 0,
+		"health": 0,
+		"coin": 0
+	}
+}
+
+var default_save_data: Dictionary = {
+	"high_score_weeks": 0,
+	"high_score_days": 0,
+	"lives": 2,
+	"current_week": 0,
+	"current_day": 1,
+	"time_of_day": "Day",
+	"hunger": 0,
+	"health": 100,
+	"infamy": 0,
+	"coin": 5,
+	"current_cards": [default_card_data,default_card_data,default_card_data],
+	"new_game": true
+}
+
+const hunger_gained_per_day: int = 10
+
+var high_score_weeks: int = 0
+var high_score_days: int = 0
+
+var current_week: int = 0
+var current_day: int = 1
+var time_of_day: String = "Day"
 
 var color_green: String = "#A6F043"
 var color_yellow: String = "#ca7c3b"
-var color_red: String = "#FF2940"
+var color_red: String = "#ff1b18"
 
 var color_legendary: Color = Color.html("#fcb100")
 var color_epic: Color = Color.html("#ae4fce")
@@ -30,17 +74,7 @@ var can_proceed = false
 
 signal card_selected()
 signal generate_cards()
+signal populate_card_slot()
+signal apply_effect()
 
 var cards_list: Array = []
-
-var default_card_data: Dictionary = {
-	"name": "Very long card name",
-	"type": "Theft",
-	"rarity": "common",
-	"effect": {
-		"infamy": 0,
-		"hunger": 0,
-		"health": 0,
-		"coin": 0
-	}
-}

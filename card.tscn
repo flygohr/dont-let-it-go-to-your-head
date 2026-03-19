@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://2uu5rjn41u5o" path="res://card.gd" id="1_rjlel"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rjlel"]
-size = Vector2(129, 30)
+size = Vector2(139, 32)
 
 [node name="Card" type="Node2D" unique_id=740217441]
 script = ExtResource("1_rjlel")
@@ -21,7 +21,7 @@ mouse_behavior_recursive = 1
 layout_mode = 0
 offset_left = 9.0
 offset_top = 1.0
-offset_right = 132.0
+offset_right = 140.0
 offset_bottom = 33.0
 mouse_filter = 2
 mouse_behavior_recursive = 1
@@ -50,7 +50,7 @@ mouse_behavior_recursive = 1
 layout_mode = 0
 offset_left = 7.0
 offset_top = -1.0
-offset_right = 132.0
+offset_right = 140.0
 offset_bottom = 33.0
 mouse_filter = 2
 mouse_behavior_recursive = 1
@@ -79,7 +79,7 @@ mouse_behavior_recursive = 1
 [node name="Rect1" type="ColorRect" parent="BackgroundRect" unique_id=450184301]
 layout_mode = 0
 offset_left = 9.0
-offset_right = 130.0
+offset_right = 138.0
 offset_bottom = 30.0
 mouse_filter = 2
 mouse_behavior_recursive = 1
@@ -89,7 +89,7 @@ color = Color(0.829771, 0.58623755, 0.19041255, 1)
 layout_mode = 0
 offset_left = 10.0
 offset_top = 1.0
-offset_right = 129.0
+offset_right = 137.0
 offset_bottom = 29.0
 mouse_filter = 2
 mouse_behavior_recursive = 1
@@ -99,7 +99,7 @@ color = Color(0.3529412, 0.26666668, 0.22352941, 1)
 layout_mode = 0
 offset_left = 19.0
 offset_top = 10.0
-offset_right = 128.0
+offset_right = 136.0
 offset_bottom = 28.0
 mouse_filter = 2
 mouse_behavior_recursive = 1
@@ -151,7 +151,7 @@ autowrap_mode = 1
 [node name="CardName" type="Label" parent="." unique_id=838445636]
 offset_left = 22.0
 offset_top = 5.0
-offset_right = 128.0
+offset_right = 137.0
 offset_bottom = 13.0
 mouse_behavior_recursive = 1
 theme_override_colors/font_color = Color(1, 1, 1, 1)
@@ -165,7 +165,7 @@ autowrap_mode = 2
 [node name="CardText" type="RichTextLabel" parent="." unique_id=646351676]
 offset_left = 22.0
 offset_top = 14.0
-offset_right = 127.0
+offset_right = 136.0
 offset_bottom = 31.0
 mouse_behavior_recursive = 1
 theme_override_constants/line_separation = 0
@@ -174,7 +174,7 @@ theme_override_font_sizes/normal_font_size = 8
 bbcode_enabled = true
 text = "+10 INFAMY, -10 HEALTH
 +20 HUNGER, +1 COIN"
-autowrap_mode = 1
+autowrap_mode = 2
 
 [node name="CardCollision" type="Area2D" parent="." unique_id=1177366134]
 position = Vector2(1, 1)
@@ -182,7 +182,7 @@ disable_mode = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CardCollision" unique_id=446981186]
 top_level = true
-position = Vector2(65.5, 16)
+position = Vector2(70.5, 17)
 shape = SubResource("RectangleShape2D_rjlel")
 
 [connection signal="input_event" from="CardCollision" to="." method="_on_card_collision_input_event"]

@@ -18,7 +18,8 @@ extends Node2D
 @onready var health_bar_label: Label = $GameScreen/TopStats/HealthTracker/HealthBarLabel
 
 @onready var gold_tracker_label: Label = $GameScreen/TopStats/CoinTracker/GoldTrackerLabel
-@onready var cards_tracker_label: Label = $GameScreen/TopStats/CardsTracker/CardsTrackerLabel
+
+@onready var lives_label: Label = $GameScreen/BottomSection/LivesLabel
 
 @onready var title_screen: Node2D = $TitleScreen
 @onready var title_screen_score: Label = $TitleScreen/TitleScreenScore
@@ -27,130 +28,112 @@ extends Node2D
 @onready var death_screen: Node2D = $DeathScreen
 @onready var death_screen_score: Label = $DeathScreen/DeathScreenScore
 
-const save_file_name: String = "user://dligtyh_save_4.json"
-var default_save_data: Dictionary = {
-	"high_score_weeks": 0,
-	"high_score_days": 0,
-	"current_week": 0,
-	"current_day": 1,
-	"time_of_day": "Day",
-	"hunger": 0,
-	"health": 100,
-	"infamy": 0,
-	"coin": 5,
-	"current_cards": [globals.default_card_data,globals.default_card_data,globals.default_card_data],
-	"new_game": true
-}
-
-const hunger_gained_per_day: int = 10
-
-var high_score_weeks: int = 0
-var high_score_days: int = 0
-
-var current_week: int = 0
-var current_day: int = 1
-var time_of_day: String = "Day"
-
-var hunger: int = 0
-var health: int = 100
-var infamy: int = 0
-var coin: int = 5
-var total_cards: int = 40
-var current_cards: int = 40
-
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	var game_data: Dictionary = load_data()
-	high_score_weeks = game_data["high_score_weeks"]
-	high_score_days = game_data["high_score_days"]
-	current_week = game_data["current_week"]
-	current_day = game_data["current_day"]
-	time_of_day = game_data["time_of_day"]
-	hunger = game_data["hunger"]
-	health = game_data["health"]
-	infamy = game_data["infamy"]
-	coin = game_data["coin"]
+	globals.high_score_weeks = game_data["high_score_weeks"]
+	globals.high_score_days = game_data["high_score_days"]
+	globals.current_week = game_data["current_week"]
+	globals.current_day = game_data["current_day"]
+	globals.time_of_day = game_data["time_of_day"]
+	globals.hunger = game_data["hunger"]
+	globals.health = game_data["health"]
+	globals.infamy = game_data["infamy"]
+	globals.coin = game_data["coin"]
 	globals.cards_list = game_data["current_cards"].duplicate_deep()
 		
 	globals.current_screen = "title"
 	title_screen.show()
+	print_debug(game_data["new_game"])
 	# play / resume button depending on game state
-	if (game_data["new_game"] == false):
+	if (game_data["new_game"] == true):
 		play_resume_button.text = "PLAY"
 		globals.generate_cards.emit()
-		if (high_score_days+(high_score_weeks*7)>0):
-			title_screen_score.text = str("Highest score: ", return_weeks_days_text(high_score_weeks,high_score_days))
+		if (globals.high_score_days+(globals.high_score_weeks*7)>0):
+			title_screen_score.text = str("Highest score: ", return_weeks_days_text(globals.high_score_weeks,globals.high_score_days))
 		else:
 			title_screen_score.text = "" # No high score yet
 	else:
 		play_resume_button.text = "RESUME"
+		globals.populate_card_slot.emit()
 		var daytime_or_nighttime: String = ""
-		if (time_of_day == "Day"):
+		if (globals.time_of_day == "Day"):
 			daytime_or_nighttime = "daytime"
-		elif (time_of_day == "Night"):
+		elif (globals.time_of_day == "Night"):
 			daytime_or_nighttime = "nighttime"
-		log(current_week)
-		log(current_day)
-		title_screen_score.text = str("Current game: ", return_weeks_days_text(current_week,current_day), ", ", daytime_or_nighttime, ".")
+		log(globals.current_week)
+		log(globals.current_day)
+		title_screen_score.text = str("Current game: ", return_weeks_days_text(globals.current_week,globals.current_day), ", ", daytime_or_nighttime, ".")
 		# also missing "new game logic", if cards are drawn on a new game this basic check won't cut it. ah but it's easy, I just need to check if "current cards" or smth is active
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	var daytime_or_nighttime: String = ""
-	if (time_of_day == "Day"):
+	if (globals.time_of_day == "Day"):
 		daytime_or_nighttime = "daytime"
-	elif (time_of_day == "Night"):
+	elif (globals.time_of_day == "Night"):
 		daytime_or_nighttime = "nighttime"
-	weeks_days_time.text = str("Day ", current_day, "/7 of week ", current_week, ", ", daytime_or_nighttime)
+	weeks_days_time.text = str("Day ", globals.current_day, "/7 of week ", globals.current_week, ", ", daytime_or_nighttime)
 	
-	infamy_progress_bar.value = infamy
-	infamy_bar_label.text = str(infamy,"/100")
+	infamy_progress_bar.value = globals.infamy
+	infamy_bar_label.text = str(globals.infamy,"/100")
 	
-	hunger_progress_bar.value = hunger
-	hunger_bar_label.text = str(hunger,"/100")
+	hunger_progress_bar.value = globals.hunger
+	hunger_bar_label.text = str(globals.hunger,"/100")
 	
-	health_progress_bar.value = health
-	health_bar_label.text = str(health,"/100")
+	health_progress_bar.value = globals.health
+	health_bar_label.text = str(globals.health,"/100")
 	
-	gold_tracker_label.text = str(coin," G")
-	cards_tracker_label.text = str(current_cards,"/",total_cards)
+	gold_tracker_label.text = str(globals.coin," G")
 	
-	# death conditions
-	if (hunger < 0): hunger = 0
-	elif (hunger >= 100): play_death()
+	lives_label.text = str("LIVES: ", globals.lives+1)
+	
+	# death conditions TODO: move out of process bc instant death
+	
+	# infamy mechanics
+	if (globals.infamy < 0): globals.infamy = 0 #clamp values
+	if (globals.infamy >= 100): globals.lives -= 1 #TODO: fullscreen warnings here
+	if globals.lives == 0: play_death()
+	
+	if (globals.hunger < 0): globals.hunger = 0 #clamp values
+	elif (globals.hunger >= 100): play_death()
+	
+	if (globals.health > 100): globals.health = 100 #clamp values
+	elif (globals.health <= 0): play_death()
 
 func _on_confirm_button_pressed() -> void:
-	globals.card_selected.emit()
+	globals.apply_effect.emit()
 	globals.can_proceed = false
 	confirm_button_bg.hide()
 	advance_days()
 	
 func advance_days() -> void:
-	if(time_of_day == "Day"):
-		time_of_day = "Night"	
-	elif(current_day < 7 and time_of_day == "Night"):
-		current_day += 1
-		time_of_day = "Day"
-		hunger += hunger_gained_per_day
+	if(globals.time_of_day == "Day"):
+		globals.time_of_day = "Night"	
+	elif(globals.current_day < 7 and globals.time_of_day == "Night"):
+		globals.current_day += 1
+		globals.time_of_day = "Day"
+		globals.hunger += globals.hunger_gained_per_day
 	else:
-		current_day = 1
-		current_week += 1
-		time_of_day = "Day"
+		globals.current_day = 1
+		globals.current_week += 1
+		globals.time_of_day = "Day"
 		
 	globals.generate_cards.emit()
 		
 	save_data({
-		"high_score_weeks": high_score_weeks,
-		"high_score_days": high_score_days,
-		"current_week": current_week,
-		"current_day": current_day,
-		"time_of_day": time_of_day,
-		"hunger": hunger,
-		"health": health,
-		"infamy": infamy,
-		"coin": coin,
+		"high_score_weeks": globals.high_score_weeks,
+		"high_score_days": globals.high_score_days,
+		"current_week": globals.current_week,
+		"current_day": globals.current_day,
+		"time_of_day": globals.time_of_day,
+		"hunger": globals.hunger,
+		"health": globals.health,
+		"infamy": globals.infamy,
+		"coin": globals.coin,
 		"current_cards": globals.cards_list,
-		"new_game": false
+		"new_game": false,
+		"lives": globals.lives
 	})
 	
 func play_death():
@@ -159,22 +142,23 @@ func play_death():
 	tween.tween_property(death_screen, "position", Vector2(0,0), 0.2)
 	var tween_b = get_tree().create_tween()
 	tween_b.tween_property(game_screen, "position", Vector2(0,-160), 0.2)
-	reset_save()
-	var total_days: int = (current_week*7)+current_day
-	var high_score_total_days: int = (high_score_weeks*7)+high_score_days
-	if (total_days > high_score_days):
-		high_score_weeks = current_week
-		high_score_days = current_day
-		death_screen_score.text = str("New high score: ", return_weeks_days_text(high_score_weeks,high_score_days))
+	var total_days: int = (globals.current_week*7)+globals.current_day
+	var high_score_total_days: int = (globals.high_score_weeks*7)+globals.high_score_days
+	if (total_days > globals.high_score_days):
+		globals.high_score_weeks = globals.current_week
+		globals.high_score_days = globals.current_day
+		death_screen_score.text = str("New high score: ", return_weeks_days_text(globals.high_score_weeks,globals.high_score_days))
 	else:
-		death_screen_score.text = str("Score: ", return_weeks_days_text(current_week,current_day))
+		death_screen_score.text = str("Score: ", return_weeks_days_text(globals.current_week,globals.current_day))
+	
+	reset_save()
 
 func return_weeks_days_text(weeks, days) -> String:
 	var text_to_return: String = ""
 	
 	if (days == 1 and weeks == 1): # if both singular
 		text_to_return = str(weeks, " week and ",days," day")
-	elif (days == 1 and weeks > 1): # if only day singular
+	elif ((days == 1 and weeks > 1) or (days == 1 and weeks == 0)): # if only day singular
 		text_to_return = str(weeks, " weeks and ",days," day")
 		return text_to_return
 	elif (days > 1 and weeks == 1): # if only week singular
@@ -188,7 +172,7 @@ func return_weeks_days_text(weeks, days) -> String:
 # save system from https://www.youtube.com/watch?v=PB8fLZR4wFU
 
 func save_data(data: Dictionary) -> void:
-	var save_file: FileAccess = FileAccess.open(save_file_name, FileAccess.WRITE)
+	var save_file: FileAccess = FileAccess.open(globals.save_file_name, FileAccess.WRITE)
 	if save_file == null:
 		push_error("Error opening file")
 		return
@@ -197,11 +181,11 @@ func save_data(data: Dictionary) -> void:
 	save_file.close()
 	
 func load_data() -> Dictionary:
-	if FileAccess.file_exists(save_file_name):
-		var save_file: FileAccess = FileAccess.open(save_file_name, FileAccess.READ)
+	if FileAccess.file_exists(globals.save_file_name):
+		var save_file: FileAccess = FileAccess.open(globals.save_file_name, FileAccess.READ)
 		if save_file == null:
 			push_error("Error reading file")
-			return default_save_data
+			return globals.default_save_data
 		var json = JSON.new()
 		
 		var string_data: String = save_file.get_line()
@@ -210,23 +194,24 @@ func load_data() -> Dictionary:
 			save_file.close()
 			return data
 		push_error("Corrupted data")
-	return default_save_data
+	return globals.default_save_data
 		
 func reset_save() -> void:
 	globals.cards_list.clear()
-	default_save_data["high_score_weeks"] = high_score_weeks
-	default_save_data["high_score_days"] = high_score_days
-	save_data(default_save_data)
+	globals.default_save_data["high_score_weeks"] = globals.high_score_weeks
+	globals.default_save_data["high_score_days"] = globals.high_score_days
+	save_data(globals.default_save_data)
 	var game_data: Dictionary = load_data()
-	high_score_weeks = game_data["high_score_weeks"]
-	high_score_days = game_data["high_score_days"]
-	current_week = game_data["current_week"]
-	current_day = game_data["current_day"]
-	time_of_day = game_data["time_of_day"]
-	hunger = game_data["hunger"]
-	health = game_data["health"]
-	infamy = game_data["infamy"]
-	coin = game_data["coin"]
+	globals.high_score_weeks = game_data["high_score_weeks"]
+	globals.high_score_days = game_data["high_score_days"]
+	globals.current_week = game_data["current_week"]
+	globals.current_day = game_data["current_day"]
+	globals.time_of_day = game_data["time_of_day"]
+	globals.hunger = game_data["hunger"]
+	globals.health = game_data["health"]
+	globals.infamy = game_data["infamy"]
+	globals.coin = game_data["coin"]
+	globals.lives = game_data["lives"]
 
 
 func _on_restart_button_pressed() -> void:

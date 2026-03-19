@@ -32,8 +32,10 @@ Stuff I'm already banging my head against (and I won't be able to include, proba
 	- Scrapped the whole "shop for cards" idea, can't make it in time otherwise
 	
 Missing:
-- [ ] store cards in savegame, check for saved cards on resume
-- [ ] finish displaying cards effects
+- [x] store cards in savegame, check for saved cards on resume
+- [x] finish displaying cards effects
+- [x] add death conditions
+- [x] add lives
 - [ ] apply card effects on confirm (with select property)
 - [ ] define events, their rules, and check for current event upon applying card effect
 - [ ] "event screen" for fullscreen text / tutorials / events
