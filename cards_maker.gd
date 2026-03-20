@@ -88,8 +88,8 @@ func _ready() -> void:
 	globals.generate_cards.connect(generate_new_cards)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+#func _process(delta: float) -> void:
+	#pass
 
 func generate_new_cards() -> void:
 	# randomly generate cards, and append them to globals.card_list dict
@@ -101,7 +101,7 @@ func generate_new_cards() -> void:
 	# in the future, implement better rarity. for now it could be simplified as number of positive effects, if 4 is rare. the rest of the card can be generated randomly
 	
 	# I just need to generate 3 cards, IF 3 are not in memory already
-	print_debug("Generating new cards")
+	print("Generating new cards")
 	globals.cards_list.clear()
 	for i in (3): # adjust logic to account for pre-existing game / resuming
 		var card_data: Dictionary = globals.default_card_data.duplicate()
@@ -154,8 +154,8 @@ func generate_new_cards() -> void:
 			3: card_data["rarity"] = "rare"
 			4: card_data["rarity"] = "epic"
 				
-		# print_debug(card_data)
+		# print(card_data)
 		globals.cards_list.push_back(card_data.duplicate_deep())
-		# print_debug(globals.cards_list)
+		# print(globals.cards_list)
 	
 	globals.populate_card_slot.emit()

@@ -36,7 +36,7 @@ func _ready() -> void:
 	# https://stackoverflow.com/questions/77360041/how-to-connect-a-signal-with-extra-arguments-in-godot-4
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if (globals.current_screen == "game"):
 		if (hover == true):
 			background_hover.show()
@@ -70,61 +70,49 @@ func build_card(data: Dictionary) -> void:
 	var text_bits: Array = []
 	# infamy bit
 	var infamy_data: int = data["effect"]["infamy"]
-	var is_there_infamy: bool = false
 	var infamy_text: String = ""
 	if (infamy_data == 0):
 		pass
 	elif (infamy_data > 0):
-		is_there_infamy = true
 		infamy_text = str("[color=",globals.color_red,"]+",infamy_data,"[/color] INFAMY") # color red
 		text_bits.append(infamy_text)
 	elif (infamy_data < 0):
-		is_there_infamy = true
 		infamy_text = str("[color=",globals.color_green,"]",infamy_data,"[/color] INFAMY") # color green
 		text_bits.append(infamy_text)
 	
 	# hunger bit
 	var hunger_data: int = data["effect"]["hunger"]
-	var is_there_hunger: bool = false
 	var hunger_text: String = ""
 	if (hunger_data == 0):
 		pass
 	elif (hunger_data > 0):
-		is_there_hunger = true
 		hunger_text = str("[color=",globals.color_red,"]+",hunger_data,"[/color] HUNGER") # color red
 		text_bits.append(hunger_text)
 	elif (hunger_data < 0):
-		is_there_hunger = true
 		hunger_text = str("[color=",globals.color_green,"]",hunger_data,"[/color] HUNGER") # color green
 		text_bits.append(hunger_text)
 		
 	# health bit
 	var health_data: int = data["effect"]["health"]
-	var is_there_health: bool = false
 	var health_text: String = ""
 	if (health_data == 0):
 		pass
 	elif (health_data < 0):
-		is_there_health = true
 		health_text = str("[color=",globals.color_red,"]+",health_data,"[/color] HEALTH") # color red
 		text_bits.append(health_text)
 	elif (health_data > 0):
-		is_there_health = true
 		health_text = str("[color=",globals.color_green,"]",health_data,"[/color] HEALTH") # color green
 		text_bits.append(health_text)
 		
 	# coin bit
 	var coin_data: int = data["effect"]["coin"]
-	var is_there_coin: bool = false
 	var coin_text: String = ""
 	if (coin_data == 0):
 		pass
 	elif (coin_data < 0):
-		is_there_coin = true
 		coin_text = str("[color=",globals.color_red,"]",coin_data,"[/color] [color=#ffd700]COIN[/color]") # color red
 		text_bits.append(coin_text)
 	elif (coin_data > 0):
-		is_there_coin = true
 		coin_text = str("[color=",globals.color_green,"]+",coin_data,"[/color] [color=#ffd700]COIN[/color]") # color green	
 		text_bits.append(coin_text)
 	
@@ -144,6 +132,7 @@ func build_card(data: Dictionary) -> void:
 	
 	# define rarity based on specs
 	set_border_color(data["rarity"])
+	# print(str("The card that has been built is: ", card_data)) DATA IS BUILT CORRECTLY
 
 func set_border_color(rarity_string) -> void:
 	var color
@@ -174,7 +163,7 @@ func _on_card_collision_mouse_entered() -> void:
 func _on_card_collision_mouse_exited() -> void:
 	hover = false
 
-func _on_card_collision_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
+func _on_card_collision_input_event(_viewport: Node, _event: InputEvent, _shape_idx: int) -> void:
 	if Input.is_action_just_released("mouseLeft"):
 		if (select == false):
 			select_this()
@@ -197,19 +186,22 @@ func _card_selected() -> void:
 	if (hover == false):
 		select = false
 	else:
-		print_debug(card_data) #FIXME every card selected is the same, that's why it doesn't work
+		print(str("Selected card data is: ", card_data)) 
+		#FIXME every card selected is the same, that's why it doesn't work. specifically, it's the last card that takes precedence
+		#basically, every card is processing correctly? because every card actually has the data of the last one? when does the data get changed?
+		# data is built correctly. the error is in the select check. it always point to card 3 for some reason?
 
 func _execute_effect() -> void:
 
 	if select == true: # only if this is the card selected
 		# apply infamy
 		
-		print_debug(card_data)
+		print(str("Applying this card's effects: ", card_data))
 		var infamy_value = card_data["effect"]["infamy"]
-		print_debug(str("Infamy effect is ",infamy_value))
+		print(str("Infamy effect of applied card is ",infamy_value))
 		if (infamy_value > 0):
 			globals.infamy = clamp((globals.infamy + infamy_value),0,100)
-			if (globals.infamy >= 100): globals.lives -= 1 #TODO: fullscreen warnings here
+			if (globals.infamy == 100): globals.lives -= 1 #TODO: fullscreen warnings here
 			if globals.lives == 0: globals.play_death.emit()
 		elif (infamy_value < 0):
 			globals.infamy = clamp((globals.infamy - infamy_value),0,100)
@@ -218,7 +210,7 @@ func _execute_effect() -> void:
 		
 		if(globals.current_day < 7 and globals.time_of_day == "Night"):
 			globals.hunger += globals.hunger_gained_per_day 
-			print_debug("Decreasing hunger for the new day")
+			print("Decreasing hunger for the new day")
 
 		#if (card_data["effect"]["hunger"] > 0):
 			#globals.hunger += card_data["effect"]["hunger"]

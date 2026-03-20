@@ -45,7 +45,7 @@ func _ready() -> void:
 		
 	globals.current_screen = "title"
 	title_screen.show()
-	print_debug(game_data["new_game"])
+	# print(game_data["new_game"])
 	# play / resume button depending on game state
 	if (game_data["new_game"] == true):
 		play_resume_button.text = "PLAY"
@@ -68,7 +68,7 @@ func _ready() -> void:
 		# also missing "new game logic", if cards are drawn on a new game this basic check won't cut it. ah but it's easy, I just need to check if "current cards" or smth is active
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	var daytime_or_nighttime: String = ""
 	if (globals.time_of_day == "Day"):
 		daytime_or_nighttime = "daytime"
@@ -131,7 +131,7 @@ func play_death():
 	tween_b.tween_property(game_screen, "position", Vector2(0,-160), 0.2)
 	var total_days: int = (globals.current_week*7)+globals.current_day
 	var high_score_total_days: int = (globals.high_score_weeks*7)+globals.high_score_days
-	if (total_days > globals.high_score_days):
+	if (total_days > high_score_total_days):
 		globals.high_score_weeks = globals.current_week
 		globals.high_score_days = globals.current_day
 		death_screen_score.text = str("New high score: ", return_weeks_days_text(globals.high_score_weeks,globals.high_score_days))
