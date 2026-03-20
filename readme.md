@@ -4,6 +4,8 @@ Time will tell if the scope of my idea was actually manageable.
 
 As I progress with the jam I remember more stuff about programming and Godot. The project is plagued by inconsistencies, bad practices, and is probably an unsalvageable mess. I'll make a better job next time.
 
+Secret Itch.io URL: https://flygohr.itch.io/dont-let-it-go-to-your-head?secret=oTJRHiOTq7g5IyySTod5yhQ2zvg
+
 Stuff I'm already banging my head against (and I won't be able to include, probably):
 - Responsive UI / game screen. I'll stick to a fixed viewport for now, I will learn how to make a responsive interface when I won't be in a rush
 - Animations, tweens, smooth transitions, spinners.. basically, all the juice? I'll see what I can implement, but if I realize I can't, I'll push the polish back to after the jam
@@ -39,6 +41,7 @@ Stuff I'm already banging my head against (and I won't be able to include, proba
 	- Re-arranged layout to merge "lives" with infamy, and make space for the "give up" button. my solution for softlocks lmao
 	- Added events, implemented their effect
 	- Added screens for text bits, could use for a tutorial if time
+	- Fixed lots of bugs, reduced scope
 	
 Missing:
 - [x] store cards in savegame, check for saved cards on resume
@@ -46,7 +49,7 @@ Missing:
 - [x] add death conditions
 - [x] added lives, but broken
 - [x] move death conditions out of process
-- [ ] apply card effects on confirm (with select property)
+- [x] apply card effects on confirm (with select property)
 	- [x] troubleshoot currently broken
 	- [x] check for enough gold before confirming
 	- [x] effect is being applied wrong (subtracting negative numbers makes them positive, DUH)
