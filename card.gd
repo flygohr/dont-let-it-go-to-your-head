@@ -194,29 +194,37 @@ func _card_selected() -> void:
 func _execute_effect() -> void:
 
 	if select == true: # only if this is the card selected
-		# apply infamy
 		
 		print(str("Applying this card's effects: ", card_data))
+		
+		# apply infamy-----------------------------------------------------
+		
 		var infamy_value = card_data["effect"]["infamy"]
 		print(str("Infamy effect of applied card is ",infamy_value))
 		if (infamy_value > 0):
 			globals.infamy = clamp((globals.infamy + infamy_value),0,100)
-			if (globals.infamy == 100): globals.lives -= 1 #TODO: fullscreen warnings here
-			if globals.lives == 0: globals.play_death.emit()
 		elif (infamy_value < 0):
 			globals.infamy = clamp((globals.infamy - infamy_value),0,100)
+		
+		if (globals.infamy == 100): globals.lives -= 1 #TODO: fullscreen warnings here
+		if globals.lives == 0: globals.play_death.emit()
 		
 		# apply hunger-----------------------------------------------------
 		
 		if(globals.current_day < 7 and globals.time_of_day == "Night"):
-			globals.hunger += globals.hunger_gained_per_day 
-			print("Decreasing hunger for the new day")
+			globals.hunger = clamp((globals.hunger + globals.hunger_gained_per_day),0,100)
+			print("Increasing hunger for the new day")
 
-		#if (card_data["effect"]["hunger"] > 0):
-			#globals.hunger += card_data["effect"]["hunger"]
-		#elif (card_data["effect"]["hunger"] < 0):
-			#globals.hunger -= card_data["effect"]["hunger"]
-		# -----------------------------------------------------------------	
+		var hunger_value = card_data["effect"]["hunger"]
+		print(str("Hunger effect of applied card is ",hunger_value))
+		if (hunger_value > 0):
+			globals.hunger = clamp((globals.hunger + hunger_value),0,100)
+		elif (hunger_value < 0):
+			globals.hunger = clamp((globals.hunger - hunger_value),0,100)
+			
+		if globals.hunger == 100: globals.play_death.emit()
+		
+		# apply health -----------------------------------------------------	
 	
 		#if (card_data["effect"]["health"] > 0):
 			#globals.health += card_data["effect"]["health"]
