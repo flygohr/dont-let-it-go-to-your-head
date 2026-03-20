@@ -14,7 +14,7 @@ func _process(delta: float) -> void:
 		get("theme_override_styles/fill").border_width_right = 1
 	else:
 		get("theme_override_styles/fill").border_width_right = 0
-		
+	
 	if (inverse == false):
 		if (value >= 50):
 			get("theme_override_styles/fill").bg_color = globals.color_progress_green
@@ -22,10 +22,10 @@ func _process(delta: float) -> void:
 			get("theme_override_styles/fill").bg_color = globals.color_progress_yellow
 		else:
 			get("theme_override_styles/fill").bg_color = globals.color_progress_red
-	elif (inverse == true):
-		if (value >= 50):
+	elif (inverse == true): 
+		if (value >= 80):
 			get("theme_override_styles/fill").bg_color = globals.color_progress_red
-		elif (value <50 and value >= 20):
+		elif (value <80 and value >= 50):
 			get("theme_override_styles/fill").bg_color = globals.color_progress_yellow
 		else:
 			get("theme_override_styles/fill").bg_color = globals.color_progress_green

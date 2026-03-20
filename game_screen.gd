@@ -30,6 +30,7 @@ extends Node2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	globals.play_death.connect(play_death)
 	var game_data: Dictionary = load_data()
 	globals.high_score_weeks = game_data["high_score_weeks"]
 	globals.high_score_days = game_data["high_score_days"]
@@ -88,19 +89,6 @@ func _process(delta: float) -> void:
 	
 	lives_label.text = str("LIVES: ", globals.lives+1)
 	
-	# death conditions TODO: move out of process bc instant death
-	
-	# infamy mechanics
-	if (globals.infamy < 0): globals.infamy = 0 #clamp values
-	if (globals.infamy >= 100): globals.lives -= 1 #TODO: fullscreen warnings here
-	if globals.lives == 0: play_death()
-	
-	if (globals.hunger < 0): globals.hunger = 0 #clamp values
-	elif (globals.hunger >= 100): play_death()
-	
-	if (globals.health > 100): globals.health = 100 #clamp values
-	elif (globals.health <= 0): play_death()
-
 func _on_confirm_button_pressed() -> void:
 	globals.apply_effect.emit()
 	globals.can_proceed = false
@@ -113,7 +101,6 @@ func advance_days() -> void:
 	elif(globals.current_day < 7 and globals.time_of_day == "Night"):
 		globals.current_day += 1
 		globals.time_of_day = "Day"
-		globals.hunger += globals.hunger_gained_per_day
 	else:
 		globals.current_day = 1
 		globals.current_week += 1

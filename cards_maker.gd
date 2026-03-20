@@ -154,8 +154,8 @@ func generate_new_cards() -> void:
 			3: card_data["rarity"] = "rare"
 			4: card_data["rarity"] = "epic"
 				
-		print_debug(card_data)
+		# print_debug(card_data)
 		globals.cards_list.push_back(card_data.duplicate_deep())
-		print_debug(globals.cards_list)
+		# print_debug(globals.cards_list)
 	
 	globals.populate_card_slot.emit()

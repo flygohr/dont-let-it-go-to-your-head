@@ -69,12 +69,13 @@ var color_progress_red: Color = Color.html("#9c4429")
 var current_screen: String = "title"
 
 var can_proceed = false
+var cards_list: Array = []
 
+# signal bus
 @warning_ignore_start("unused_signal")
 
 signal card_selected()
 signal generate_cards()
 signal populate_card_slot()
 signal apply_effect()
-
-var cards_list: Array = []
+signal play_death(cause: String) # https://github.com/godotengine/godot-docs-user-notes/discussions/5#discussioncomment-8124099

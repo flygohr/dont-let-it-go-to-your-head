@@ -183,7 +183,6 @@ func _on_card_collision_input_event(viewport: Node, event: InputEvent, shape_idx
 			
 func select_this() -> void:
 	select = true
-	hover = true
 	globals.card_selected.emit()
 	
 	#TODO can proceed only if enough gold. and now we move stats to global
@@ -197,29 +196,51 @@ func _card_selected() -> void:
 	# unselect if not the current card being hovered
 	if (hover == false):
 		select = false
+	else:
+		print_debug(card_data) #FIXME every card selected is the same, that's why it doesn't work
 
 func _execute_effect() -> void:
-	# apply infamy
-	if select == false: return
-	
-	if (card_data["effect"]["infamy"] > 0):
-		globals.infamy += card_data["effect"]["infamy"]
-	elif (card_data["effect"]["infamy"] < 0):
-		globals.infamy -= card_data["effect"]["infamy"]
-		
-	if (card_data["effect"]["hunger"] > 0):
-		globals.hunger += card_data["effect"]["hunger"]
-	elif (card_data["effect"]["hunger"] < 0):
-		globals.hunger -= card_data["effect"]["hunger"]
-		
-	if (card_data["effect"]["health"] > 0):
-		globals.health += card_data["effect"]["health"]
-	elif (card_data["effect"]["health"] < 0):
-		globals.health -= card_data["effect"]["health"]
-		
-	if (card_data["effect"]["coin"] > 0):
-		globals.coin += card_data["effect"]["coin"]
-	elif (card_data["effect"]["coin"] < 0):
-		globals.coin -= card_data["effect"]["coin"]
 
-	globals.card_selected.emit()
+	if select == true: # only if this is the card selected
+		# apply infamy
+		
+		print_debug(card_data)
+		var infamy_value = card_data["effect"]["infamy"]
+		print_debug(str("Infamy effect is ",infamy_value))
+		if (infamy_value > 0):
+			globals.infamy = clamp((globals.infamy + infamy_value),0,100)
+			if (globals.infamy >= 100): globals.lives -= 1 #TODO: fullscreen warnings here
+			if globals.lives == 0: globals.play_death.emit()
+		elif (infamy_value < 0):
+			globals.infamy = clamp((globals.infamy - infamy_value),0,100)
+		
+		# apply hunger-----------------------------------------------------
+		
+		if(globals.current_day < 7 and globals.time_of_day == "Night"):
+			globals.hunger += globals.hunger_gained_per_day 
+			print_debug("Decreasing hunger for the new day")
+
+		#if (card_data["effect"]["hunger"] > 0):
+			#globals.hunger += card_data["effect"]["hunger"]
+		#elif (card_data["effect"]["hunger"] < 0):
+			#globals.hunger -= card_data["effect"]["hunger"]
+		# -----------------------------------------------------------------	
+	
+		#if (card_data["effect"]["health"] > 0):
+			#globals.health += card_data["effect"]["health"]
+		#elif (card_data["effect"]["health"] < 0):
+			#globals.health -= card_data["effect"]["health"]
+			#
+		#if (card_data["effect"]["coin"] > 0):
+			#globals.coin += card_data["effect"]["coin"]
+		#elif (card_data["effect"]["coin"] < 0):
+			#globals.coin -= card_data["effect"]["coin"]
+			
+		#if (globals.hunger < 0): globals.hunger = 0 #clamp values
+		#elif (globals.hunger >= 100): globals.play_death.emit()
+		#
+		#if (globals.health > 100): globals.health = 100 #clamp values
+		#elif (globals.health <= 0): globals.play_death.emit()
+		
+		select = false
+	

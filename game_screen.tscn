@@ -8,7 +8,7 @@
 [ext_resource type="Script" uid="uid://sibnmefin87h" path="res://confirm_button.gd" id="3_yla3h"]
 [ext_resource type="Script" uid="uid://dghbu625b5s0w" path="res://progress_bar.gd" id="5_lxtpa"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lxtpa"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3vj30"]
 bg_color = Color(0.47843137, 0.38431373, 0.3764706, 0.49019608)
 border_width_left = 1
 border_width_top = 1
@@ -16,7 +16,37 @@ border_width_right = 1
 border_width_bottom = 1
 border_color = Color(0.4, 0.40784314, 0.38039216, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3vj30"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6mti6"]
+bg_color = Color(0.5882353, 0.7647059, 0.34901962, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_bottom = 1
+border_color = Color(0.4, 0.40784314, 0.38039216, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oymjd"]
+bg_color = Color(0.47843137, 0.38431373, 0.3764706, 0.49019608)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.4, 0.40784314, 0.38039216, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_aybt7"]
+bg_color = Color(0.5882353, 0.7647059, 0.34901962, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_bottom = 1
+border_color = Color(0.4, 0.40784314, 0.38039216, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_viusa"]
+bg_color = Color(0.47843137, 0.38431373, 0.3764706, 0.49019608)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.4, 0.40784314, 0.38039216, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o17u5"]
 bg_color = Color(0.5882353, 0.7647059, 0.34901962, 1)
 border_width_left = 1
 border_width_top = 1
@@ -154,8 +184,8 @@ offset_left = 3.0
 offset_top = 11.0
 offset_right = 65.0
 offset_bottom = 21.0
-theme_override_styles/background = SubResource("StyleBoxFlat_lxtpa")
-theme_override_styles/fill = SubResource("StyleBoxFlat_3vj30")
+theme_override_styles/background = SubResource("StyleBoxFlat_3vj30")
+theme_override_styles/fill = SubResource("StyleBoxFlat_6mti6")
 show_percentage = false
 script = ExtResource("5_lxtpa")
 inverse = true
@@ -201,8 +231,8 @@ offset_left = 69.0
 offset_top = 11.0
 offset_right = 131.0
 offset_bottom = 21.0
-theme_override_styles/background = SubResource("StyleBoxFlat_lxtpa")
-theme_override_styles/fill = SubResource("StyleBoxFlat_3vj30")
+theme_override_styles/background = SubResource("StyleBoxFlat_oymjd")
+theme_override_styles/fill = SubResource("StyleBoxFlat_aybt7")
 value = 100.0
 show_percentage = false
 script = ExtResource("5_lxtpa")
@@ -248,8 +278,8 @@ offset_left = 135.0
 offset_top = 11.0
 offset_right = 197.0
 offset_bottom = 21.0
-theme_override_styles/background = SubResource("StyleBoxFlat_lxtpa")
-theme_override_styles/fill = SubResource("StyleBoxFlat_3vj30")
+theme_override_styles/background = SubResource("StyleBoxFlat_viusa")
+theme_override_styles/fill = SubResource("StyleBoxFlat_o17u5")
 show_percentage = false
 script = ExtResource("5_lxtpa")
 
