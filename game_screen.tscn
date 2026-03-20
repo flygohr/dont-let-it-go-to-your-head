@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://sibnmefin87h" path="res://confirm_button.gd" id="3_yla3h"]
 [ext_resource type="Script" uid="uid://bcs1c3k50l4hf" path="res://event_screen.gd" id="4_6mti6"]
 [ext_resource type="Script" uid="uid://dghbu625b5s0w" path="res://progress_bar.gd" id="5_lxtpa"]
+[ext_resource type="Script" uid="uid://bane46getbocm" path="res://message_screen.gd" id="9_oymjd"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3vj30"]
 bg_color = Color(0.47843137, 0.38431373, 0.3764706, 0.49019608)
@@ -541,6 +542,53 @@ theme_override_fonts/font = ExtResource("2_norob")
 theme_override_font_sizes/font_size = 8
 text = "RESTART"
 
+[node name="MessageScreen" type="Node2D" parent="." unique_id=1690286618]
+position = Vector2(240, 0)
+script = ExtResource("9_oymjd")
+
+[node name="MessageScreenBG" type="ColorRect" parent="MessageScreen" unique_id=823720948]
+custom_minimum_size = Vector2(240, 160)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 240.0
+offset_bottom = 160.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.89411765, 0.75686276, 0.5137255, 1)
+
+[node name="MessageScreenLabel" type="Label" parent="MessageScreen" unique_id=1972880041]
+offset_top = 32.0
+offset_right = 240.0
+offset_bottom = 48.0
+theme_override_colors/font_color = Color(0.3529412, 0.26666668, 0.22352941, 1)
+theme_override_fonts/font = ExtResource("2_norob")
+text = "CAUGHT!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MessageScreenText" type="Label" parent="MessageScreen" unique_id=374111008]
+offset_left = 32.0
+offset_top = 48.0
+offset_right = 208.0
+offset_bottom = 112.0
+theme_override_colors/font_color = Color(0.3529412, 0.26666668, 0.22352941, 1)
+theme_override_fonts/font = ExtResource("2_norob")
+theme_override_font_sizes/font_size = 8
+text = "They cut off your left ear, the penalty for repeated theft. Your infamy's baseline is now 50. This is the last warning. They'll want your head if they get you another time!"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="ContinueButton" type="Button" parent="MessageScreen" unique_id=1503284987]
+offset_left = 72.0
+offset_top = 120.0
+offset_right = 168.0
+offset_bottom = 136.0
+theme = ExtResource("3_j7yda")
+theme_override_fonts/font = ExtResource("2_norob")
+theme_override_font_sizes/font_size = 8
+text = "CONTINUE"
+
 [node name="TitleScreen" type="Node2D" parent="." unique_id=865346955]
 
 [node name="TitleScreenBG" type="ColorRect" parent="TitleScreen" unique_id=41716912]
@@ -591,4 +639,5 @@ metadata/_edit_use_anchors_ = true
 [connection signal="pressed" from="GameScreen/BottomSection/ConfirmButton" to="." method="_on_confirm_button_pressed"]
 [connection signal="pressed" from="GameScreen/BottomSection/GiveUpButton" to="." method="_on_give_up_button_pressed"]
 [connection signal="pressed" from="DeathScreen/RestartButton" to="." method="_on_restart_button_pressed"]
+[connection signal="pressed" from="MessageScreen/ContinueButton" to="MessageScreen" method="_on_continue_button_pressed"]
 [connection signal="pressed" from="TitleScreen/PlayResumeButton" to="." method="_on_play_resume_button_pressed"]

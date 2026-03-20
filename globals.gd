@@ -9,7 +9,7 @@ var health: int = 100
 var infamy: int = 0
 var coin: int = 5
 
-var lives: int = 2
+var lives: int = 3
 
 const save_file_name: String = "user://dligtyh_save_9.json"
 
@@ -39,7 +39,7 @@ var default_event_data: Dictionary = {
 var default_save_data: Dictionary = {
 	"high_score_weeks": 0,
 	"high_score_days": 0,
-	"lives": 2,
+	"lives": 3,
 	"current_week": 0,
 	"current_day": 1,
 	"time_of_day": "Day",
@@ -96,3 +96,4 @@ signal not_enough_gold()
 signal change_confirm_text(text: String)
 signal pick_event()
 signal play_death(title: String, text: String) # https://github.com/godotengine/godot-docs-user-notes/discussions/5#discussioncomment-8124099
+signal display_message(title: String, text: String)

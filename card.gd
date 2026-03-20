@@ -212,10 +212,24 @@ func _execute_effect() -> void:
 		var infamy_value = card_data["effect"]["infamy"]
 		print(str("Infamy effect of applied card is ",infamy_value))
 
-		globals.infamy = clamp((globals.infamy + infamy_value),0,100)
 		
-		if (globals.infamy == 100): globals.lives -= 1 #TODO: fullscreen warnings here
-		if globals.lives == 0: globals.play_death.emit("DECAPITATED","It got to your head in the end.")
+		#TODO: fullscreen warnings here
+		if (globals.lives == 3):
+			globals.infamy = clamp((globals.infamy + infamy_value),0,100)
+			if (globals.infamy == 100):
+				globals.infamy = 20
+				globals.lives -= 1
+				globals.display_message.emit("CAUGHT!","You lost a couple of fingers, the penalty for theft. Your infamy's baseline is now 20.")
+		elif (globals.lives == 2):
+			globals.infamy = clamp((globals.infamy + infamy_value),20,100)
+			if (globals.infamy == 100):
+				globals.infamy = 50
+				globals.lives -= 1
+				globals.display_message.emit("CAUGHT AGAIN!","They cut off your left ear, the penalty for repeated theft. Your infamy's baseline is now 50. This is the last warning. They'll want your head if they get you another time!")
+		elif (globals.lives == 1):
+			globals.infamy = clamp((globals.infamy + infamy_value),50,100)
+			if (globals.infamy == 100):
+				globals.play_death.emit("DECAPITATED","It got to your head in the end.")
 		
 		# apply hunger-----------------------------------------------------
 		

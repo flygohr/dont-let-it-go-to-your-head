@@ -98,7 +98,7 @@ func _process(_delta: float) -> void:
 	
 	gold_tracker_label.text = str(globals.coin," G")
 	
-	lives_label.text = str("LIVES: ", globals.lives+1)
+	lives_label.text = str("LIVES: ", globals.lives)
 	
 func _on_confirm_button_pressed() -> void:
 	globals.apply_effect.emit()
@@ -226,6 +226,7 @@ func reset_save() -> void:
 
 func _on_restart_button_pressed() -> void:
 	globals.current_screen = "game"
+	globals.generate_cards.emit()
 	var tween = get_tree().create_tween()
 	tween.tween_property(death_screen, "position", Vector2(0,160), 0.2)
 	var tween_b = get_tree().create_tween()
