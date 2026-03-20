@@ -132,7 +132,8 @@ func build_card(data: Dictionary) -> void:
 	
 	# define rarity based on specs
 	set_border_color(data["rarity"])
-	# print(str("The card that has been built is: ", card_data)) DATA IS BUILT CORRECTLY
+	print(str("The card that has been built is: ", card_data)) 
+	card_data = card_data.duplicate_deep()
 
 func set_border_color(rarity_string) -> void:
 	var color
@@ -153,9 +154,6 @@ func set_border_color(rarity_string) -> void:
 	rect_1_border.color = color
 	outer_rect.color = color
 	card_name.set("theme_override_colors/font_color", color)
-
-func change_selection_outline_color() -> void:
-	pass
 
 func _on_card_collision_mouse_entered() -> void:
 	hover = true
@@ -185,11 +183,13 @@ func _card_selected() -> void:
 	# unselect if not the current card being hovered
 	if (hover == false):
 		select = false
-	else:
+	else: 
 		print(str("Selected card data is: ", card_data)) 
-		#FIXME every card selected is the same, that's why it doesn't work. specifically, it's the last card that takes precedence
+		# every card selected is the same, that's why it doesn't work. specifically, it's the last card that takes precedence
 		#basically, every card is processing correctly? because every card actually has the data of the last one? when does the data get changed?
-		# data is built correctly. the error is in the select check. it always point to card 3 for some reason?
+		# data is built correctly. the error is in the select check. it always points to card 3 for some reason?
+		# the data could still be changed between build and select. i need a way to monitor it
+		# again, the issue was duplicate deep on generating card data. idk why.
 
 func _execute_effect() -> void:
 
