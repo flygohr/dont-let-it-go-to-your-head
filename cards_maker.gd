@@ -2,13 +2,9 @@ extends Node2D
 
 # generation parameters need to go here, as dictionary
 
-var theft_probability: int = 40
-var rest_probability: int = 20
-var move_probability: int = 5
-
-var base_infamy:int = 10
-var base_hunger:int = 10
-var base_health:int = 10
+var base_infamy:int = 5
+var base_hunger:int = 5
+var base_health:int = 5
 var base_coin:int = 1
 
 var theft_cards: Array = [
@@ -87,23 +83,14 @@ var move_cards: Array = [
 func _ready() -> void:
 	globals.generate_cards.connect(generate_new_cards)
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta: float) -> void:
-	#pass
 
 func generate_new_cards() -> void:
-	# randomly generate cards, and append them to globals.card_list dict
-	
-	# score card rarity
-	# if type: legendary then it's legendary
-	# otherwise, it scores the weight of the parameters
 	
 	# in the future, implement better rarity. for now it could be simplified as number of positive effects, if 4 is rare. the rest of the card can be generated randomly
 	
-	# I just need to generate 3 cards, IF 3 are not in memory already
 	print("Generating new cards")
 	globals.cards_list.clear()
-	for i in (3): # adjust logic to account for pre-existing game / resuming
+	for i in (3):
 		var card_data: Dictionary = globals.default_card_data.duplicate()
 		var temp_rarity: int = 0
 		
@@ -157,5 +144,7 @@ func generate_new_cards() -> void:
 		# print(card_data)
 		globals.cards_list.push_back(card_data.duplicate_deep())
 		# print(globals.cards_list)
+	
+	#TODO: check for gold softlock, and re-do the generation if needed
 	
 	globals.populate_card_slot.emit()

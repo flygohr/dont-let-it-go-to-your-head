@@ -11,12 +11,23 @@ var coin: int = 5
 
 var lives: int = 2
 
-const save_file_name: String = "user://dligtyh_save_7.json"
+const save_file_name: String = "user://dligtyh_save_9.json"
 
 var default_card_data: Dictionary = {
 	"name": "Very long card name",
 	"type": "Theft",
 	"rarity": "common",
+	"effect": {
+		"infamy": 0,
+		"hunger": 0,
+		"health": 0,
+		"coin": 0
+	}
+}
+
+var default_event_data: Dictionary = {
+	"name": "ALL QUIET",
+	"text": "Nothing unusual...",
 	"effect": {
 		"infamy": 0,
 		"hunger": 0,
@@ -37,7 +48,8 @@ var default_save_data: Dictionary = {
 	"infamy": 0,
 	"coin": 5,
 	"current_cards": [default_card_data,default_card_data,default_card_data],
-	"new_game": true
+	"new_game": true,
+	"current_event": default_event_data
 }
 
 const hunger_gained_per_day: int = 10
@@ -71,6 +83,8 @@ var current_screen: String = "title"
 var can_proceed = false
 var cards_list: Array = []
 
+var current_event: Dictionary = {}
+
 # signal bus
 @warning_ignore_start("unused_signal")
 
@@ -78,4 +92,7 @@ signal card_selected()
 signal generate_cards()
 signal populate_card_slot()
 signal apply_effect()
-signal play_death(cause: String) # https://github.com/godotengine/godot-docs-user-notes/discussions/5#discussioncomment-8124099
+signal not_enough_gold()
+signal change_confirm_text(text: String)
+signal pick_event()
+signal play_death(title: String, text: String) # https://github.com/godotengine/godot-docs-user-notes/discussions/5#discussioncomment-8124099

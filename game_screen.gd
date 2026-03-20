@@ -10,6 +10,7 @@ extends Node2D
 
 @onready var infamy_progress_bar: ProgressBar = $GameScreen/TopStats/InfamyTracker/InfamyProgressBar
 @onready var infamy_bar_label: Label = $GameScreen/TopStats/InfamyTracker/InfamyBarLabel
+@onready var lives_label: Label = $GameScreen/TopStats/InfamyTracker/LivesLabel
 
 @onready var hunger_progress_bar: ProgressBar = $GameScreen/TopStats/HungerTracker/HungerProgressBar
 @onready var hunger_bar_label: Label = $GameScreen/TopStats/HungerTracker/HungerBarLabel
@@ -19,18 +20,26 @@ extends Node2D
 
 @onready var gold_tracker_label: Label = $GameScreen/TopStats/CoinTracker/GoldTrackerLabel
 
-@onready var lives_label: Label = $GameScreen/BottomSection/LivesLabel
+
+@onready var text_next_to_button: RichTextLabel = $GameScreen/BottomSection/TextNextToButton
 
 @onready var title_screen: Node2D = $TitleScreen
 @onready var title_screen_score: Label = $TitleScreen/TitleScreenScore
 @onready var play_resume_button: Button = $TitleScreen/PlayResumeButton
 
 @onready var death_screen: Node2D = $DeathScreen
+@onready var death_screen_label: Label = $DeathScreen/DeathScreenLabel
+@onready var death_screen_text: Label = $DeathScreen/DeathScreenText
 @onready var death_screen_score: Label = $DeathScreen/DeathScreenScore
+
+@onready var give_up_button: Button = $GameScreen/BottomSection/GiveUpButton
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	globals.play_death.connect(play_death)
+	globals.not_enough_gold.connect(not_enough_gold)
+	globals.change_confirm_text.connect(change_confirm_text)
+	
 	var game_data: Dictionary = load_data()
 	globals.high_score_weeks = game_data["high_score_weeks"]
 	globals.high_score_days = game_data["high_score_days"]
@@ -42,6 +51,8 @@ func _ready() -> void:
 	globals.infamy = game_data["infamy"]
 	globals.coin = game_data["coin"]
 	globals.cards_list = game_data["current_cards"].duplicate_deep()
+	globals.current_event = game_data["current_event"].duplicate_deep()
+	globals.lives = game_data["lives"]
 		
 	globals.current_screen = "title"
 	title_screen.show()
@@ -107,7 +118,12 @@ func advance_days() -> void:
 		globals.time_of_day = "Day"
 		
 	globals.generate_cards.emit()
-		
+	
+	if (randf() > 0.5):
+		globals.pick_event.emit()
+	else:
+		globals.current_event = globals.default_event_data
+	
 	save_data({
 		"high_score_weeks": globals.high_score_weeks,
 		"high_score_days": globals.high_score_days,
@@ -120,15 +136,21 @@ func advance_days() -> void:
 		"coin": globals.coin,
 		"current_cards": globals.cards_list,
 		"new_game": false,
-		"lives": globals.lives
+		"lives": globals.lives,
+		"current_event": globals.current_event
 	})
 	
-func play_death():
+	
+func play_death(title, text):
 	globals.current_screen = "death"
 	var tween = get_tree().create_tween()
 	tween.tween_property(death_screen, "position", Vector2(0,0), 0.2)
 	var tween_b = get_tree().create_tween()
 	tween_b.tween_property(game_screen, "position", Vector2(0,-160), 0.2)
+	
+	death_screen_label.text = title
+	death_screen_text.text = text
+	
 	var total_days: int = (globals.current_week*7)+globals.current_day
 	var high_score_total_days: int = (globals.high_score_weeks*7)+globals.high_score_days
 	if (total_days > high_score_total_days):
@@ -199,6 +221,7 @@ func reset_save() -> void:
 	globals.infamy = game_data["infamy"]
 	globals.coin = game_data["coin"]
 	globals.lives = game_data["lives"]
+	globals.current_event = game_data["current_event"]
 
 
 func _on_restart_button_pressed() -> void:
@@ -214,10 +237,18 @@ func _on_play_resume_button_pressed() -> void:
 	var tween = get_tree().create_tween()
 	tween.tween_property(game_screen, "position", Vector2(0,0), 0.2)
 
-
 func _on_confirm_button_mouse_entered() -> void:
 	if (globals.can_proceed == true):
 		confirm_button_bg.show()
 
 func _on_confirm_button_mouse_exited() -> void:
 	confirm_button_bg.hide()
+
+func not_enough_gold() -> void:
+	text_next_to_button.text = str("[color=",globals.color_red,"]Not enough COIN![/color]")
+
+func change_confirm_text(_string : String) -> void:
+	text_next_to_button.text = _string
+
+func _on_give_up_button_pressed() -> void:
+	globals.play_death.emit("GAME OVER","You can always try again...")

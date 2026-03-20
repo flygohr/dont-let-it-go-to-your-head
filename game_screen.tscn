@@ -6,6 +6,7 @@
 [ext_resource type="Theme" uid="uid://c3nwkja6hedpd" path="res://game_theme.tres" id="3_j7yda"]
 [ext_resource type="PackedScene" uid="uid://cxa744vjtwvmg" path="res://card.tscn" id="3_norob"]
 [ext_resource type="Script" uid="uid://sibnmefin87h" path="res://confirm_button.gd" id="3_yla3h"]
+[ext_resource type="Script" uid="uid://bcs1c3k50l4hf" path="res://event_screen.gd" id="4_6mti6"]
 [ext_resource type="Script" uid="uid://dghbu625b5s0w" path="res://progress_bar.gd" id="5_lxtpa"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3vj30"]
@@ -87,49 +88,6 @@ offset_bottom = 140.0
 mouse_filter = 2
 color = Color(0.5686275, 0.57254905, 0.5176471, 1)
 
-[node name="MiddleScreenBG2" type="ColorRect" parent="GameScreen/MiddleSection" unique_id=2080017904]
-offset_left = 5.0
-offset_top = 41.0
-offset_right = 86.0
-offset_bottom = 137.0
-mouse_filter = 2
-color = Color(0.89411765, 0.75686276, 0.5137255, 1)
-
-[node name="MiddleScreenBG3" type="ColorRect" parent="GameScreen/MiddleSection" unique_id=1845573694]
-offset_left = 6.0
-offset_top = 42.0
-offset_right = 85.0
-offset_bottom = 136.0
-mouse_filter = 2
-color = Color(0.9019608, 0.85490197, 0.77254903, 1)
-
-[node name="TextSectionCopy" type="Label" parent="GameScreen/MiddleSection" unique_id=1229398251]
-offset_left = 7.0
-offset_top = 53.0
-offset_right = 84.0
-offset_bottom = 135.0
-mouse_behavior_recursive = 1
-theme_override_colors/font_color = Color(0.47843137, 0.38431373, 0.3764706, 1)
-theme_override_constants/line_spacing = 1
-theme_override_fonts/font = ExtResource("2_norob")
-theme_override_font_sizes/font_size = 8
-text = "No moon in the sky!
--20 on INFAMY picks"
-autowrap_mode = 2
-
-[node name="TextSectionTitle" type="Label" parent="GameScreen/MiddleSection" unique_id=309318019]
-offset_left = 7.0
-offset_top = 44.0
-offset_right = 84.0
-offset_bottom = 52.0
-mouse_behavior_recursive = 1
-theme_override_colors/font_color = Color(0.3529412, 0.26666668, 0.22352941, 1)
-theme_override_constants/line_spacing = 1
-theme_override_fonts/font = ExtResource("2_norob")
-theme_override_font_sizes/font_size = 8
-text = "BLACK MOON"
-autowrap_mode = 2
-
 [node name="Cards" type="Node2D" parent="GameScreen/MiddleSection" unique_id=2107657146]
 position = Vector2(107, 45)
 script = ExtResource("3_3vj30")
@@ -146,10 +104,56 @@ card_number_in_stack = 2
 position = Vector2(-19, 60)
 card_number_in_stack = 3
 
+[node name="EventScreen" type="Node2D" parent="GameScreen/MiddleSection" unique_id=1898083742]
+script = ExtResource("4_6mti6")
+
+[node name="MiddleScreenBG2" type="ColorRect" parent="GameScreen/MiddleSection/EventScreen" unique_id=2080017904]
+offset_left = 5.0
+offset_top = 41.0
+offset_right = 86.0
+offset_bottom = 137.0
+mouse_filter = 2
+color = Color(0.89411765, 0.75686276, 0.5137255, 1)
+
+[node name="MiddleScreenBG3" type="ColorRect" parent="GameScreen/MiddleSection/EventScreen" unique_id=1845573694]
+offset_left = 6.0
+offset_top = 42.0
+offset_right = 85.0
+offset_bottom = 136.0
+mouse_filter = 2
+color = Color(0.9019608, 0.85490197, 0.77254903, 1)
+
+[node name="TextSectionCopy" type="Label" parent="GameScreen/MiddleSection/EventScreen" unique_id=1229398251]
+offset_left = 7.0
+offset_top = 53.0
+offset_right = 84.0
+offset_bottom = 135.0
+mouse_behavior_recursive = 1
+theme_override_colors/font_color = Color(0.47843137, 0.38431373, 0.3764706, 1)
+theme_override_constants/line_spacing = 1
+theme_override_fonts/font = ExtResource("2_norob")
+theme_override_font_sizes/font_size = 8
+text = "No moon in the sky!
+-20 on INFAMY picks"
+autowrap_mode = 2
+
+[node name="TextSectionTitle" type="Label" parent="GameScreen/MiddleSection/EventScreen" unique_id=309318019]
+offset_left = 7.0
+offset_top = 44.0
+offset_right = 84.0
+offset_bottom = 52.0
+mouse_behavior_recursive = 1
+theme_override_colors/font_color = Color(0.3529412, 0.26666668, 0.22352941, 1)
+theme_override_constants/line_spacing = 1
+theme_override_fonts/font = ExtResource("2_norob")
+theme_override_font_sizes/font_size = 8
+text = "BLACK MOON"
+autowrap_mode = 2
+
 [node name="GameTime" type="Node2D" parent="GameScreen" unique_id=923130690]
 
 [node name="WeeksDaysTimeBG" type="ColorRect" parent="GameScreen/GameTime" unique_id=683189939]
-offset_left = 2.0
+offset_left = 68.0
 offset_top = 24.0
 offset_right = 238.0
 offset_bottom = 36.0
@@ -157,9 +161,9 @@ mouse_filter = 2
 color = Color(0.5686275, 0.57254905, 0.5176471, 1)
 
 [node name="WeeksDaysTime" type="Label" parent="GameScreen/GameTime" unique_id=1120637403]
-offset_left = 7.0
+offset_left = 69.0
 offset_top = 27.0
-offset_right = 232.0
+offset_right = 237.0
 offset_bottom = 35.0
 theme_override_constants/line_spacing = 0
 theme_override_fonts/font = ExtResource("2_norob")
@@ -175,7 +179,7 @@ horizontal_alignment = 1
 offset_left = 2.0
 offset_top = 2.0
 offset_right = 66.0
-offset_bottom = 22.0
+offset_bottom = 36.0
 mouse_filter = 2
 color = Color(0.5686275, 0.57254905, 0.5176471, 1)
 
@@ -213,6 +217,18 @@ theme_override_constants/line_spacing = 1
 theme_override_fonts/font = ExtResource("2_norob")
 theme_override_font_sizes/font_size = 8
 text = "INFAMY"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LivesLabel" type="Label" parent="GameScreen/TopStats/InfamyTracker" unique_id=1546608101]
+offset_left = 4.0
+offset_top = 27.0
+offset_right = 64.0
+offset_bottom = 35.0
+mouse_behavior_recursive = 1
+theme_override_fonts/font = ExtResource("2_norob")
+theme_override_font_sizes/font_size = 8
+text = "LIVES: 3"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -415,17 +431,17 @@ vertical_alignment = 1
 [node name="BottomSection" type="Node2D" parent="GameScreen" unique_id=1902773057]
 
 [node name="BottomTextBG" type="ColorRect" parent="GameScreen/BottomSection" unique_id=1826791504]
-offset_left = 61.0
+offset_left = 68.0
 offset_top = 142.0
 offset_right = 238.0
 offset_bottom = 158.0
 mouse_filter = 2
 color = Color(0.5686275, 0.57254905, 0.5176471, 1)
 
-[node name="BottomTextBG2" type="ColorRect" parent="GameScreen/BottomSection" unique_id=530947956]
+[node name="QuitButtonBG" type="ColorRect" parent="GameScreen/BottomSection" unique_id=530947956]
 offset_left = 2.0
 offset_top = 142.0
-offset_right = 59.0
+offset_right = 66.0
 offset_bottom = 158.0
 mouse_filter = 2
 color = Color(0.5686275, 0.57254905, 0.5176471, 1)
@@ -450,29 +466,27 @@ disabled = true
 text = "CONFIRM"
 script = ExtResource("3_yla3h")
 
-[node name="LivesBG" type="Label" parent="GameScreen/BottomSection" unique_id=1325690590]
-offset_left = 66.0
+[node name="TextNextToButton" type="RichTextLabel" parent="GameScreen/BottomSection" unique_id=1741407886]
+offset_left = 72.0
 offset_top = 147.0
 offset_right = 168.0
 offset_bottom = 155.0
 mouse_behavior_recursive = 1
-theme_override_fonts/font = ExtResource("2_norob")
-theme_override_font_sizes/font_size = 8
+theme_override_constants/line_separation = 0
+theme_override_fonts/normal_font = ExtResource("2_norob")
+theme_override_font_sizes/normal_font_size = 8
+bbcode_enabled = true
 text = "Pick a card"
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="LivesLabel" type="Label" parent="GameScreen/BottomSection" unique_id=1546608101]
+[node name="GiveUpButton" type="Button" parent="GameScreen/BottomSection" unique_id=1660850056]
 offset_left = 4.0
-offset_top = 147.0
-offset_right = 58.0
-offset_bottom = 155.0
-mouse_behavior_recursive = 1
-theme_override_fonts/font = ExtResource("2_norob")
-theme_override_font_sizes/font_size = 8
-text = "LIVES: 3"
-horizontal_alignment = 1
-vertical_alignment = 1
+offset_top = 144.0
+offset_right = 64.0
+offset_bottom = 156.0
+theme = ExtResource("3_j7yda")
+text = "GIVE UP"
 
 [node name="DeathScreen" type="Node2D" parent="." unique_id=250626094]
 position = Vector2(0, 160)
@@ -501,6 +515,16 @@ vertical_alignment = 1
 offset_top = 118.0
 offset_right = 240.0
 offset_bottom = 126.0
+theme_override_fonts/font = ExtResource("2_norob")
+theme_override_font_sizes/font_size = 8
+text = "YOU DIED"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="DeathScreenText" type="Label" parent="DeathScreen" unique_id=1074937877]
+offset_top = 65.0
+offset_right = 240.0
+offset_bottom = 73.0
 theme_override_fonts/font = ExtResource("2_norob")
 theme_override_font_sizes/font_size = 8
 text = "YOU DIED"
@@ -565,5 +589,6 @@ metadata/_edit_use_anchors_ = true
 [connection signal="mouse_entered" from="GameScreen/BottomSection/ConfirmButton" to="." method="_on_confirm_button_mouse_entered"]
 [connection signal="mouse_exited" from="GameScreen/BottomSection/ConfirmButton" to="." method="_on_confirm_button_mouse_exited"]
 [connection signal="pressed" from="GameScreen/BottomSection/ConfirmButton" to="." method="_on_confirm_button_pressed"]
+[connection signal="pressed" from="GameScreen/BottomSection/GiveUpButton" to="." method="_on_give_up_button_pressed"]
 [connection signal="pressed" from="DeathScreen/RestartButton" to="." method="_on_restart_button_pressed"]
 [connection signal="pressed" from="TitleScreen/PlayResumeButton" to="." method="_on_play_resume_button_pressed"]

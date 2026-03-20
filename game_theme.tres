@@ -30,6 +30,7 @@ border_color = Color(0.4, 0.40784314, 0.38039216, 1)
 
 [resource]
 Button/colors/font_color = Color(1, 1, 1, 1)
+Button/font_sizes/font_size = 8
 Button/fonts/font = ExtResource("1_1fvms")
 Button/styles/disabled = ExtResource("2_p1w3f")
 Button/styles/focus = ExtResource("3_pd6sc")
