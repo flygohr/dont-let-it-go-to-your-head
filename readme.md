@@ -37,6 +37,8 @@ Stuff I'm already banging my head against (and I won't be able to include, proba
 	- Finally added, troubleshooted, and fixed the application of card effects
 	- Reduced the base for hunger, health, and infamy to 5 for more granularity
 	- Re-arranged layout to merge "lives" with infamy, and make space for the "give up" button. my solution for softlocks lmao
+	- Added events, implemented their effect
+	- Added screens for text bits, could use for a tutorial if time
 	
 Missing:
 - [x] store cards in savegame, check for saved cards on resume
@@ -56,12 +58,14 @@ Missing:
 - [x] implement different screens for infamy levels
 - [x] lose lives upon infamy reaching 100, first a finger, then a ear, then it's game over. use icons if time
 - [x] define events, their rules, and check for current event upon applying card effect
-- [ ] selection and confirmation bugs
-	- [ ] bug (game breaking): can bypass gold check by selecting a valid card then switching
-	- [ ] bug: restarting doesn't clear selection
+- [x] selection and confirmation bugs
+	- [x] bug (game breaking): can bypass gold check by selecting a valid card then switching. missing the usual else statement lmao
+	- [x] bug: restarting doesn't clear selection
+	- [x] bug: cards that have a negative gold value don't trigger the "are you sure?" text even if valid, I suspect there's something messed up in the cards selection / deselection process
+- [ ] strip away all the daytime nighttime thing, I'm not implementing the day night cycle and all the probabilities for now. too much stuff
 - [ ] card rarity doesn't make sense as it is rn, need to
 	- [ ] add weights to random selection process
-	- [ ] decide rarity based on actual rarity
+	- [ ] manually set rarity. pick process: weighted category > rarity with a simple float rand > then one random from that rarity
 - [ ] softlock: if all the cards require a cost in coin. extremely rare, but need to add a check on card generation, to keep rerolling until at least one option, not number of positive effects. ideally, each card should be graded on relative net effect and actual rarity?
 - [ ] implement tutorial first time play
 - [ ] design icons and logo

@@ -8,7 +8,7 @@ extends Node2D
 const events_pool: Array = [
 	{
 		"name": "BLACK MOON",
-		"text": "No moon in the sky!\n-20 on INFAMY picks", #TODO: would be nice if it was color coded
+		"text": "No moon in the sky!\n-20 on INFAMY picks", #would be nice if it was color coded
 		"effect": {
 			"infamy": -20,
 			"hunger": 0,
@@ -18,7 +18,7 @@ const events_pool: Array = [
 	},
 	{
 		"name": "HUNGER",
-		"text": "-10 HUNGER on day advance", #TODO: would be nice if it was color coded
+		"text": "-10 HUNGER on day advance",
 		"effect": {
 			"infamy": 0,
 			"hunger": -10,

@@ -1,14 +1,11 @@
 extends Button
 
-
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	globals.enable_confirm_button.connect(enable)
+	globals.disable_confirm_button.connect(disable)
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta: float) -> void:
-	if(globals.can_proceed == true):
-		disabled = false
-	else:
-		disabled = true
+func enable() -> void:
+	disabled = false
+	
+func disable() -> void:
+	disabled = true

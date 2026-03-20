@@ -80,7 +80,6 @@ var color_progress_red: Color = Color.html("#9c4429")
 
 var current_screen: String = "title"
 
-var can_proceed = false
 var cards_list: Array = []
 
 var current_event: Dictionary = {}
@@ -97,3 +96,5 @@ signal change_confirm_text(text: String)
 signal pick_event()
 signal play_death(title: String, text: String) # https://github.com/godotengine/godot-docs-user-notes/discussions/5#discussioncomment-8124099
 signal display_message(title: String, text: String)
+signal enable_confirm_button()
+signal disable_confirm_button()

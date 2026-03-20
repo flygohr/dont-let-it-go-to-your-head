@@ -175,17 +175,20 @@ func select_this() -> void:
 	# check if enough gold
 	if (card_data["effect"]["coin"] < 0):
 		if ((globals.coin + card_data["effect"]["coin"]) < 0):
-			# globals.not_enough_gold.emit()
+			print(str(globals.coin + card_data["effect"]["coin"]))
 			globals.change_confirm_text.emit(str("[color=",globals.color_red,"]Not enough COIN![/color]"))
+			globals.disable_confirm_button.emit()
+		else:
+			globals.enable_confirm_button.emit()
+			globals.change_confirm_text.emit("Are you sure?")	
 	else:
-		globals.can_proceed = true
+		globals.enable_confirm_button.emit()
 		globals.change_confirm_text.emit("Are you sure?")
 		
-	
 func unselect_this() -> void:
 	globals.change_confirm_text.emit("Pick a card")
 	select = false
-	globals.can_proceed = false
+	globals.disable_confirm_button.emit()
 	
 func _card_selected() -> void:
 	# unselect if not the current card being hovered
@@ -203,7 +206,6 @@ func _execute_effect() -> void:
 
 	if select == true: # only if this is the card selected
 		
-		#TODO: execute also event effects here, for now
 		var event_effects = globals.current_event["effect"]
 		
 		print(str("Applying this card's effects: ", card_data))
@@ -216,8 +218,6 @@ func _execute_effect() -> void:
 		var infamy_from_event = event_effects["infamy"]
 		print(str("Infamy effect of applied card is ",infamy_from_event))
 
-		
-		#TODO: fullscreen warnings here
 		if (globals.lives == 3):
 			globals.infamy = clamp((globals.infamy + infamy_value + infamy_from_event),0,100)
 			if (globals.infamy == 100):
@@ -239,7 +239,7 @@ func _execute_effect() -> void:
 		
 		#if(globals.current_day < 7 and globals.time_of_day == "Night"):
 			#globals.hunger = clamp((globals.hunger + globals.hunger_gained_per_day),0,100)
-			#print("Increasing hunger for the new day") #TODO: add a message clerly displaying this somewhere. or scrap the mechanic completely, or leave it to an event, like "hunger" -30 hunger incoming
+			#print("Increasing hunger for the new day") / add a message clerly displaying this somewhere. or scrap the mechanic completely, or leave it to an event, like "hunger" -30 hunger incoming
 
 		var hunger_value = card_data["effect"]["hunger"]
 		print(str("Hunger effect of applied card is ",hunger_value))

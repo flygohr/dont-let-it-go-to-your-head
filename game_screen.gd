@@ -102,7 +102,6 @@ func _process(_delta: float) -> void:
 	
 func _on_confirm_button_pressed() -> void:
 	globals.apply_effect.emit()
-	globals.can_proceed = false
 	confirm_button_bg.hide()
 	advance_days()
 	
@@ -239,7 +238,7 @@ func _on_play_resume_button_pressed() -> void:
 	tween.tween_property(game_screen, "position", Vector2(0,0), 0.2)
 
 func _on_confirm_button_mouse_entered() -> void:
-	if (globals.can_proceed == true):
+	if (confirm_button.disabled == false):
 		confirm_button_bg.show()
 
 func _on_confirm_button_mouse_exited() -> void:
@@ -252,4 +251,6 @@ func change_confirm_text(_string : String) -> void:
 	text_next_to_button.text = _string
 
 func _on_give_up_button_pressed() -> void:
+	globals.card_selected.emit()
+	text_next_to_button.text = str("Pick a card")
 	globals.play_death.emit("GAME OVER","You can always try again...")
