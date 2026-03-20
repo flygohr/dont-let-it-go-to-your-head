@@ -55,18 +55,19 @@ Missing:
 - [x] "event screen" for fullscreen text / tutorials / events
 - [x] implement different screens for infamy levels
 - [x] lose lives upon infamy reaching 100, first a finger, then a ear, then it's game over. use icons if time
-- [ ] define events, their rules, and check for current event upon applying card effect
-- [ ] bug (game breaking): can bypass gold check by selecting a valid card then switching
-- [ ] bug: restarting doesn't clear selection
+- [x] define events, their rules, and check for current event upon applying card effect
+- [ ] selection and confirmation bugs
+	- [ ] bug (game breaking): can bypass gold check by selecting a valid card then switching
+	- [ ] bug: restarting doesn't clear selection
 - [ ] card rarity doesn't make sense as it is rn, need to
 	- [ ] add weights to random selection process
-	- [ ] decide rarity based on actual rarity, not number of positive effects. ideally, each card should be graded on relative net effect and actual rarity?
+	- [ ] decide rarity based on actual rarity
+- [ ] softlock: if all the cards require a cost in coin. extremely rare, but need to add a check on card generation, to keep rerolling until at least one option, not number of positive effects. ideally, each card should be graded on relative net effect and actual rarity?
 - [ ] implement tutorial first time play
 - [ ] design icons and logo
 - [ ] sounds
 - [ ] add more cards and events
 - [ ] playtesting and balancing
-- [ ] softlock: if all the cards require a cost in coin. extremely rare, but need to add a check on card generation, to keep rerolling until at least one option
 - [ ] would be nice: highlight on progressbars the impact of the current choice
 
 Font: https://not-jam.itch.io/undead-pixel-light-8

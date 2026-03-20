@@ -7,11 +7,6 @@ extends Node2D
 func _ready() -> void:
 	globals.display_message.connect(_display_message)
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
-
 func _display_message(title, text):
 	
 	var tween = get_tree().create_tween()
@@ -23,4 +18,4 @@ func _display_message(title, text):
 
 func _on_continue_button_pressed() -> void:
 	var tween = get_tree().create_tween()
-	tween.tween_property(self, "position", Vector2(-160,0), 0.2)
+	tween.tween_property(self, "position", Vector2(240,0), 0.2)

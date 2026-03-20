@@ -204,43 +204,49 @@ func _execute_effect() -> void:
 	if select == true: # only if this is the card selected
 		
 		#TODO: execute also event effects here, for now
+		var event_effects = globals.current_event["effect"]
 		
 		print(str("Applying this card's effects: ", card_data))
+		print(str("Applying this event's effects: ", event_effects))
 		
 		# apply infamy-----------------------------------------------------
 		
 		var infamy_value = card_data["effect"]["infamy"]
 		print(str("Infamy effect of applied card is ",infamy_value))
+		var infamy_from_event = event_effects["infamy"]
+		print(str("Infamy effect of applied card is ",infamy_from_event))
 
 		
 		#TODO: fullscreen warnings here
 		if (globals.lives == 3):
-			globals.infamy = clamp((globals.infamy + infamy_value),0,100)
+			globals.infamy = clamp((globals.infamy + infamy_value + infamy_from_event),0,100)
 			if (globals.infamy == 100):
 				globals.infamy = 20
 				globals.lives -= 1
 				globals.display_message.emit("CAUGHT!","You lost a couple of fingers, the penalty for theft. Your infamy's baseline is now 20.")
 		elif (globals.lives == 2):
-			globals.infamy = clamp((globals.infamy + infamy_value),20,100)
+			globals.infamy = clamp((globals.infamy + infamy_value + infamy_from_event),20,100)
 			if (globals.infamy == 100):
 				globals.infamy = 50
 				globals.lives -= 1
 				globals.display_message.emit("CAUGHT AGAIN!","They cut off your left ear, the penalty for repeated theft. Your infamy's baseline is now 50. This is the last warning. They'll want your head if they get you another time!")
 		elif (globals.lives == 1):
-			globals.infamy = clamp((globals.infamy + infamy_value),50,100)
+			globals.infamy = clamp((globals.infamy + infamy_value + infamy_from_event),50,100)
 			if (globals.infamy == 100):
 				globals.play_death.emit("DECAPITATED","It got to your head in the end.")
 		
 		# apply hunger-----------------------------------------------------
 		
-		if(globals.current_day < 7 and globals.time_of_day == "Night"):
-			globals.hunger = clamp((globals.hunger + globals.hunger_gained_per_day),0,100)
-			print("Increasing hunger for the new day") #TODO: add a message clerly displaying this somewhere. or scrap the mechanic completely, or leave it to an event, like "hunger" -30 hunger incoming
+		#if(globals.current_day < 7 and globals.time_of_day == "Night"):
+			#globals.hunger = clamp((globals.hunger + globals.hunger_gained_per_day),0,100)
+			#print("Increasing hunger for the new day") #TODO: add a message clerly displaying this somewhere. or scrap the mechanic completely, or leave it to an event, like "hunger" -30 hunger incoming
 
 		var hunger_value = card_data["effect"]["hunger"]
 		print(str("Hunger effect of applied card is ",hunger_value))
+		var hunger_from_event = event_effects["hunger"]
+		print(str("Hunger effect of applied card is ",hunger_from_event))
 		
-		globals.hunger = clamp((globals.hunger + hunger_value),0,100)
+		globals.hunger = clamp((globals.hunger + hunger_value + hunger_from_event),0,100)
 			
 		if globals.hunger == 100: globals.play_death.emit("YOU DIED","You starved to death.")
 		
@@ -248,8 +254,10 @@ func _execute_effect() -> void:
 		
 		var health_value = card_data["effect"]["health"]
 		print(str("Health effect of applied card is ",health_value))
+		var health_from_event = event_effects["health"]
+		print(str("Health effect of applied card is ",health_from_event))
 		
-		globals.health = clamp((globals.health + health_value),0,100)
+		globals.health = clamp((globals.health + health_value + health_from_event),0,100)
 		
 		if globals.health == 0: globals.play_death.emit("YOU DIED","Disease and sickness got you first")
 		
@@ -257,8 +265,10 @@ func _execute_effect() -> void:
 		
 		var coin_value = card_data["effect"]["coin"]
 		print(str("Coin effect of applied card is ",coin_value))
+		var coin_from_event = event_effects["coin"]
+		print(str("Coin effect of applied card is ",coin_from_event))
 		
-		globals.coin = clamp((globals.coin + coin_value),0,999)
+		globals.coin = clamp((globals.coin + coin_value + coin_from_event),0,999)
 			
 		
 		select = false
