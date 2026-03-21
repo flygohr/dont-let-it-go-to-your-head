@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://sibnmefin87h" path="res://confirm_button.gd" id="3_yla3h"]
 [ext_resource type="Script" uid="uid://bcs1c3k50l4hf" path="res://event_screen.gd" id="4_6mti6"]
 [ext_resource type="Script" uid="uid://dghbu625b5s0w" path="res://progress_bar.gd" id="5_lxtpa"]
+[ext_resource type="StyleBox" uid="uid://ddd7qv37hkay5" path="res://quit_btn.tres" id="9_aybt7"]
 [ext_resource type="Script" uid="uid://bane46getbocm" path="res://message_screen.gd" id="9_oymjd"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3vj30"]
@@ -54,6 +55,26 @@ border_width_left = 1
 border_width_top = 1
 border_width_bottom = 1
 border_color = Color(0.4, 0.40784314, 0.38039216, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u10x5"]
+content_margin_top = 3.0
+bg_color = Color(0.18431373, 0.2509804, 0.3882353, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.2509804, 0.4627451, 0.52156866, 1)
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pgvsy"]
+content_margin_top = 3.0
+bg_color = Color(0.4, 0.40784314, 0.38039216, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.5686275, 0.57254905, 0.5176471, 1)
+anti_aliasing = false
 
 [node name="Main" type="Node2D" unique_id=1366080423]
 script = ExtResource("1_xwjjp")
@@ -481,12 +502,26 @@ text = "Pick a card"
 horizontal_alignment = 2
 vertical_alignment = 1
 
+[node name="GiveUpButtonBG" type="ColorRect" parent="GameScreen/BottomSection" unique_id=1267499346]
+visible = false
+offset_left = 3.0
+offset_top = 143.0
+offset_right = 65.0
+offset_bottom = 157.0
+mouse_filter = 2
+
 [node name="GiveUpButton" type="Button" parent="GameScreen/BottomSection" unique_id=1660850056]
 offset_left = 4.0
 offset_top = 144.0
 offset_right = 64.0
 offset_bottom = 156.0
-theme = ExtResource("3_j7yda")
+theme_override_fonts/font = ExtResource("2_norob")
+theme_override_font_sizes/font_size = 8
+theme_override_styles/normal = SubResource("StyleBoxFlat_u10x5")
+theme_override_styles/pressed = ExtResource("9_aybt7")
+theme_override_styles/hover = ExtResource("9_aybt7")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_pgvsy")
+theme_override_styles/focus = ExtResource("9_aybt7")
 text = "GIVE UP"
 
 [node name="DeathScreen" type="Node2D" parent="." unique_id=250626094]
@@ -637,6 +672,8 @@ metadata/_edit_use_anchors_ = true
 [connection signal="mouse_entered" from="GameScreen/BottomSection/ConfirmButton" to="." method="_on_confirm_button_mouse_entered"]
 [connection signal="mouse_exited" from="GameScreen/BottomSection/ConfirmButton" to="." method="_on_confirm_button_mouse_exited"]
 [connection signal="pressed" from="GameScreen/BottomSection/ConfirmButton" to="." method="_on_confirm_button_pressed"]
+[connection signal="mouse_entered" from="GameScreen/BottomSection/GiveUpButton" to="." method="_on_give_up_button_mouse_entered"]
+[connection signal="mouse_exited" from="GameScreen/BottomSection/GiveUpButton" to="." method="_on_give_up_button_mouse_exited"]
 [connection signal="pressed" from="GameScreen/BottomSection/GiveUpButton" to="." method="_on_give_up_button_pressed"]
 [connection signal="pressed" from="DeathScreen/RestartButton" to="." method="_on_restart_button_pressed"]
 [connection signal="pressed" from="MessageScreen/ContinueButton" to="MessageScreen" method="_on_continue_button_pressed"]

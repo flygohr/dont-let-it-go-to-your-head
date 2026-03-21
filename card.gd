@@ -156,21 +156,27 @@ func set_border_color(rarity_string) -> void:
 	card_name.set("theme_override_colors/font_color", color)
 
 func _on_card_collision_mouse_entered() -> void:
-	hover = true
+	if globals.is_mobile == false:
+		hover = true	
+	else:
+		hover = true
+		select_this()
 
 func _on_card_collision_mouse_exited() -> void:
-	hover = false
+	if globals.is_mobile == false:
+		hover = false
 
-func _on_card_collision_input_event(_viewport: Node, _event: InputEvent, _shape_idx: int) -> void:
-	if Input.is_action_just_released("mouseLeft"):
-		if (select == false):
-			select_this()
-		else:
-			unselect_this()
+func _on_card_collision_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
+	if globals.is_mobile == false:
+		if Input.is_action_just_released("mouseLeft"):
+			if (select == false):
+				select_this()
+			else:
+				unselect_this()
 			
 func select_this() -> void:
 	select = true
-	globals.card_selected.emit()
+	globals.card_selected.emit(self)
 	
 	# check if enough gold
 	if (card_data["effect"]["coin"] < 0):
@@ -190,17 +196,19 @@ func unselect_this() -> void:
 	select = false
 	globals.disable_confirm_button.emit()
 	
-func _card_selected() -> void:
+func _card_selected(node) -> void:
 	# unselect if not the current card being hovered
-	if (hover == false):
-		select = false
-	else: 
-		print(str("Selected card data is: ", card_data)) 
-		# every card selected is the same, that's why it doesn't work. specifically, it's the last card that takes precedence
-		#basically, every card is processing correctly? because every card actually has the data of the last one? when does the data get changed?
-		# data is built correctly. the error is in the select check. it always points to card 3 for some reason?
-		# the data could still be changed between build and select. i need a way to monitor it
-		# again, the issue was duplicate deep on generating card data. idk why.
+	if globals.is_mobile == false:
+		if (hover == false):
+			select = false
+		else: 
+			print(str("Selected card data is: ", card_data)) 
+	else: # if it's mobile:
+		# I need to deselect all the cards that are not the last one touched, but leave the last one touched alone even if I click away
+		# easy! I do a flip!
+		if self != node: 
+			select = false
+			hover = false
 
 func _execute_effect() -> void:
 
@@ -242,6 +250,7 @@ func _execute_effect() -> void:
 					globals.infamy = 20
 					globals.lives -= 1
 					globals.display_message.emit("CAUGHT!","You lost a couple of fingers, the penalty for theft. Your infamy's baseline is now 20.")
+					globals.advance_day.emit()
 			elif (globals.lives == 2):
 				
 				if(infamy_value < 0 and infamy_from_event < 0): globals.infamy = clamp((globals.infamy + infamy_value),20,100)
@@ -253,6 +262,7 @@ func _execute_effect() -> void:
 					globals.infamy = 50
 					globals.lives -= 1
 					globals.display_message.emit("CAUGHT AGAIN!","They cut off your left ear, the penalty for repeated theft. Your infamy's baseline is now 50. This is the last warning. They'll want your head if they get you another time!")
+					globals.advance_day.emit()
 			elif (globals.lives == 1):
 				
 				if(infamy_value < 0 and infamy_from_event < 0): globals.infamy = clamp((globals.infamy + infamy_value),50,100)

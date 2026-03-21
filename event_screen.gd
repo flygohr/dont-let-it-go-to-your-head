@@ -42,6 +42,7 @@ const events_pool: Array = [
 func _ready() -> void:
 	globals.pick_event.connect(_pick_event)
 	globals.current_event = globals.default_event_data.duplicate_deep()
+	globals.render_event.connect(render_event)
 	render_event()
 
 func _pick_event() -> void:

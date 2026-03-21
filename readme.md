@@ -82,6 +82,7 @@ Missing:
 - [ ] current event is not being saved and loaded, maybe events are not generating correctly
 - [ ] add outline to give up button, make it another color, darker
 - [ ] implement tutorial first time play
+- [ ] fix mobile touch support
 - [ ] design icons and logo
 - [ ] sounds
 - [ ] add more cards and events

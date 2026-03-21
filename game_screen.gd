@@ -33,12 +33,17 @@ extends Node2D
 @onready var death_screen_score: Label = $DeathScreen/DeathScreenScore
 
 @onready var give_up_button: Button = $GameScreen/BottomSection/GiveUpButton
+@onready var give_up_button_bg: ColorRect = $GameScreen/BottomSection/GiveUpButtonBG
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	
+	if OS.has_feature("web_android") or OS.has_feature("web_ios"):
+		globals.is_mobile = true
 	globals.play_death.connect(play_death)
 	globals.not_enough_gold.connect(not_enough_gold)
 	globals.change_confirm_text.connect(change_confirm_text)
+	globals.advance_day.connect(advance_days)
 	
 	var game_data: Dictionary = load_data()
 	globals.high_score_weeks = game_data["high_score_weeks"]
@@ -51,6 +56,7 @@ func _ready() -> void:
 	globals.coin = game_data["coin"]
 	globals.cards_list = game_data["current_cards"].duplicate_deep()
 	globals.current_event = game_data["current_event"].duplicate_deep()
+	globals.render_event.emit()
 	globals.lives = game_data["lives"]
 		
 	globals.current_screen = "title"
@@ -107,6 +113,7 @@ func advance_days() -> void:
 	
 	if (randf() > 0.7):
 		globals.pick_event.emit()
+		print("Picking a random event...")
 	else:
 		globals.current_event = globals.default_event_data
 	
@@ -119,12 +126,14 @@ func advance_days() -> void:
 		"health": globals.health,
 		"infamy": globals.infamy,
 		"coin": globals.coin,
-		"current_cards": globals.cards_list,
+		"current_cards": globals.cards_list.duplicate_deep(),
 		"new_game": false,
 		"lives": globals.lives,
-		"current_event": globals.current_event
+		"current_event": globals.current_event.duplicate_deep()
 	})
 	
+	print(str("Saving event: ", globals.current_event))
+	globals.render_event.emit()
 	
 func play_death(title, text):
 	globals.current_screen = "death"
@@ -239,3 +248,9 @@ func _on_give_up_button_pressed() -> void:
 	globals.card_selected.emit()
 	text_next_to_button.text = str("Pick a card")
 	globals.play_death.emit("GAME OVER","You can always try again...")
+
+func _on_give_up_button_mouse_entered() -> void:
+	give_up_button_bg.show()
+
+func _on_give_up_button_mouse_exited() -> void:
+	give_up_button_bg.hide()

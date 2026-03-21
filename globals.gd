@@ -13,6 +13,8 @@ var lives: int = 3
 
 const save_file_name: String = "user://dligtyh_save_9.json"
 
+var is_mobile: bool = false
+
 var default_card_data: Dictionary = {
 	"name": "Very long card name",
 	"type": "Theft",
@@ -110,7 +112,7 @@ var current_event: Dictionary = {}
 # signal bus
 @warning_ignore_start("unused_signal")
 
-signal card_selected()
+signal card_selected(node)
 signal generate_cards()
 signal populate_card_slot()
 signal apply_effect()
@@ -121,3 +123,5 @@ signal play_death(title: String, text: String) # https://github.com/godotengine/
 signal display_message(title: String, text: String)
 signal enable_confirm_button()
 signal disable_confirm_button()
+signal render_event()
+signal advance_day()
