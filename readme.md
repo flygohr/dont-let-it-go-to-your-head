@@ -11,6 +11,7 @@ Stuff I'm already banging my head against (and I won't be able to include, proba
 - Animations, tweens, smooth transitions, spinners.. basically, all the juice? I'll see what I can implement, but if I realize I can't, I'll push the polish back to after the jam
 - Clunky select, 100% bad implementation
 - Theming is all messed up
+- Special cards could be added, with unique effects
 
 ### Devlog:
 - 2026-03-16
@@ -84,11 +85,11 @@ Missing:
 - [x] implement tutorial first time play (notes: use random events to offset tough choices when you can)
 - [x] fix mobile touch support
 - [x] add text icon in place of IMG
-- [ ] fix bug, card selected before seeing game screen
+- [x] fix bug, card selected before seeing game screen
+- [ ] add more cards and events
 - [ ] design icons and logo
 - [ ] sounds
-- [ ] add more cards and events
-- [ ] special cards could be added, with unique effects 
+- [ ] if enough time: swap daily events system with a mini quest that stays there
 - [ ] playtesting and balancing
 - [ ] would be nice: highlight on progressbars the impact of the current choice
 - [ ] export / import savefiles
