@@ -58,6 +58,7 @@ func _ready() -> void:
 	globals.current_event = game_data["current_event"].duplicate_deep()
 	globals.render_event.emit()
 	globals.lives = game_data["lives"]
+	globals.tutorial_played = game_data["tutorial_played"]
 		
 	globals.current_screen = "title"
 	title_screen.show()
@@ -129,7 +130,8 @@ func advance_days() -> void:
 		"current_cards": globals.cards_list.duplicate_deep(),
 		"new_game": false,
 		"lives": globals.lives,
-		"current_event": globals.current_event.duplicate_deep()
+		"current_event": globals.current_event.duplicate_deep(),
+		"tutorial_played": globals.tutorial_played
 	})
 	
 	print(str("Saving event: ", globals.current_event))
@@ -215,6 +217,7 @@ func reset_save() -> void:
 	globals.coin = game_data["coin"]
 	globals.lives = game_data["lives"]
 	globals.current_event = game_data["current_event"]
+	globals.tutorial_played = game_data["tutorial_played"]
 
 
 func _on_restart_button_pressed() -> void:
@@ -228,9 +231,9 @@ func _on_restart_button_pressed() -> void:
 func _on_play_resume_button_pressed() -> void:
 	globals.current_screen = "game"
 	title_screen.hide()
-	var tween = get_tree().create_tween()
-	tween.tween_property(game_screen, "position", Vector2(0,0), 0.2)
-
+	game_screen.position = Vector2(0,0)
+	if globals.tutorial_played == false: globals.play_tutorial.emit()
+	
 func _on_confirm_button_mouse_entered() -> void:
 	if (confirm_button.disabled == false):
 		confirm_button_bg.show()

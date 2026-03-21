@@ -81,7 +81,7 @@ Missing:
 - [x] softlock: if all the cards require a cost in coin. extremely rare, but need to add a check on card generation, to keep rerolling until at least one option, not number of positive effects. ideally, each card should be graded on relative net effect and actual rarity?
 - [ ] current event is not being saved and loaded, maybe events are not generating correctly
 - [ ] add outline to give up button, make it another color, darker
-- [ ] implement tutorial first time play
+- [ ] implement tutorial first time play (notes: use random events to offset tough choices when you can)
 - [ ] fix mobile touch support
 - [ ] design icons and logo
 - [ ] sounds

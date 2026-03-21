@@ -11,7 +11,9 @@ var coin: int = 5
 
 var lives: int = 3
 
-const save_file_name: String = "user://dligtyh_save_9.json"
+var tutorial_played: bool = false
+
+const save_file_name: String = "user://dligtyh_save_14.json"
 
 var is_mobile: bool = false
 
@@ -75,7 +77,8 @@ var default_save_data: Dictionary = {
 	"coin": 5,
 	"current_cards": [default_card_data,default_card_data,default_card_data],
 	"new_game": true,
-	"current_event": default_event_data
+	"current_event": default_event_data,
+	"tutorial_played": false
 }
 
 const hunger_gained_per_day: int = 10
@@ -125,3 +128,4 @@ signal enable_confirm_button()
 signal disable_confirm_button()
 signal render_event()
 signal advance_day()
+signal play_tutorial()
