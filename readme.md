@@ -86,6 +86,7 @@ Missing:
 - [x] fix mobile touch support
 - [x] add text icon in place of IMG
 - [x] fix bug, card selected before seeing game screen
+- [ ] bug: are you sure? text not resetting after new day
 - [ ] add more cards and events
 - [ ] design icons and logo
 - [ ] sounds
