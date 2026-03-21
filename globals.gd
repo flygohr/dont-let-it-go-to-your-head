@@ -25,6 +25,30 @@ var default_card_data: Dictionary = {
 	}
 }
 
+var default_card_data_new: Dictionary =  {
+	"name": "name",
+	"type": "type", # I know it's redundant, but idk how else to structure the data and I don't want to waste all day on this
+	"rarity": "rarity",
+	"effect": {
+		"infamy": {
+			"min": -10,
+			"max": 10
+		},
+		"hunger": {
+			"min": -10,
+			"max": 10
+		},
+		"health": {
+			"min": -10,
+			"max": 10
+		},
+		"coin": {
+			"min": -10,
+			"max": 10
+		}
+	}
+}
+
 var default_event_data: Dictionary = {
 	"name": "ALL QUIET",
 	"text": "Nothing unusual...",

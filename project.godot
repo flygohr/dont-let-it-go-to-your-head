@@ -13,7 +13,6 @@ config_version=5
 config/name="dont-let-it-go-to-your-head"
 run/main_scene="uid://dnqq3byx1bn66"
 config/features=PackedStringArray("4.6", "GL Compatibility")
-boot_splash/use_filter=false
 config/icon="res://icon.svg"
 
 [autoload]

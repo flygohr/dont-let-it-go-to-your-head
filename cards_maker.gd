@@ -7,6 +7,10 @@ var base_hunger:int = 5
 var base_health:int = 5
 var base_coin:int = 1
 
+var card_data:Dictionary = {}
+
+var card_data_file: String = "res://assets/all-cards.json"
+
 var theft_cards: Array = [
 	{
 		"name": "Pickpocketing",
@@ -82,6 +86,8 @@ var move_cards: Array = [
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	globals.generate_cards.connect(generate_new_cards)
+	
+	load_card_data()
 
 
 func generate_new_cards() -> void:
@@ -148,3 +154,81 @@ func generate_new_cards() -> void:
 	#TODO: check for gold softlock, and re-do the generation if needed
 	
 	globals.populate_card_slot.emit()
+
+func load_card_data() -> void:
+	var data_file = FileAccess.open(card_data_file, FileAccess.READ)
+	var parsed_data: Array = JSON.parse_string(data_file.get_as_text())
+	
+	# do the parsing here?
+	
+	var parsed_data_structure_sample: Dictionary = {
+		"common" : {
+			"theft" : [
+				{
+					"name": "name",
+					"effect": {
+						"infamy": {
+							"min": -10,
+							"max": 10
+						},
+						"hunger": {
+							"min": -10,
+							"max": 10
+						},
+						"health": {
+							"min": -10,
+							"max": 10
+						},
+						"coin": {
+							"min": -10,
+							"max": 10
+						}
+					}
+				}
+			]
+		}
+	}
+	
+	# to achieve, I need to export the CSV as an arrayed JSON, find the link back here
+	# then, knowing the position of each item in the array, build the dictionary row by row
+	
+	var base_dictionary: Dictionary = {
+		"common": {
+			"theft": [],
+			"rest": [],
+			"move": [],
+			"event": []
+		},
+		"uncommon": {
+			"theft": [],
+			"rest": [],
+			"move": [],
+			"event": []
+		},
+		"rare": {
+			"theft": [],
+			"rest": [],
+			"move": [],
+			"event": []
+		},
+		"epic": {
+			"theft": [],
+			"rest": [],
+			"move": [],
+			"event": []
+		},
+		"legendary": {
+			"theft": [],
+			"rest": [],
+			"move": [],
+			"event": []
+		}
+	}
+	
+	# now, for each row of the imported data, I "append" (with duplicate_deep) an object that is each card
+	for x in parsed_data:
+		var parsed_card_data = globals.default_card_data_new.duplicate_deep()
+		parsed_card_data["rarity"] = x[1]
+		parsed_card_data["type"] = x[2]
+		parsed_card_data["name"] = x[3]
+		print(parsed_card_data)

@@ -42,6 +42,14 @@ Stuff I'm already banging my head against (and I won't be able to include, proba
 	- Added events, implemented their effect
 	- Added screens for text bits, could use for a tutorial if time
 	- Fixed lots of bugs, reduced scope
+- 2026-03-21
+	- Building mockup data for cards, learning to import and parse it (used [this](https://codepen.io/tommygeorge/full/LYREPZW) to generate random words as names, [this](https://www.convertcsv.com/csv-to-json.htm) to parse CSV as array)
+	- Rebuilding card generation functions on new data
+	- Designing a 1st version of all the cards
+	- Adding a bunch of random events
+	- Handle gold softlock
+	- Remove day / night cycle
+	- Playtesting
 	
 Missing:
 - [x] store cards in savegame, check for saved cards on resume
@@ -65,17 +73,20 @@ Missing:
 	- [x] bug (game breaking): can bypass gold check by selecting a valid card then switching. missing the usual else statement lmao
 	- [x] bug: restarting doesn't clear selection
 	- [x] bug: cards that have a negative gold value don't trigger the "are you sure?" text even if valid, I suspect there's something messed up in the cards selection / deselection process
-- [ ] strip away all the daytime nighttime thing, I'm not implementing the day night cycle and all the probabilities for now. too much stuff
 - [ ] card rarity doesn't make sense as it is rn, need to
+	- [ ] build data in csv, parse it and build a decent json, keyed rarity > type > card, so I can easily pick what I want and parse cards as well
 	- [ ] add weights to random selection process
 	- [ ] manually set rarity. pick process: weighted category > rarity with a simple float rand > then one random from that rarity
+- [ ] strip away all the daytime nighttime thing, I'm not implementing the day night cycle and all the probabilities for now. too much stuff
 - [ ] softlock: if all the cards require a cost in coin. extremely rare, but need to add a check on card generation, to keep rerolling until at least one option, not number of positive effects. ideally, each card should be graded on relative net effect and actual rarity?
 - [ ] implement tutorial first time play
 - [ ] design icons and logo
 - [ ] sounds
 - [ ] add more cards and events
+- [ ] special cards could be added, with unique effects 
 - [ ] playtesting and balancing
 - [ ] would be nice: highlight on progressbars the impact of the current choice
+- [ ] export / import savefiles
 
 Font: https://not-jam.itch.io/undead-pixel-light-8
 

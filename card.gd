@@ -206,6 +206,8 @@ func _execute_effect() -> void:
 
 	if select == true: # only if this is the card selected
 		
+		# special card effects here, one day
+		
 		var event_effects = globals.current_event["effect"]
 		
 		print(str("Applying this card's effects: ", card_data))
