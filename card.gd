@@ -13,6 +13,7 @@ extends Node2D
 @onready var card_name: Label = $CardName
 @onready var card_text: RichTextLabel = $CardText
 @onready var icon: Label = $CardIconRect/Icon
+@onready var inner_rect: ColorRect = $CardIconRect/InnerRect
 
 @export var card_number_in_stack: int = 0
 
@@ -127,8 +128,20 @@ func build_card(data: Dictionary) -> void:
 	
 	card_text.text = complete_text_content
 	
-	if(card_data["type"] == "Theft"):
-		icon.text = "T"
+	match card_data["type"]:
+		"theft": 
+			icon.text = "T"
+			inner_rect.color = globals.card_bg_theft
+		"rest": 
+			icon.text = "R"
+			inner_rect.color = globals.card_bg_rest
+		"move": 
+			icon.text = "M"
+			inner_rect.color = globals.card_bg_move
+		"event": 
+			icon.text = "E"
+			inner_rect.color = globals.card_bg_event
+		
 	
 	# define rarity based on specs
 	set_border_color(data["rarity"])
@@ -166,7 +179,7 @@ func _on_card_collision_mouse_exited() -> void:
 	if globals.is_mobile == false:
 		hover = false
 
-func _on_card_collision_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
+func _on_card_collision_input_event(_viewport: Node, _event: InputEvent, _shape_idx: int) -> void:
 	if globals.is_mobile == false:
 		if Input.is_action_just_released("mouseLeft"):
 			if (select == false):

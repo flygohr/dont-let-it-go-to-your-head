@@ -29,6 +29,7 @@ func _display_message(title, text):
 
 func _on_continue_button_pressed() -> void:
 	if globals.tutorial_played == true:
+		globals.move_game_screen_in.emit()
 		var tween = get_tree().create_tween()
 		tween.tween_property(self, "position", Vector2(240,0), 0.2)
 		position = Vector2(240,0)
@@ -44,3 +45,5 @@ func play_tutorial() -> void:
 		tween.tween_property(self, "position", Vector2(240,0), 0.2)
 		position = Vector2(240,0)
 		globals.tutorial_played = true
+		globals.move_game_screen_in.emit()
+		print("Finished tutorial")

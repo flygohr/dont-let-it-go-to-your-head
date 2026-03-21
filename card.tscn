@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://2uu5rjn41u5o" path="res://card.gd" id="1_rjlel"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rjlel"]
-size = Vector2(155, 32)
+size = Vector2(147, 32)
 
 [node name="Card" type="Node2D" unique_id=740217441]
 script = ExtResource("1_rjlel")
@@ -182,7 +182,7 @@ disable_mode = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CardCollision" unique_id=446981186]
 top_level = true
-position = Vector2(78.5, 17)
+position = Vector2(74, 17)
 shape = SubResource("RectangleShape2D_rjlel")
 
 [connection signal="input_event" from="CardCollision" to="." method="_on_card_collision_input_event"]

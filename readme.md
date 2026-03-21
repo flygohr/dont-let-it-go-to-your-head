@@ -79,10 +79,12 @@ Missing:
 	- [x] manually set rarity. pick process: weighted category > rarity with a simple float rand > then one random from that rarity
 - [x] strip away all the daytime nighttime thing, I'm not implementing the day night cycle and all the probabilities for now. too much stuff
 - [x] softlock: if all the cards require a cost in coin. extremely rare, but need to add a check on card generation, to keep rerolling until at least one option, not number of positive effects. ideally, each card should be graded on relative net effect and actual rarity?
-- [ ] current event is not being saved and loaded, maybe events are not generating correctly
-- [ ] add outline to give up button, make it another color, darker
-- [ ] implement tutorial first time play (notes: use random events to offset tough choices when you can)
-- [ ] fix mobile touch support
+- [x] current event is not being saved and loaded, maybe events are not generating correctly
+- [x] add outline to give up button, make it another color, darker
+- [x] implement tutorial first time play (notes: use random events to offset tough choices when you can)
+- [x] fix mobile touch support
+- [x] add text icon in place of IMG
+- [ ] fix bug, card selected before seeing game screen
 - [ ] design icons and logo
 - [ ] sounds
 - [ ] add more cards and events

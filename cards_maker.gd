@@ -2,9 +2,9 @@ extends Node2D
 
 # generation parameters need to go here, as dictionary
 
-var base_infamy:int = 5
-var base_hunger:int = 5
-var base_health:int = 5
+var base_infamy:int = 10
+var base_hunger:int = 10
+var base_health:int = 10
 var base_coin:int = 1
 
 var card_data:Dictionary = {}

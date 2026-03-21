@@ -20,7 +20,6 @@ extends Node2D
 
 @onready var gold_tracker_label: Label = $GameScreen/TopStats/CoinTracker/GoldTrackerLabel
 
-
 @onready var text_next_to_button: RichTextLabel = $GameScreen/BottomSection/TextNextToButton
 
 @onready var title_screen: Node2D = $TitleScreen
@@ -44,6 +43,8 @@ func _ready() -> void:
 	globals.not_enough_gold.connect(not_enough_gold)
 	globals.change_confirm_text.connect(change_confirm_text)
 	globals.advance_day.connect(advance_days)
+	globals.move_game_screen_away.connect(move_game_screen_away)
+	globals.move_game_screen_in.connect(move_game_screen_in)
 	
 	var game_data: Dictionary = load_data()
 	globals.high_score_weeks = game_data["high_score_weeks"]
@@ -219,7 +220,6 @@ func reset_save() -> void:
 	globals.current_event = game_data["current_event"]
 	globals.tutorial_played = game_data["tutorial_played"]
 
-
 func _on_restart_button_pressed() -> void:
 	globals.current_screen = "game"
 	globals.generate_cards.emit()
@@ -231,9 +231,18 @@ func _on_restart_button_pressed() -> void:
 func _on_play_resume_button_pressed() -> void:
 	globals.current_screen = "game"
 	title_screen.hide()
-	game_screen.position = Vector2(0,0)
 	if globals.tutorial_played == false: globals.play_tutorial.emit()
+	else: 
+		move_game_screen_in()
+
+func move_game_screen_away() -> void:
+	var tween_b = get_tree().create_tween()
+	tween_b.tween_property(game_screen, "position", Vector2(0,-160), 0.2)
 	
+func move_game_screen_in() -> void:
+	var tween_b = get_tree().create_tween()
+	tween_b.tween_property(game_screen, "position", Vector2(0,0), 0.2)
+
 func _on_confirm_button_mouse_entered() -> void:
 	if (confirm_button.disabled == false):
 		confirm_button_bg.show()

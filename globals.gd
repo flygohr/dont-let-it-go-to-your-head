@@ -13,7 +13,7 @@ var lives: int = 3
 
 var tutorial_played: bool = false
 
-const save_file_name: String = "user://dligtyh_save_14.json"
+const save_file_name: String = "user://dligtyh_save_16.json"
 
 var is_mobile: bool = false
 
@@ -30,25 +30,25 @@ var default_card_data: Dictionary = {
 }
 
 var default_card_data_new: Dictionary =  {
-	"name": "name",
-	"type": "type", # I know it's redundant, but idk how else to structure the data and I don't want to waste all day on this
-	"rarity": "rarity",
+	"name": "placeholder",
+	"type": "theft", # I know it's redundant, but idk how else to structure the data and I don't want to waste all day on this
+	"rarity": "common",
 	"effect": {
 		"infamy": {
-			"min": -10,
-			"max": 10
+			"min": -1,
+			"max": 1
 		},
 		"hunger": {
-			"min": -10,
-			"max": 10
+			"min": -1,
+			"max": 1
 		},
 		"health": {
-			"min": -10,
-			"max": 10
+			"min": -1,
+			"max": 1
 		},
 		"coin": {
-			"min": -10,
-			"max": 10
+			"min": -1,
+			"max": 1
 		}
 	}
 }
@@ -106,6 +106,11 @@ var color_progress_green: Color = Color.html("#96c359")
 var color_progress_yellow: Color = Color.html("#ca7c3b")
 var color_progress_red: Color = Color.html("#9c4429")
 
+var card_bg_theft: Color = Color.html("#ca7c3b")
+var card_bg_rest: Color = Color.html("#7899bf")
+var card_bg_move: Color = Color.html("#606a40")
+var card_bg_event: Color = Color.html("#7a6260")
+
 var current_screen: String = "title"
 
 var cards_list: Array = []
@@ -129,3 +134,5 @@ signal disable_confirm_button()
 signal render_event()
 signal advance_day()
 signal play_tutorial()
+signal move_game_screen_away()
+signal move_game_screen_in()
