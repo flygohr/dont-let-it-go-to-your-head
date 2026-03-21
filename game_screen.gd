@@ -45,7 +45,6 @@ func _ready() -> void:
 	globals.high_score_days = game_data["high_score_days"]
 	globals.current_week = game_data["current_week"]
 	globals.current_day = game_data["current_day"]
-	globals.time_of_day = game_data["time_of_day"]
 	globals.hunger = game_data["hunger"]
 	globals.health = game_data["health"]
 	globals.infamy = game_data["infamy"]
@@ -68,24 +67,15 @@ func _ready() -> void:
 	else:
 		play_resume_button.text = "RESUME"
 		globals.populate_card_slot.emit()
-		var daytime_or_nighttime: String = ""
-		if (globals.time_of_day == "Day"):
-			daytime_or_nighttime = "daytime"
-		elif (globals.time_of_day == "Night"):
-			daytime_or_nighttime = "nighttime"
+		
 		log(globals.current_week)
 		log(globals.current_day)
-		title_screen_score.text = str("Current game: ", return_weeks_days_text(globals.current_week,globals.current_day), ", ", daytime_or_nighttime, ".")
+		title_screen_score.text = str("Current game: ", return_weeks_days_text(globals.current_week,globals.current_day))
 		# also missing "new game logic", if cards are drawn on a new game this basic check won't cut it. ah but it's easy, I just need to check if "current cards" or smth is active
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
-	var daytime_or_nighttime: String = ""
-	if (globals.time_of_day == "Day"):
-		daytime_or_nighttime = "daytime"
-	elif (globals.time_of_day == "Night"):
-		daytime_or_nighttime = "nighttime"
-	weeks_days_time.text = str("Day ", globals.current_day, "/7 of week ", globals.current_week, ", ", daytime_or_nighttime)
+	weeks_days_time.text = str("Day ", globals.current_day, "/7 of week ", globals.current_week)
 	
 	infamy_progress_bar.value = globals.infamy
 	infamy_bar_label.text = str(globals.infamy,"/100")
@@ -106,19 +96,16 @@ func _on_confirm_button_pressed() -> void:
 	advance_days()
 	
 func advance_days() -> void:
-	if(globals.time_of_day == "Day"):
-		globals.time_of_day = "Night"	
-	elif(globals.current_day < 7 and globals.time_of_day == "Night"):
+
+	if(globals.current_day < 7):
 		globals.current_day += 1
-		globals.time_of_day = "Day"
 	else:
 		globals.current_day = 1
 		globals.current_week += 1
-		globals.time_of_day = "Day"
 		
 	globals.generate_cards.emit()
 	
-	if (randf() > 0.5):
+	if (randf() > 0.7):
 		globals.pick_event.emit()
 	else:
 		globals.current_event = globals.default_event_data
@@ -128,7 +115,6 @@ func advance_days() -> void:
 		"high_score_days": globals.high_score_days,
 		"current_week": globals.current_week,
 		"current_day": globals.current_day,
-		"time_of_day": globals.time_of_day,
 		"hunger": globals.hunger,
 		"health": globals.health,
 		"infamy": globals.infamy,
@@ -214,7 +200,6 @@ func reset_save() -> void:
 	globals.high_score_days = game_data["high_score_days"]
 	globals.current_week = game_data["current_week"]
 	globals.current_day = game_data["current_day"]
-	globals.time_of_day = game_data["time_of_day"]
 	globals.hunger = game_data["hunger"]
 	globals.health = game_data["health"]
 	globals.infamy = game_data["infamy"]

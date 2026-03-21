@@ -17,13 +17,23 @@ const events_pool: Array = [
 		},
 	},
 	{
-		"name": "HUNGER",
-		"text": "-10 HUNGER on day advance",
+		"name": "TIRED",
+		"text": "Your stomach grumbles.\n+10 on HUNGER picks",
+		"effect": {
+			"infamy": 0,
+			"hunger": 10,
+			"health": 0,
+			"coin": 0
+		}
+	},
+	{
+		"name": "MARKET DAY",
+		"text": "Lots of people in town!\n-10 on HUNGER picks\n+5 on COIN picks",
 		"effect": {
 			"infamy": 0,
 			"hunger": -10,
 			"health": 0,
-			"coin": 0
+			"coin": 5
 		}
 	}
 ]

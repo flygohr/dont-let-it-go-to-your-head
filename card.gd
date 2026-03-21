@@ -218,24 +218,50 @@ func _execute_effect() -> void:
 		var infamy_value = card_data["effect"]["infamy"]
 		print(str("Infamy effect of applied card is ",infamy_value))
 		var infamy_from_event = event_effects["infamy"]
-		print(str("Infamy effect of applied card is ",infamy_from_event))
+		print(str("Infamy effect of applied event is ",infamy_from_event))
+		
+		# the effect from the textbox event needs to be applied to the picked card, not globally
+		# each check should apply only if value not 0! AND
+		# if it's a bonus to a negative trait, it cannot go above 0 and become a net bonus
+		# if it's a debuff to a positive trait, it cannot go below 0 and become a net negative
 
-		if (globals.lives == 3):
-			globals.infamy = clamp((globals.infamy + infamy_value + infamy_from_event),0,100)
-			if (globals.infamy == 100):
-				globals.infamy = 20
-				globals.lives -= 1
-				globals.display_message.emit("CAUGHT!","You lost a couple of fingers, the penalty for theft. Your infamy's baseline is now 20.")
-		elif (globals.lives == 2):
-			globals.infamy = clamp((globals.infamy + infamy_value + infamy_from_event),20,100)
-			if (globals.infamy == 100):
-				globals.infamy = 50
-				globals.lives -= 1
-				globals.display_message.emit("CAUGHT AGAIN!","They cut off your left ear, the penalty for repeated theft. Your infamy's baseline is now 50. This is the last warning. They'll want your head if they get you another time!")
-		elif (globals.lives == 1):
-			globals.infamy = clamp((globals.infamy + infamy_value + infamy_from_event),50,100)
-			if (globals.infamy == 100):
-				globals.play_death.emit("DECAPITATED","It got to your head in the end.")
+		if infamy_value != 0:
+			
+			if (globals.lives == 3):
+				
+				# if the card reduces infamy, and the event also reduces infamy, the effect is normally applied
+				if(infamy_value < 0 and infamy_from_event < 0): globals.infamy = clamp((globals.infamy + infamy_value + infamy_from_event),0,100)
+				# if the card reduces infamy, and the event incrases it, the event is applied but cannot become a net negative, clamp -100,0
+				elif(infamy_value < 0 and infamy_from_event > 0): globals.infamy = clamp((globals.infamy + clamp(infamy_value + infamy_from_event,-100,0)),0,100)
+				# if the card increases infamy, and the event also increases infamy, the effect is applied normally
+				elif(infamy_value > 0 and infamy_from_event > 0): globals.infamy = clamp((globals.infamy + infamy_value + infamy_from_event),0,100)
+				# if the card increases infamy, and the event decreases it, the event is applied but cannot become a net positive. if infamy value > 0 and infamy from event < 0, clamp 0,100
+				else: globals.infamy = clamp((globals.infamy + clamp(infamy_value + infamy_from_event,0,100)),0,100)
+				
+				if (globals.infamy == 100):
+					globals.infamy = 20
+					globals.lives -= 1
+					globals.display_message.emit("CAUGHT!","You lost a couple of fingers, the penalty for theft. Your infamy's baseline is now 20.")
+			elif (globals.lives == 2):
+				
+				if(infamy_value < 0 and infamy_from_event < 0): globals.infamy = clamp((globals.infamy + infamy_value),20,100)
+				elif(infamy_value < 0 and infamy_from_event > 0): globals.infamy = clamp((globals.infamy + clamp(infamy_value + infamy_from_event,-100,0)),20,100)
+				elif(infamy_value > 0 and infamy_from_event > 0): globals.infamy = clamp((globals.infamy + infamy_value + infamy_from_event),20,100)
+				else: globals.infamy = clamp((globals.infamy + clamp(infamy_value + infamy_from_event,0,100)),20,100)
+				
+				if (globals.infamy == 100):
+					globals.infamy = 50
+					globals.lives -= 1
+					globals.display_message.emit("CAUGHT AGAIN!","They cut off your left ear, the penalty for repeated theft. Your infamy's baseline is now 50. This is the last warning. They'll want your head if they get you another time!")
+			elif (globals.lives == 1):
+				
+				if(infamy_value < 0 and infamy_from_event < 0): globals.infamy = clamp((globals.infamy + infamy_value),50,100)
+				elif(infamy_value < 0 and infamy_from_event > 0): globals.infamy = clamp((globals.infamy + clamp(infamy_value + infamy_from_event,-100,0)),50,100)
+				elif(infamy_value > 0 and infamy_from_event > 0): globals.infamy = clamp((globals.infamy + infamy_value + infamy_from_event),50,100)
+				else: globals.infamy = clamp((globals.infamy + clamp(infamy_value + infamy_from_event,0,100)),50,100)
+				
+				if (globals.infamy == 100):
+					globals.play_death.emit("DECAPITATED","It got to your head in the end.")
 		
 		# apply hunger-----------------------------------------------------
 		
@@ -246,32 +272,51 @@ func _execute_effect() -> void:
 		var hunger_value = card_data["effect"]["hunger"]
 		print(str("Hunger effect of applied card is ",hunger_value))
 		var hunger_from_event = event_effects["hunger"]
-		print(str("Hunger effect of applied card is ",hunger_from_event))
-		
-		globals.hunger = clamp((globals.hunger + hunger_value + hunger_from_event),0,100)
+		print(str("Hunger effect of applied event is ",hunger_from_event))
 			
-		if globals.hunger == 100: globals.play_death.emit("YOU DIED","You starved to death.")
+		if hunger_value != 0:
+			if(hunger_value < 0 and hunger_from_event < 0): globals.hunger = clamp((globals.hunger + hunger_value),0,100)
+			elif(hunger_value < 0 and hunger_from_event > 0): globals.hunger = clamp((globals.hunger + clamp(hunger_value + hunger_from_event,-100,0)),0,100)
+			elif(hunger_value > 0 and hunger_from_event > 0): globals.hunger = clamp((globals.hunger + hunger_value + hunger_from_event),0,100)
+			else: globals.hunger = clamp((globals.hunger + clamp(hunger_value + hunger_from_event,0,100)),0,100)
+				
+			if globals.hunger == 100: globals.play_death.emit("YOU DIED","You starved to death.")
 		
 		# apply health -----------------------------------------------------	
 		
 		var health_value = card_data["effect"]["health"]
 		print(str("Health effect of applied card is ",health_value))
 		var health_from_event = event_effects["health"]
-		print(str("Health effect of applied card is ",health_from_event))
+		print(str("Health effect of applied event is ",health_from_event))
 		
-		globals.health = clamp((globals.health + health_value + health_from_event),0,100)
-		
-		if globals.health == 0: globals.play_death.emit("YOU DIED","Disease and sickness got you first")
+		if health_value != 0:
+			# if the card reduces health, and the event also reduces health, the effect is applied normally
+			if(health_value < 0 and health_from_event < 0): globals.health = clamp((globals.health + health_value + health_from_event),0,100)
+			# if the card reduces health, and the event incrases it, the event is applied but cannot become a net positive, clamp 0, 100
+			elif(health_value < 0 and health_from_event > 0): globals.health = clamp((globals.health + clamp(health_value + health_from_event,-100,0)),0,100)
+			# if the card increases health, and the event also increases health, the effect from the event is applied normally
+			elif(health_value > 0 and health_from_event > 0): globals.health = clamp((globals.health + health_value + health_from_event),0,100)
+			# if the card increases health, and the event decreases it, the event is applied but cannot become a net negative
+			else: globals.health = clamp((globals.health + clamp(health_value + health_from_event,0,100)),0,100)
+			
+			if globals.health == 0: globals.play_death.emit("YOU DIED","Disease and sickness got you first")
 		
 		# apply coin --------------------------------------------------------
 		
 		var coin_value = card_data["effect"]["coin"]
 		print(str("Coin effect of applied card is ",coin_value))
 		var coin_from_event = event_effects["coin"]
-		print(str("Coin effect of applied card is ",coin_from_event))
+		print(str("Coin effect of applied event is ",coin_from_event))
 		
-		globals.coin = clamp((globals.coin + coin_value + coin_from_event),0,999)
-			
+		if coin_value != 0:
+			# if the card reduces health, and the event also reduces health, the effect is applied normally
+			if(coin_value < 0 and coin_from_event < 0): globals.coin = clamp((globals.coin + coin_value + coin_from_event),0,999)
+			# if the card reduces health, and the event incrases it, the event is applied but cannot become a net positive, clamp 0, 100
+			elif(coin_value < 0 and coin_from_event > 0): globals.coin = clamp((globals.coin + clamp(coin_value + coin_from_event,-999,0)),0,999)
+			# if the card increases health, and the event also increases health, the effect from the event is applied normally
+			elif(coin_value > 0 and coin_from_event > 0): globals.coin = clamp((globals.coin + coin_value + coin_from_event),0,999)
+			# if the card increases health, and the event decreases it, the event is applied but cannot become a net negative
+			else: globals.coin = clamp((globals.coin + clamp(coin_value + coin_from_event,0,999)),0,999)			
 		
 		select = false
 	

@@ -83,7 +83,6 @@ var high_score_days: int = 0
 
 var current_week: int = 0
 var current_day: int = 1
-var time_of_day: String = "Day"
 
 var color_green: String = "#A6F043"
 var color_yellow: String = "#ca7c3b"

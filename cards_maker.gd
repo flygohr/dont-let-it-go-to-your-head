@@ -83,152 +83,126 @@ var move_cards: Array = [
 	}
 ]
 
+var new_card_data: Dictionary = {
+	"common": {
+		"theft": [],
+		"rest": [],
+		"move": [],
+		"event": []
+	},
+	"uncommon": {
+		"theft": [],
+		"rest": [],
+		"move": [],
+		"event": []
+	},
+	"rare": {
+		"theft": [],
+		"rest": [],
+		"move": [],
+		"event": []
+	},
+	"epic": {
+		"theft": [],
+		"rest": [],
+		"move": [],
+		"event": []
+	},
+	"legendary": {
+		"theft": [],
+		"rest": [],
+		"move": [],
+		"event": []
+	}
+}
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	globals.generate_cards.connect(generate_new_cards)
 	
 	load_card_data()
 
-
 func generate_new_cards() -> void:
 	
 	# in the future, implement better rarity. for now it could be simplified as number of positive effects, if 4 is rare. the rest of the card can be generated randomly
 	
+	# check for softlock with a while loop
 	print("Generating new cards")
 	globals.cards_list.clear()
+	
+	var not_enough_gold_cards: int = 0
+	
 	for i in (3):
-		var card_data: Dictionary = globals.default_card_data.duplicate()
-		var temp_rarity: int = 0
+		card_data = globals.default_card_data_new.duplicate()
 		
-		var picked_list = [theft_cards, rest_cards, move_cards].pick_random()
-		var picked_card = picked_list.pick_random()
+		# pick card rarity
+		var picked_rarity: String = pick_card_rarity()
+		var picked_type: String = pick_card_type()
 		
+		var picked_list: Array = new_card_data[picked_rarity][picked_type] # should return an Array
+		# pick random from types
+		var picked_card: Dictionary = picked_list.pick_random()
+		
+		card_data["rarity"] = picked_card["rarity"]
+		card_data["type"] = picked_card["type"]
 		card_data["name"] = picked_card["name"]
 		
-		# calculate infamy and score rarity
-		if(picked_card["infamy"][0] != 0 and picked_card["infamy"][1] != 0):
-			card_data["effect"]["infamy"] = base_infamy*round(randf_range(picked_card["infamy"][0],picked_card["infamy"][1]))
-		else:
-			card_data["effect"]["infamy"] = 0
+		var picked_card_effects: Dictionary = picked_card["effect"]
 		
-		if(card_data["effect"]["infamy"] < 0):
-			temp_rarity += 1
+		card_data["effect"]["infamy"] = base_infamy*round(randf_range(picked_card_effects["infamy"]["min"],picked_card_effects["infamy"]["max"]))
+		card_data["effect"]["hunger"] = base_hunger*round(randf_range(picked_card_effects["hunger"]["min"],picked_card_effects["hunger"]["max"]))
+		card_data["effect"]["health"] = base_health*round(randf_range(picked_card_effects["health"]["min"],picked_card_effects["health"]["max"]))
+		card_data["effect"]["coin"] = base_coin*round(randf_range(picked_card_effects["coin"]["min"],picked_card_effects["coin"]["max"]))
 		
-		# calculate hunger and score rarity
-		if(picked_card["hunger"][0] != 0 and picked_card["hunger"][1] != 0):
-			card_data["effect"]["hunger"] = base_hunger*round(randf_range(picked_card["hunger"][0],picked_card["hunger"][1]))
-		else:
-			card_data["effect"]["hunger"] = 0
-		
-		if(card_data["effect"]["hunger"] < 0):
-			temp_rarity += 1
-		
-		# calculate health and score rarity
-		if(picked_card["health"][0] != 0 and picked_card["health"][1] != 0):
-			card_data["effect"]["health"] = base_health*round(randf_range(picked_card["health"][0],picked_card["health"][1]))
-		else:
-			card_data["effect"]["health"] = 0
-		
-		if(card_data["effect"]["health"] > 0):
-			temp_rarity += 1			
-		
-		# calculate coin and score rarity
-		if(picked_card["coin"][0] != 0 and picked_card["coin"][1] != 0):
-			card_data["effect"]["coin"] = base_coin*round(randf_range(picked_card["coin"][0],picked_card["coin"][1]))
-		else:
-			card_data["effect"]["coin"] = 0
-		
-		if(card_data["effect"]["coin"] > 0):
-			temp_rarity += 1	
-		
-		match temp_rarity:
-			1: card_data["rarity"] = "common"
-			2: card_data["rarity"] = "uncommon"
-			3: card_data["rarity"] = "rare"
-			4: card_data["rarity"] = "epic"
-				
 		# print(card_data)
 		globals.cards_list.push_back(card_data.duplicate_deep())
+		
+		if ((globals.coin + card_data["effect"]["coin"]) <0 ): not_enough_gold_cards += 1
+		
 		# print(globals.cards_list)
 	
 	#TODO: check for gold softlock, and re-do the generation if needed
 	
-	globals.populate_card_slot.emit()
+	if (not_enough_gold_cards < 3): globals.populate_card_slot.emit()
+	else: 
+		globals.generate_cards.emit()
+		print("Preventing softlock, generating cards again")
 
 func load_card_data() -> void:
 	var data_file = FileAccess.open(card_data_file, FileAccess.READ)
 	var parsed_data: Array = JSON.parse_string(data_file.get_as_text())
 	
-	# do the parsing here?
-	
-	var parsed_data_structure_sample: Dictionary = {
-		"common" : {
-			"theft" : [
-				{
-					"name": "name",
-					"effect": {
-						"infamy": {
-							"min": -10,
-							"max": 10
-						},
-						"hunger": {
-							"min": -10,
-							"max": 10
-						},
-						"health": {
-							"min": -10,
-							"max": 10
-						},
-						"coin": {
-							"min": -10,
-							"max": 10
-						}
-					}
-				}
-			]
-		}
-	}
-	
 	# to achieve, I need to export the CSV as an arrayed JSON, find the link back here
 	# then, knowing the position of each item in the array, build the dictionary row by row
-	
-	var base_dictionary: Dictionary = {
-		"common": {
-			"theft": [],
-			"rest": [],
-			"move": [],
-			"event": []
-		},
-		"uncommon": {
-			"theft": [],
-			"rest": [],
-			"move": [],
-			"event": []
-		},
-		"rare": {
-			"theft": [],
-			"rest": [],
-			"move": [],
-			"event": []
-		},
-		"epic": {
-			"theft": [],
-			"rest": [],
-			"move": [],
-			"event": []
-		},
-		"legendary": {
-			"theft": [],
-			"rest": [],
-			"move": [],
-			"event": []
-		}
-	}
 	
 	# now, for each row of the imported data, I "append" (with duplicate_deep) an object that is each card
 	for x in parsed_data:
 		var parsed_card_data = globals.default_card_data_new.duplicate_deep()
-		parsed_card_data["rarity"] = x[1]
-		parsed_card_data["type"] = x[2]
-		parsed_card_data["name"] = x[3]
-		print(parsed_card_data)
+		parsed_card_data["rarity"] = x[0]
+		parsed_card_data["type"] = x[1].to_lower() # temporary case fix
+		parsed_card_data["name"] = x[2]
+		parsed_card_data["effect"]["infamy"]["min"] = x[3]
+		parsed_card_data["effect"]["infamy"]["max"] = x[4]
+		parsed_card_data["effect"]["hunger"]["min"] = x[5]
+		parsed_card_data["effect"]["hunger"]["max"] = x[6]
+		parsed_card_data["effect"]["health"]["min"] = x[7]
+		parsed_card_data["effect"]["health"]["max"] = x[8]
+		parsed_card_data["effect"]["coin"]["min"] = x[9]
+		parsed_card_data["effect"]["coin"]["max"] = x[10]
+		# print(parsed_card_data) card has been parsed successfully
+
+		new_card_data[parsed_card_data["rarity"]][parsed_card_data["type"]].append(parsed_card_data.duplicate_deep())
+
+	# print(new_card_data) data has been correctly loaded
+
+func pick_card_rarity() -> String:
+	var picker: float = randf()
+	
+	if picker < 0.4: return "common"
+	elif picker >= 0.4 and picker < 0.75: return "uncommon"
+	elif picker >= 0.75 and picker < 0.9: return "rare"
+	elif picker >= 0.9 and picker < 0.95: return "epic"
+	else: return "legendary"
+
+func pick_card_type() -> String:
+	return ["theft", "rest", "move", "event"].pick_random()

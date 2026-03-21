@@ -73,12 +73,14 @@ Missing:
 	- [x] bug (game breaking): can bypass gold check by selecting a valid card then switching. missing the usual else statement lmao
 	- [x] bug: restarting doesn't clear selection
 	- [x] bug: cards that have a negative gold value don't trigger the "are you sure?" text even if valid, I suspect there's something messed up in the cards selection / deselection process
-- [ ] card rarity doesn't make sense as it is rn, need to
-	- [ ] build data in csv, parse it and build a decent json, keyed rarity > type > card, so I can easily pick what I want and parse cards as well
-	- [ ] add weights to random selection process
-	- [ ] manually set rarity. pick process: weighted category > rarity with a simple float rand > then one random from that rarity
-- [ ] strip away all the daytime nighttime thing, I'm not implementing the day night cycle and all the probabilities for now. too much stuff
-- [ ] softlock: if all the cards require a cost in coin. extremely rare, but need to add a check on card generation, to keep rerolling until at least one option, not number of positive effects. ideally, each card should be graded on relative net effect and actual rarity?
+- [x] card rarity doesn't make sense as it is rn, need to
+	- [x] build data in csv, parse it and build a decent json, keyed rarity > type > card, so I can easily pick what I want and parse cards as well
+	- [x] add weights to random selection process
+	- [x] manually set rarity. pick process: weighted category > rarity with a simple float rand > then one random from that rarity
+- [x] strip away all the daytime nighttime thing, I'm not implementing the day night cycle and all the probabilities for now. too much stuff
+- [x] softlock: if all the cards require a cost in coin. extremely rare, but need to add a check on card generation, to keep rerolling until at least one option, not number of positive effects. ideally, each card should be graded on relative net effect and actual rarity?
+- [ ] current event is not being saved and loaded, maybe events are not generating correctly
+- [ ] add outline to give up button, make it another color, darker
 - [ ] implement tutorial first time play
 - [ ] design icons and logo
 - [ ] sounds
