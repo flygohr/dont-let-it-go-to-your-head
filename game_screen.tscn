@@ -793,7 +793,8 @@ centered = false
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=1544658110]
 stream = ExtResource("14_pgvsy")
 autoplay = true
-parameters/looping = true
+playback_type = 1
+parameters/looping = false
 script = ExtResource("15_1r444")
 
 [connection signal="mouse_entered" from="GameScreen/BottomSection/ConfirmButton" to="." method="_on_confirm_button_mouse_entered"]
@@ -807,3 +808,4 @@ script = ExtResource("15_1r444")
 [connection signal="pressed" from="QuitConfirmationScreen/No" to="QuitConfirmationScreen" method="_on_no_pressed"]
 [connection signal="pressed" from="MessageScreen/ContinueButton" to="MessageScreen" method="_on_continue_button_pressed"]
 [connection signal="pressed" from="TitleScreen/PlayResumeButton" to="." method="_on_play_resume_button_pressed"]
+[connection signal="finished" from="AudioStreamPlayer2D" to="AudioStreamPlayer2D" method="_on_finished"]

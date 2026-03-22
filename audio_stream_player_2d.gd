@@ -16,3 +16,7 @@ func toggle_audio() -> void:
 	else:
 		AudioServer.set_bus_mute(master_bus,false)
 		is_audio_playing = true
+
+
+func _on_finished() -> void:
+	play()
