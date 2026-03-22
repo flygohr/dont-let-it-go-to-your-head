@@ -86,11 +86,13 @@ Missing:
 - [x] fix mobile touch support
 - [x] add text icon in place of IMG
 - [x] fix bug, card selected before seeing game screen
+- [ ] add more cards
 - [ ] bug: are you sure? text not resetting after new day
-- [ ] add more cards and events
+- [ ] important: restart screen needs a confirm button
+- [ ] add sound toggle on title and game screens
 - [ ] design icons and logo
 - [ ] sounds
-- [ ] if enough time: swap daily events system with a mini quest that stays there
+- [ ] if enough time: swap daily events system with a mini quest that stays there OR add more daily events
 - [ ] playtesting and balancing
 - [ ] would be nice: highlight on progressbars the impact of the current choice
 - [ ] export / import savefiles

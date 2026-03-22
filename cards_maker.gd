@@ -198,11 +198,15 @@ func load_card_data() -> void:
 func pick_card_rarity() -> String:
 	var picker: float = randf()
 	
-	if picker < 0.4: return "common"
-	elif picker >= 0.4 and picker < 0.75: return "uncommon"
-	elif picker >= 0.75 and picker < 0.9: return "rare"
-	elif picker >= 0.9 and picker < 0.95: return "epic"
+	if picker < 0.6: return "common"
+	elif picker >= 0.6 and picker < 0.85: return "uncommon"
+	elif picker >= 0.85 and picker < 0.95: return "rare"
+	elif picker >= 0.95 and picker < 0.99: return "epic"
 	else: return "legendary"
 
 func pick_card_type() -> String:
-	return ["theft", "rest", "move", "event"].pick_random()
+	return [ # lmao look at these weights :D
+		"theft", "theft", "theft", "theft", "theft", 
+		"rest", "rest", "rest", 
+		"move", "move", 
+		"event"].pick_random()
