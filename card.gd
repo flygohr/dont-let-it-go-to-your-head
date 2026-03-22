@@ -15,6 +15,12 @@ extends Node2D
 @onready var icon: Label = $CardIconRect/Icon
 @onready var inner_rect: ColorRect = $CardIconRect/InnerRect
 
+@onready var sprite_theft = preload("res://assets/imgs/DLIGTYH_pixelart_theft.png")
+@onready var sprite_rest = preload("res://assets/imgs/DLIGTYH_pixelart_rest.png")
+@onready var sprite_move = preload("res://assets/imgs/DLIGTYH_pixelart_move.png")
+@onready var sprite_event = preload("res://assets/imgs/DLIGTYH_pixelart_event.png")
+@onready var card_img: Sprite2D = $CardIconRect/CardImg
+
 @export var card_number_in_stack: int = 0
 
 var rarity: String = "common"
@@ -130,17 +136,21 @@ func build_card(data: Dictionary) -> void:
 	
 	match card_data["type"]:
 		"theft": 
-			icon.text = "T"
+			#icon.text = "T"
 			inner_rect.color = globals.card_bg_theft
+			card_img.texture = sprite_theft
 		"rest": 
-			icon.text = "R"
+			#icon.text = "R"
 			inner_rect.color = globals.card_bg_rest
+			card_img.texture = sprite_rest
 		"move": 
-			icon.text = "M"
+			#icon.text = "M"
 			inner_rect.color = globals.card_bg_move
+			card_img.texture = sprite_move
 		"event": 
-			icon.text = "E"
+			#icon.text = "E"
 			inner_rect.color = globals.card_bg_event
+			card_img.texture = sprite_event
 		
 	
 	# define rarity based on specs

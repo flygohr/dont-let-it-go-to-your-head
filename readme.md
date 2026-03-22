@@ -98,7 +98,7 @@ Missing:
 - [x] bug: tutorial resets upon restarting the game despite savegame
 - [x] add sound toggle on title and game screens
 - [ ] add balancing parameters for card gen to quickly adjust build to feedback
-- [ ] design icons and logo
+- [x] design icons and logo
 - [ ] sounds
 - [ ] if enough time: swap daily events system with a mini quest that stays there OR add more daily events
 - [ ] playtesting and balancing

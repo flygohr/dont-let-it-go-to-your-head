@@ -8,13 +8,19 @@
 [ext_resource type="Script" uid="uid://sibnmefin87h" path="res://confirm_button.gd" id="3_yla3h"]
 [ext_resource type="Script" uid="uid://bcs1c3k50l4hf" path="res://event_screen.gd" id="4_6mti6"]
 [ext_resource type="Script" uid="uid://dghbu625b5s0w" path="res://progress_bar.gd" id="5_lxtpa"]
-[ext_resource type="Texture2D" uid="uid://dyimcnue1a1r2" path="res://icon.svg" id="7_viusa"]
+[ext_resource type="Texture2D" uid="uid://4cuxxxn2nvw1" path="res://assets/imgs/DLIGTYH_pixelart_quest.png" id="6_n5qm3"]
+[ext_resource type="Script" uid="uid://cwat317pb6trj" path="res://lives_tracker.gd" id="8_pdgdj"]
 [ext_resource type="PackedScene" uid="uid://ocicus0shrpm" path="res://audio_toggle_button.tscn" id="8_u10x5"]
 [ext_resource type="StyleBox" uid="uid://ddd7qv37hkay5" path="res://quit_btn.tres" id="9_aybt7"]
 [ext_resource type="Script" uid="uid://bane46getbocm" path="res://message_screen.gd" id="9_oymjd"]
+[ext_resource type="Texture2D" uid="uid://bli67cirmuypy" path="res://assets/imgs/DLIGTYH_pixelart_finger_1.png" id="9_t2epj"]
+[ext_resource type="Texture2D" uid="uid://l4gcd2r10unx" path="res://assets/imgs/DLIGTYH_pixelart_ear_1.png" id="10_qfr2e"]
 [ext_resource type="Script" uid="uid://bghwea03o57fu" path="res://quit_confirmation_screen.gd" id="11_o17u5"]
+[ext_resource type="Texture2D" uid="uid://thi2nn2ukgxo" path="res://assets/imgs/DLIGTYH_pixelart_head.png" id="11_wytqf"]
+[ext_resource type="Texture2D" uid="uid://2ssaqc32fumt" path="res://assets/imgs/DLIGTYH_pixelart_death.png" id="13_35q4h"]
 [ext_resource type="AudioStream" uid="uid://b80jswt864wqm" path="res://assets/8BitBattleLoop.ogg" id="14_pgvsy"]
 [ext_resource type="Script" uid="uid://d0qvfh0imgesv" path="res://audio_stream_player_2d.gd" id="15_1r444"]
+[ext_resource type="Texture2D" uid="uid://eou2ykqax1wl" path="res://assets/imgs/DLIGTYH_pixelart_title.png" id="16_pdgdj"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3vj30"]
 bg_color = Color(0.47843137, 0.38431373, 0.3764706, 0.49019608)
@@ -166,13 +172,13 @@ text = "No moon in the sky!
 autowrap_mode = 2
 
 [node name="QuestIcon" type="Sprite2D" parent="GameScreen/MiddleSection/EventScreen" unique_id=1147832190]
-position = Vector2(7, 44)
-scale = Vector2(0.046875, 0.046875)
-texture = ExtResource("7_viusa")
+visible = false
+position = Vector2(7, 43)
+texture = ExtResource("6_n5qm3")
 centered = false
 
 [node name="TextSectionTitle" type="Label" parent="GameScreen/MiddleSection/EventScreen" unique_id=309318019]
-offset_left = 15.0
+offset_left = 7.0
 offset_top = 44.0
 offset_right = 84.0
 offset_bottom = 52.0
@@ -256,23 +262,21 @@ vertical_alignment = 1
 
 [node name="LivesTracker" type="Node2D" parent="GameScreen/TopStats/InfamyTracker" unique_id=85003985]
 position = Vector2(4, 27)
+script = ExtResource("8_pdgdj")
+
+[node name="FingerLife" type="Sprite2D" parent="GameScreen/TopStats/InfamyTracker/LivesTracker" unique_id=1665746244]
+position = Vector2(10, -4)
+texture = ExtResource("9_t2epj")
+centered = false
 
 [node name="EarLife" type="Sprite2D" parent="GameScreen/TopStats/InfamyTracker/LivesTracker" unique_id=1041409514]
 position = Vector2(24.000002, -4)
-scale = Vector2(0.08593748, 0.08593748)
-texture = ExtResource("7_viusa")
-centered = false
-
-[node name="FingerLife" type="Sprite2D" parent="GameScreen/TopStats/InfamyTracker/LivesTracker" unique_id=1665746244]
-position = Vector2(10, -3.9999971)
-scale = Vector2(0.08593748, 0.08593748)
-texture = ExtResource("7_viusa")
+texture = ExtResource("10_qfr2e")
 centered = false
 
 [node name="HeadLife" type="Sprite2D" parent="GameScreen/TopStats/InfamyTracker/LivesTracker" unique_id=1113464881]
 position = Vector2(38, -4)
-scale = Vector2(0.08593748, 0.08593748)
-texture = ExtResource("7_viusa")
+texture = ExtResource("11_wytqf")
 centered = false
 
 [node name="LivesLabel" type="Label" parent="GameScreen/TopStats/InfamyTracker" unique_id=1546608101]
@@ -505,6 +509,10 @@ mouse_filter = 2
 color = Color(0.5686275, 0.57254905, 0.5176471, 1)
 
 [node name="AudioToggleButton" parent="GameScreen/BottomSection/AudioToggle" unique_id=1578495504 instance=ExtResource("8_u10x5")]
+offset_left = 3.0
+offset_top = 143.0
+offset_right = 17.0
+offset_bottom = 157.0
 
 [node name="QuitButtonBG" type="ColorRect" parent="GameScreen/BottomSection" unique_id=530947956]
 offset_left = 20.0
@@ -614,9 +622,8 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="DeathImage" type="Sprite2D" parent="DeathScreen" unique_id=2023963071]
-position = Vector2(100.00001, 24.999996)
-scale = Vector2(0.27343747, 0.27343747)
-texture = ExtResource("7_viusa")
+position = Vector2(104, 25)
+texture = ExtResource("13_35q4h")
 centered = false
 
 [node name="RestartButton" type="Button" parent="DeathScreen" unique_id=775575277]
@@ -777,9 +784,8 @@ theme_override_font_sizes/font_size = 8
 text = "PLAY"
 
 [node name="TitleImage" type="Sprite2D" parent="TitleScreen" unique_id=2129641712]
-position = Vector2(94, 58.000015)
-scale = Vector2(0.37499994, 0.37499994)
-texture = ExtResource("7_viusa")
+position = Vector2(96, 58)
+texture = ExtResource("16_pdgdj")
 centered = false
 
 [node name="AudioToggleButton" parent="TitleScreen" unique_id=936661015 instance=ExtResource("8_u10x5")]
