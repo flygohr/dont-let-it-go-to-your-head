@@ -9,10 +9,6 @@ func _ready() -> void:
 	globals.toggle_audio.connect(toggle_audio)
 	master_bus = AudioServer.get_bus_index("Master")
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
-
 func toggle_audio() -> void:
 	if is_audio_playing == true:
 		AudioServer.set_bus_mute(master_bus,true)

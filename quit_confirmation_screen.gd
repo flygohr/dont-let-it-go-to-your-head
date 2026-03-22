@@ -9,11 +9,6 @@ var is_screen_out: bool = false
 func _ready() -> void:
 	globals.toggle_quit_screen.connect(toggle_screen)
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
-
 func toggle_screen() -> void:
 	if is_screen_out == false:
 		position = Vector2(0,160)

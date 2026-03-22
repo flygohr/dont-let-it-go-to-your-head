@@ -94,14 +94,15 @@ Missing:
 - [x] add more cards
 - [x] bug: are you sure? text not resetting after new day
 - [x] important: restart screen needs a confirm button
-- [ ] bug: can advance without selecting card on mobile
-- [ ] bug: tutorial resets upon restarting the game despite savegame
+- [x] bug: can advance without selecting card on mobile
+- [x] bug: tutorial resets upon restarting the game despite savegame
+- [x] add sound toggle on title and game screens
 - [ ] add balancing parameters for card gen to quickly adjust build to feedback
-- [ ] add sound toggle on title and game screens
 - [ ] design icons and logo
 - [ ] sounds
 - [ ] if enough time: swap daily events system with a mini quest that stays there OR add more daily events
 - [ ] playtesting and balancing
+- [ ] investigate iOS' safari returning 404 on launch game
 - [ ] would be nice: highlight on progressbars the impact of the current choice
 - [ ] would be nice: consistent tweens / transitions now that I learned how to manage screens
 - [ ] export / import savefiles

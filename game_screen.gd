@@ -99,6 +99,7 @@ func _process(_delta: float) -> void:
 func _on_confirm_button_pressed() -> void:
 	globals.apply_effect.emit()
 	confirm_button_bg.hide()
+	confirm_button.disabled = true
 	text_next_to_button.text = str("Pick a card")
 	advance_days()
 	
