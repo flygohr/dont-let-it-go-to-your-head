@@ -51,6 +51,11 @@ Stuff I'm already banging my head against (and I won't be able to include, proba
 	- Handle gold softlock
 	- Remove day / night cycle
 	- Playtesting
+- 2026-03-22
+	- Added more cards and did my best to balance them
+	- Added quit confirmation dialog
+	- Added sprites
+	- Added audio toggle
 	
 Missing:
 - [x] store cards in savegame, check for saved cards on resume
@@ -86,17 +91,23 @@ Missing:
 - [x] fix mobile touch support
 - [x] add text icon in place of IMG
 - [x] fix bug, card selected before seeing game screen
-- [ ] add more cards
-- [ ] bug: are you sure? text not resetting after new day
-- [ ] important: restart screen needs a confirm button
+- [x] add more cards
+- [x] bug: are you sure? text not resetting after new day
+- [x] important: restart screen needs a confirm button
+- [ ] bug: can advance without selecting card on mobile
+- [ ] bug: tutorial resets upon restarting the game despite savegame
+- [ ] add balancing parameters for card gen to quickly adjust build to feedback
 - [ ] add sound toggle on title and game screens
 - [ ] design icons and logo
 - [ ] sounds
 - [ ] if enough time: swap daily events system with a mini quest that stays there OR add more daily events
 - [ ] playtesting and balancing
 - [ ] would be nice: highlight on progressbars the impact of the current choice
+- [ ] would be nice: consistent tweens / transitions now that I learned how to manage screens
 - [ ] export / import savefiles
 
 Font: https://not-jam.itch.io/undead-pixel-light-8
 
 Some colors from: https://lospec.com/palette-list/ty-celestial-sapien-26
+
+Background loop: https://opengameart.org/content/8-bit-battle-loop

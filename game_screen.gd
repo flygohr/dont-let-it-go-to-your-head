@@ -60,7 +60,7 @@ func _ready() -> void:
 	globals.render_event.emit()
 	globals.lives = game_data["lives"]
 	globals.tutorial_played = game_data["tutorial_played"]
-		
+	print(globals.tutorial_played)
 	globals.current_screen = "title"
 	title_screen.show()
 	# print(game_data["new_game"])
@@ -75,9 +75,7 @@ func _ready() -> void:
 	else:
 		play_resume_button.text = "RESUME"
 		globals.populate_card_slot.emit()
-		
-		log(globals.current_week)
-		log(globals.current_day)
+	
 		title_screen_score.text = str("Current game: ", return_weeks_days_text(globals.current_week,globals.current_day))
 		# also missing "new game logic", if cards are drawn on a new game this basic check won't cut it. ah but it's easy, I just need to check if "current cards" or smth is active
 
@@ -101,6 +99,7 @@ func _process(_delta: float) -> void:
 func _on_confirm_button_pressed() -> void:
 	globals.apply_effect.emit()
 	confirm_button_bg.hide()
+	text_next_to_button.text = str("Pick a card")
 	advance_days()
 	
 func advance_days() -> void:
@@ -132,7 +131,7 @@ func advance_days() -> void:
 		"new_game": false,
 		"lives": globals.lives,
 		"current_event": globals.current_event.duplicate_deep(),
-		"tutorial_played": globals.tutorial_played
+		"tutorial_played": true
 	})
 	
 	print(str("Saving event: ", globals.current_event))
@@ -206,6 +205,7 @@ func reset_save() -> void:
 	globals.cards_list.clear()
 	globals.default_save_data["high_score_weeks"] = globals.high_score_weeks
 	globals.default_save_data["high_score_days"] = globals.high_score_days
+	globals.default_save_data["tutorial_played"] = true
 	save_data(globals.default_save_data)
 	var game_data: Dictionary = load_data()
 	globals.high_score_weeks = game_data["high_score_weeks"]
@@ -218,7 +218,7 @@ func reset_save() -> void:
 	globals.coin = game_data["coin"]
 	globals.lives = game_data["lives"]
 	globals.current_event = game_data["current_event"]
-	globals.tutorial_played = game_data["tutorial_played"]
+	globals.tutorial_played = true
 
 func _on_restart_button_pressed() -> void:
 	globals.current_screen = "game"
@@ -257,9 +257,7 @@ func change_confirm_text(_string : String) -> void:
 	text_next_to_button.text = _string
 
 func _on_give_up_button_pressed() -> void:
-	globals.card_selected.emit()
-	text_next_to_button.text = str("Pick a card")
-	globals.play_death.emit("GAME OVER","You can always try again...")
+	globals.toggle_quit_screen.emit()
 
 func _on_give_up_button_mouse_entered() -> void:
 	give_up_button_bg.show()

@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://ocicus0shrpm"]
+
+[ext_resource type="Texture2D" uid="uid://dyimcnue1a1r2" path="res://icon.svg" id="1_m586i"]
+[ext_resource type="Script" uid="uid://d1gnvucm4i04g" path="res://audio_toggle_button.gd" id="2_11q83"]
+
+[node name="AudioToggleButton" type="TextureButton" unique_id=1578495504]
+offset_left = 4.0
+offset_top = 144.0
+offset_right = 16.0
+offset_bottom = 156.0
+texture_normal = ExtResource("1_m586i")
+ignore_texture_size = true
+stretch_mode = 0
+script = ExtResource("2_11q83")
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]

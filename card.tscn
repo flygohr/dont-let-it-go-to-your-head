@@ -2,6 +2,7 @@
 
 [ext_resource type="FontFile" uid="uid://cab8p131qqmsj" path="res://assets/fonts/Undead Pixel 8.ttf" id="1_kikvd"]
 [ext_resource type="Script" uid="uid://2uu5rjn41u5o" path="res://card.gd" id="1_rjlel"]
+[ext_resource type="Texture2D" uid="uid://dyimcnue1a1r2" path="res://icon.svg" id="3_q5obu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rjlel"]
 size = Vector2(147, 32)
@@ -135,6 +136,7 @@ mouse_behavior_recursive = 1
 color = Color(0.47843137, 0.38431373, 0.3764706, 1)
 
 [node name="Icon" type="Label" parent="CardIconRect" unique_id=1452533008]
+visible = false
 layout_mode = 0
 offset_left = 2.0
 offset_top = 10.0
@@ -147,6 +149,12 @@ theme_override_font_sizes/font_size = 8
 text = "IMG"
 horizontal_alignment = 1
 autowrap_mode = 1
+
+[node name="CardImg" type="Sprite2D" parent="CardIconRect" unique_id=1587762423]
+position = Vector2(2, 1.0000001)
+scale = Vector2(0.11718751, 0.1875)
+texture = ExtResource("3_q5obu")
+centered = false
 
 [node name="CardName" type="Label" parent="." unique_id=838445636]
 offset_left = 22.0
