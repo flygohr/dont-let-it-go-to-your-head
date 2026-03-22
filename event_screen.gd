@@ -14,7 +14,7 @@ const events_pool: Array = [
 			"hunger": 0,
 			"health": 0,
 			"coin": 0
-		},
+		}
 	},
 	{
 		"name": "TIRED",
@@ -34,6 +34,26 @@ const events_pool: Array = [
 			"hunger": -10,
 			"health": 0,
 			"coin": 5
+		}
+	},
+	{
+		"name": "PATROL DAY",
+		"text": "Lots of guards in town!\n+10 on INFAMY picks",
+		"effect": {
+			"infamy": +10,
+			"hunger": 0,
+			"health": 0,
+			"coin": 0
+		}
+	},
+	{
+		"name": "RAINY DAY",
+		"text": "You are soaking and it's cold!\n-10 on HEALTH picks",
+		"effect": {
+			"infamy": 0,
+			"hunger": 0,
+			"health": -10,
+			"coin": 0
 		}
 	}
 ]

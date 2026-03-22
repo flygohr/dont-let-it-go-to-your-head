@@ -793,6 +793,7 @@ centered = false
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=1544658110]
 stream = ExtResource("14_pgvsy")
 autoplay = true
+parameters/looping = true
 script = ExtResource("15_1r444")
 
 [connection signal="mouse_entered" from="GameScreen/BottomSection/ConfirmButton" to="." method="_on_confirm_button_mouse_entered"]

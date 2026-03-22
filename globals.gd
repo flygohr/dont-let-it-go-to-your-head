@@ -9,11 +9,21 @@ var health: int = 100
 var infamy: int = 0
 var coin: int = 5
 
+# quick balancing parameters
+var infamy_gained_param: float = 0.0
+var infamy_reduced_param: float = -0.2
+var hunger_gained_param: float = +0.8
+var hunger_reduced_param: float = -0.5
+var health_reduced_param: float = +0.2
+var health_gained_param: float = -0.4
+var coin_reduced_param: float = +0.8
+var coin_gained_param: float = -0.8
+
 var lives: int = 3
 
 var tutorial_played: bool = false
 
-const save_file_name: String = "user://dligtyh_save_16.json"
+const save_file_name: String = "user://dligtyh_save_17.json"
 
 var is_mobile: bool = false
 

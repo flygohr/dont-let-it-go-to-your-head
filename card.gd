@@ -289,11 +289,11 @@ func _execute_effect() -> void:
 			elif (globals.lives == 1):
 				
 				# if cards is positive, and event negative: can't become a net negative
-				if (infamy_value > 0 and infamy_from_event <= 0): globals.infamy = clamp((globals.infamy + clamp(infamy_value + infamy_from_event,0,100)),5,100)
+				if (infamy_value > 0 and infamy_from_event <= 0): globals.infamy = clamp((globals.infamy + clamp(infamy_value + infamy_from_event,0,100)),50,100)
 				# if card is negative, and event positive: can't become a net positive
-				elif (infamy_value < 0 and infamy_from_event >= 0): globals.infamy = clamp((globals.infamy + clamp(infamy_value + infamy_from_event,-100,0)),5,100)
+				elif (infamy_value < 0 and infamy_from_event >= 0): globals.infamy = clamp((globals.infamy + clamp(infamy_value + infamy_from_event,-100,0)),50,100)
 				# the final else is the event being applied normally, if cards is positive, and event positive, also normally applied
-				else: globals.infamy = clamp((globals.infamy + infamy_value + infamy_from_event),5,100)
+				else: globals.infamy = clamp((globals.infamy + infamy_value + infamy_from_event),50,100)
 				
 				if (globals.infamy == 100):
 					globals.play_death.emit("DECAPITATED","It got to your head in the end.")

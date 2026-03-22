@@ -12,6 +12,7 @@ Stuff I'm already banging my head against (and I won't be able to include, proba
 - Clunky select, 100% bad implementation
 - Theming is all messed up
 - Special cards could be added, with unique effects
+- Need more events or a side quest system
 
 ### Devlog:
 - 2026-03-16
@@ -56,6 +57,9 @@ Stuff I'm already banging my head against (and I won't be able to include, proba
 	- Added quit confirmation dialog
 	- Added sprites
 	- Added audio toggle
+	- Added card balancing parameters
+	- Bugfixes
+	- Preparing itch.io page
 	
 Missing:
 - [x] store cards in savegame, check for saved cards on resume
@@ -97,12 +101,12 @@ Missing:
 - [x] bug: can advance without selecting card on mobile
 - [x] bug: tutorial resets upon restarting the game despite savegame
 - [x] add sound toggle on title and game screens
-- [ ] add balancing parameters for card gen to quickly adjust build to feedback
+- [x] add balancing parameters for card gen to quickly adjust build to feedback
 - [x] design icons and logo
-- [ ] sounds
+- [ ] button sounds
 - [ ] if enough time: swap daily events system with a mini quest that stays there OR add more daily events
 - [ ] playtesting and balancing
-- [ ] investigate iOS' safari returning 404 on launch game
+- [x] investigate iOS' safari returning 404 on launch game -> might be an issue with secret url
 - [ ] would be nice: highlight on progressbars the impact of the current choice
 - [ ] would be nice: consistent tweens / transitions now that I learned how to manage screens
 - [ ] export / import savefiles

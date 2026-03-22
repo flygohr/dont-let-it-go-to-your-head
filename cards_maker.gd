@@ -149,10 +149,70 @@ func generate_new_cards() -> void:
 		
 		var picked_card_effects: Dictionary = picked_card["effect"]
 		
-		card_data["effect"]["infamy"] = base_infamy*round(randf_range(picked_card_effects["infamy"]["min"],picked_card_effects["infamy"]["max"]))
-		card_data["effect"]["hunger"] = base_hunger*round(randf_range(picked_card_effects["hunger"]["min"],picked_card_effects["hunger"]["max"]))
-		card_data["effect"]["health"] = base_health*round(randf_range(picked_card_effects["health"]["min"],picked_card_effects["health"]["max"]))
-		card_data["effect"]["coin"] = base_coin*round(randf_range(picked_card_effects["coin"]["min"],picked_card_effects["coin"]["max"]))
+		
+		# apply nerf and buffs here
+		# if min is negative, apply decrease param
+		# if min is positive, apply increase param 
+		# that's too difficult... I just do it after the number has been picked? and clamp it
+		
+		var temp_infamy = randf_range(picked_card_effects["infamy"]["min"],picked_card_effects["infamy"]["max"])
+		# if infamy increase apply increase param
+		print(str("Temp. infamy: ",temp_infamy))
+		if temp_infamy > 0: 
+			temp_infamy = temp_infamy + (temp_infamy * globals.infamy_gained_param)
+			clamp(temp_infamy,0,10)
+		# if infamy decrease apply decrease param
+		elif temp_infamy < 0: 
+			temp_infamy = temp_infamy + (temp_infamy * globals.infamy_reduced_param) # needs to be clamped
+			clamp(temp_infamy,-10,0)
+		else: temp_infamy = 0
+		print(str("New temp. infamy: ",temp_infamy))
+		card_data["effect"]["infamy"] = base_infamy*round(temp_infamy)
+		
+		var temp_hunger = randf_range(picked_card_effects["hunger"]["min"],picked_card_effects["hunger"]["max"])
+		# if hunger increase apply increase param
+		print(str("Temp. hunger: ",temp_hunger))
+		if temp_hunger > 0: 
+			temp_hunger = temp_hunger + (temp_hunger * globals.hunger_gained_param)
+			clamp(temp_hunger,0,10)
+		# if hunger decrease apply decrease param
+		elif temp_hunger < 0: 
+			temp_hunger = temp_hunger + (temp_hunger * globals.hunger_reduced_param) # needs to be clamped
+			clamp(temp_hunger,-10,0)
+		else: temp_hunger = 0
+		print(str("New temp. hunger: ",temp_hunger))
+		card_data["effect"]["hunger"] = base_hunger*round(temp_hunger)
+		
+		var temp_health = randf_range(picked_card_effects["health"]["min"],picked_card_effects["health"]["max"])
+		# if health increase apply increase param
+		print(str("Temp. health: ",temp_health))
+		if temp_health < 0: 
+			temp_health = temp_health - (temp_health * globals.health_gained_param)
+			clamp(temp_health,0,10)
+		# if health decrease apply decrease param
+		elif temp_health > 0: 
+			temp_health = temp_health - (temp_health * globals.health_reduced_param) # needs to be clamped
+			clamp(temp_health,-10,0)
+		else: temp_health = 0
+		print(str("New temp. health: ",temp_health))
+		card_data["effect"]["health"] = base_health*round(temp_health)
+		
+		# coin mins and max range -300 to 300, this is wrong
+		var temp_coin = randf_range(picked_card_effects["coin"]["min"],picked_card_effects["coin"]["max"])
+		# if coin increase apply increase param
+		print(str("Temp. coin: ",temp_coin))
+		if temp_coin < 0: 
+			temp_coin = temp_coin - (temp_coin * globals.coin_gained_param)
+			clamp(temp_coin,0,300)
+		# if coin decrease apply decrease param
+		elif temp_coin > 0: 
+			temp_coin = temp_coin - (temp_coin * globals.coin_reduced_param) # needs to be clamped
+			clamp(temp_coin,-300,0)
+		else: temp_coin = 0
+		print(str("New temp. coin: ",temp_coin))
+		card_data["effect"]["coin"] = base_coin*round(temp_coin)
+		
+		if card_data["name"] == "you find a nickel": card_data["effect"]["coin"] = 1 #fix empty gen
 		
 		# print(card_data)
 		globals.cards_list.push_back(card_data.duplicate_deep())

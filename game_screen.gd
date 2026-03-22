@@ -223,7 +223,9 @@ func reset_save() -> void:
 
 func _on_restart_button_pressed() -> void:
 	globals.current_screen = "game"
+	reset_save()
 	globals.generate_cards.emit()
+	text_next_to_button.text = str("Pick a card")
 	var tween = get_tree().create_tween()
 	tween.tween_property(death_screen, "position", Vector2(0,160), 0.2)
 	var tween_b = get_tree().create_tween()
