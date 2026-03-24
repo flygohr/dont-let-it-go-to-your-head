@@ -9,16 +9,6 @@ var health: int = 100
 var infamy: int = 0
 var coin: int = 5
 
-# quick balancing parameters
-var infamy_gained_param: float = 0.0
-var infamy_reduced_param: float = -0.2
-var hunger_gained_param: float = +0.8
-var hunger_reduced_param: float = -0.5
-var health_reduced_param: float = +0.2
-var health_gained_param: float = -0.4
-var coin_reduced_param: float = +0.8
-var coin_gained_param: float = -0.8
-
 var lives: int = 3
 
 var tutorial_played: bool = false
@@ -101,7 +91,7 @@ var current_day: int = 1
 
 var color_green: String = "#A6F043"
 var color_yellow: String = "#ca7c3b"
-var color_red: String = "#ff1b18"
+var color_red: String = "#FF5452"
 
 var color_legendary: Color = Color.html("#fcb100")
 var color_epic: Color = Color.html("#ae4fce")

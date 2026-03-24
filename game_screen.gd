@@ -81,7 +81,7 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
-	weeks_days_time.text = str("Day ", globals.current_day, "/7 of week ", globals.current_week)
+	weeks_days_time.text = str("Day ", globals.current_day, "/7 of week ", globals.current_week+1)
 	
 	infamy_progress_bar.value = globals.infamy
 	infamy_bar_label.text = str(globals.infamy,"/100")

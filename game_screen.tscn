@@ -21,6 +21,7 @@
 [ext_resource type="AudioStream" uid="uid://b80jswt864wqm" path="res://assets/8BitBattleLoop.ogg" id="14_pgvsy"]
 [ext_resource type="Script" uid="uid://d0qvfh0imgesv" path="res://audio_stream_player_2d.gd" id="15_1r444"]
 [ext_resource type="Texture2D" uid="uid://eou2ykqax1wl" path="res://assets/imgs/DLIGTYH_pixelart_title.png" id="16_pdgdj"]
+[ext_resource type="Texture2D" uid="uid://de0wixh0lufw6" path="res://assets/imgs/DLITGTYH_LOGO.png" id="20_qfr2e"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3vj30"]
 bg_color = Color(0.47843137, 0.38431373, 0.3764706, 0.49019608)
@@ -157,28 +158,40 @@ offset_bottom = 136.0
 mouse_filter = 2
 color = Color(0.9019608, 0.85490197, 0.77254903, 1)
 
-[node name="TextSectionCopy" type="Label" parent="GameScreen/MiddleSection/EventScreen" unique_id=1229398251]
+[node name="MiddleScreenBG4" type="ColorRect" parent="GameScreen/MiddleSection/EventScreen" unique_id=336548299]
 offset_left = 7.0
 offset_top = 53.0
-offset_right = 84.0
-offset_bottom = 135.0
+offset_right = 83.0
+offset_bottom = 64.0
+mouse_filter = 2
+color = Color(0.89411765, 0.75686276, 0.5137255, 0.4509804)
+
+[node name="TextSectionCopy" type="Label" parent="GameScreen/MiddleSection/EventScreen" unique_id=1229398251]
+offset_left = 8.0
+offset_top = 67.0
+offset_right = 83.0
+offset_bottom = 134.0
 mouse_behavior_recursive = 1
 theme_override_colors/font_color = Color(0.47843137, 0.38431373, 0.3764706, 1)
 theme_override_constants/line_spacing = 1
 theme_override_fonts/font = ExtResource("2_norob")
 theme_override_font_sizes/font_size = 8
-text = "No moon in the sky!
--20 on INFAMY picks"
+text = "Status: 3/12
+Reward:
+-20 INFAMY
++10 COIN
+
+Failure:
++20 INFAMY"
 autowrap_mode = 2
 
 [node name="QuestIcon" type="Sprite2D" parent="GameScreen/MiddleSection/EventScreen" unique_id=1147832190]
-visible = false
 position = Vector2(7, 43)
 texture = ExtResource("6_n5qm3")
 centered = false
 
 [node name="TextSectionTitle" type="Label" parent="GameScreen/MiddleSection/EventScreen" unique_id=309318019]
-offset_left = 7.0
+offset_left = 16.0
 offset_top = 44.0
 offset_right = 84.0
 offset_bottom = 52.0
@@ -187,7 +200,20 @@ theme_override_colors/font_color = Color(0.3529412, 0.26666668, 0.22352941, 1)
 theme_override_constants/line_spacing = 1
 theme_override_fonts/font = ExtResource("2_norob")
 theme_override_font_sizes/font_size = 8
-text = "BLACK MOON"
+text = "CURRENT QUEST:"
+autowrap_mode = 2
+
+[node name="QuestName" type="Label" parent="GameScreen/MiddleSection/EventScreen" unique_id=1616657028]
+offset_left = 8.0
+offset_top = 55.0
+offset_right = 82.0
+offset_bottom = 63.0
+mouse_behavior_recursive = 1
+theme_override_colors/font_color = Color(0.3529412, 0.26666668, 0.22352941, 1)
+theme_override_constants/line_spacing = 1
+theme_override_fonts/font = ExtResource("2_norob")
+theme_override_font_sizes/font_size = 8
+text = "Survive 12 days"
 autowrap_mode = 2
 
 [node name="GameTime" type="Node2D" parent="GameScreen" unique_id=923130690]
@@ -751,9 +777,10 @@ offset_right = 240.0
 offset_bottom = 160.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.26666668, 0.3019608, 0.30588236, 1)
+color = Color(0.1254902, 0.1254902, 0.1254902, 1)
 
 [node name="TitleScreenLabel" type="Label" parent="TitleScreen" unique_id=1068184472]
+visible = false
 offset_top = 20.0
 offset_right = 240.0
 offset_bottom = 55.0
@@ -789,6 +816,11 @@ texture = ExtResource("16_pdgdj")
 centered = false
 
 [node name="AudioToggleButton" parent="TitleScreen" unique_id=936661015 instance=ExtResource("8_u10x5")]
+
+[node name="TitleLogo" type="Sprite2D" parent="TitleScreen" unique_id=633126158]
+position = Vector2(68, 19)
+texture = ExtResource("20_qfr2e")
+centered = false
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=1544658110]
 stream = ExtResource("14_pgvsy")

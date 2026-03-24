@@ -6,6 +6,7 @@ As I progress with the jam I remember more stuff about programming and Godot. Th
 
 Now on Itch.io: https://flygohr.itch.io/dont-let-it-go-to-your-head
 
+
 Stuff I'm already banging my head against (and I won't be able to include, probably):
 - Responsive UI / game screen. I'll stick to a fixed viewport for now, I will learn how to make a responsive interface when I won't be in a rush
 - Animations, tweens, smooth transitions, spinners.. basically, all the juice? I'll see what I can implement, but if I realize I can't, I'll push the polish back to after the jam
@@ -69,7 +70,13 @@ Stuff I'm already banging my head against (and I won't be able to include, proba
 - 2026-03-24
 	- Adjusting plans for final, "good enough" version
 	
-Missing:
+### Plans for post-jam "good enough" polish:
+- [ ] swap daily events system with a mini quest that stays there and scales with time
+- [ ] add more sounds
+- [ ] balance cards, remove temporary balance system
+- [ ] fix colorblind red contrast	
+
+### To-do:
 - [x] store cards in savegame, check for saved cards on resume
 - [x] finish displaying cards effects
 - [x] add death conditions
@@ -114,16 +121,8 @@ Missing:
 - [x] playtesting and balancing
 - [x] investigate iOS' safari returning 404 on launch game -> might be an issue with secret url
 
-### Plans for post-jam "good enough" polish:
-- [ ] swap daily events system with a mini quest that stays there and scales with time
-- [ ] add more sounds
-- [ ] balance cards, remove temporary balance system
-- [ ] fix colorblind red contrast
-
-Gane font: https://not-jam.itch.io/undead-pixel-light-8
-
-Cover font: https://www.1001fonts.com/bitmgothic-font.html
-
-Some colors from: https://lospec.com/palette-list/ty-celestial-sapien-26
-
-Background loop: https://opengameart.org/content/8-bit-battle-loop
+### Credits:
+- Gane font: https://not-jam.itch.io/undead-pixel-light-8
+- Cover font: https://www.1001fonts.com/bitmgothic-font.html
+- Some colors from: https://lospec.com/palette-list/ty-celestial-sapien-26
+- Background sound loop: https://opengameart.org/content/8-bit-battle-loop

@@ -104,7 +104,7 @@ offset_right = 144.0
 offset_bottom = 28.0
 mouse_filter = 2
 mouse_behavior_recursive = 1
-color = Color(0.47843137, 0.38431373, 0.3764706, 1)
+color = Color(0.1882353, 0.16862746, 0.14509805, 1)
 
 [node name="CardIconRect" type="Control" parent="." unique_id=1227939139]
 layout_mode = 3

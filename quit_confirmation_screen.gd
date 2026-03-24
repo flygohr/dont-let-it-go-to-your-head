@@ -31,6 +31,5 @@ func _on_yes_pressed() -> void:
 	var tween_b = get_tree().create_tween()
 	tween_b.tween_property(self, "position", Vector2(0,-160), 0.2)
 	is_screen_out = false
-	globals.card_selected.emit()
 	text_next_to_button.text = str("Pick a card")
 	globals.play_death.emit("GAME OVER","You can always try again...")
