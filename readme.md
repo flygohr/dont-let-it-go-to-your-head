@@ -4,15 +4,18 @@ Time will tell if the scope of my idea was actually manageable.
 
 As I progress with the jam I remember more stuff about programming and Godot. The project is plagued by inconsistencies, bad practices, and is probably an unsalvageable mess. I'll make a better job next time.
 
-Secret Itch.io URL: https://flygohr.itch.io/dont-let-it-go-to-your-head?secret=oTJRHiOTq7g5IyySTod5yhQ2zvg
+Now on Itch.io: https://flygohr.itch.io/dont-let-it-go-to-your-head
 
 Stuff I'm already banging my head against (and I won't be able to include, probably):
 - Responsive UI / game screen. I'll stick to a fixed viewport for now, I will learn how to make a responsive interface when I won't be in a rush
 - Animations, tweens, smooth transitions, spinners.. basically, all the juice? I'll see what I can implement, but if I realize I can't, I'll push the polish back to after the jam
 - Clunky select, 100% bad implementation
-- Theming is all messed up
+- Theming is all messed up, inconsistent transitions and tweens
 - Special cards could be added, with unique effects
 - Need more events or a side quest system
+- Would have been nice:
+	- Highlight on progressbars the impact of the current choice
+	- Import / export savefiles
 
 ### Devlog:
 - 2026-03-16
@@ -60,6 +63,11 @@ Stuff I'm already banging my head against (and I won't be able to include, proba
 	- Added card balancing parameters
 	- Bugfixes
 	- Preparing itch.io page
+	- Publishing for jam, now I wait a week
+- 2026-03-23
+	- Uploaded a better cover, adjusted tags
+- 2026-03-24
+	- Adjusting plans for final, "good enough" version
 	
 Missing:
 - [x] store cards in savegame, check for saved cards on resume
@@ -103,15 +111,18 @@ Missing:
 - [x] add sound toggle on title and game screens
 - [x] add balancing parameters for card gen to quickly adjust build to feedback
 - [x] design icons and logo
-- [ ] button sounds
-- [ ] if enough time: swap daily events system with a mini quest that stays there OR add more daily events
-- [ ] playtesting and balancing
+- [x] playtesting and balancing
 - [x] investigate iOS' safari returning 404 on launch game -> might be an issue with secret url
-- [ ] would be nice: highlight on progressbars the impact of the current choice
-- [ ] would be nice: consistent tweens / transitions now that I learned how to manage screens
-- [ ] export / import savefiles
 
-Font: https://not-jam.itch.io/undead-pixel-light-8
+### Plans for post-jam "good enough" polish:
+- [ ] swap daily events system with a mini quest that stays there and scales with time
+- [ ] add more sounds
+- [ ] balance cards, remove temporary balance system
+- [ ] fix colorblind red contrast
+
+Gane font: https://not-jam.itch.io/undead-pixel-light-8
+
+Cover font: https://www.1001fonts.com/bitmgothic-font.html
 
 Some colors from: https://lospec.com/palette-list/ty-celestial-sapien-26
 
