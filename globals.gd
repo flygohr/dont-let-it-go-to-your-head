@@ -29,6 +29,36 @@ var default_card_data: Dictionary = {
 	}
 }
 
+var default_quest_data: Dictionary = {
+	"name": "Survive 5 days",
+	"target": 5,
+	"current": 1,
+	"rewards": {
+		"infamy": -1,
+		"hunger": 0,
+		"health": 0,
+		"coin": +5
+	},
+	"failure": {
+		"infamy": +1,
+		"hunger": 0,
+		"health": 0,
+		"coin": 0
+	},
+	"text": "
+		Status: 1/5\n
+		Reward:\n
+		-10 INFAMY\n
+		+5 COIN\n
+		\n
+		Failure:\n
+		+10 INFAMY\n
+	"
+}
+var quest_level:int = 1
+var just_completed: bool = false
+var current_quest: Dictionary = default_quest_data
+
 var default_card_data_new: Dictionary =  {
 	"name": "placeholder",
 	"type": "theft", # I know it's redundant, but idk how else to structure the data and I don't want to waste all day on this
@@ -66,6 +96,8 @@ var default_save_data: Dictionary = {
 	"coin": 5,
 	"current_cards": [default_card_data,default_card_data,default_card_data],
 	"new_game": true,
+	"current_quest": default_quest_data,
+	"quest_level": 1,
 	"tutorial_played": false
 }
 
@@ -124,3 +156,5 @@ signal move_game_screen_away()
 signal move_game_screen_in()
 signal toggle_quit_screen()
 signal toggle_audio()
+signal generate_quest() # pick quest, fetch level, store quest with bbcode
+signal render_quest() # pass the current quest to the questmanager display, quest complete dialog if just completed

@@ -6,6 +6,7 @@
 [ext_resource type="Theme" uid="uid://c3nwkja6hedpd" path="res://game_theme.tres" id="3_j7yda"]
 [ext_resource type="PackedScene" uid="uid://cxa744vjtwvmg" path="res://card.tscn" id="3_norob"]
 [ext_resource type="Script" uid="uid://sibnmefin87h" path="res://confirm_button.gd" id="3_yla3h"]
+[ext_resource type="Script" uid="uid://bv0l3bxx0b1n1" path="res://quest_manager.gd" id="4_qfr2e"]
 [ext_resource type="Script" uid="uid://dghbu625b5s0w" path="res://progress_bar.gd" id="5_lxtpa"]
 [ext_resource type="Texture2D" uid="uid://4cuxxxn2nvw1" path="res://assets/imgs/DLIGTYH_pixelart_quest.png" id="6_n5qm3"]
 [ext_resource type="Script" uid="uid://cwat317pb6trj" path="res://lives_tracker.gd" id="8_pdgdj"]
@@ -139,6 +140,7 @@ position = Vector2(-19, 60)
 card_number_in_stack = 3
 
 [node name="QuestManager" type="Node2D" parent="GameScreen/MiddleSection" unique_id=1898083742]
+script = ExtResource("4_qfr2e")
 
 [node name="QuestManagerOuterBG" type="ColorRect" parent="GameScreen/MiddleSection/QuestManager" unique_id=2080017904]
 offset_left = 5.0
