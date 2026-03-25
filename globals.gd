@@ -13,7 +13,7 @@ var lives: int = 3
 
 var tutorial_played: bool = false
 
-const save_file_name: String = "user://dligtyh_save_17.json"
+const save_file_name: String = "user://dligtyh_save_18.json"
 
 var is_mobile: bool = false
 
@@ -53,17 +53,6 @@ var default_card_data_new: Dictionary =  {
 	}
 }
 
-var default_event_data: Dictionary = {
-	"name": "ALL QUIET",
-	"text": "Nothing unusual...",
-	"effect": {
-		"infamy": 0,
-		"hunger": 0,
-		"health": 0,
-		"coin": 0
-	}
-}
-
 var default_save_data: Dictionary = {
 	"high_score_weeks": 0,
 	"high_score_days": 0,
@@ -77,7 +66,6 @@ var default_save_data: Dictionary = {
 	"coin": 5,
 	"current_cards": [default_card_data,default_card_data,default_card_data],
 	"new_game": true,
-	"current_event": default_event_data,
 	"tutorial_played": false
 }
 
@@ -126,12 +114,10 @@ signal populate_card_slot()
 signal apply_effect()
 signal not_enough_gold()
 signal change_confirm_text(text: String)
-signal pick_event()
 signal play_death(title: String, text: String) # https://github.com/godotengine/godot-docs-user-notes/discussions/5#discussioncomment-8124099
 signal display_message(title: String, text: String)
 signal enable_confirm_button()
 signal disable_confirm_button()
-signal render_event()
 signal advance_day()
 signal play_tutorial()
 signal move_game_screen_away()

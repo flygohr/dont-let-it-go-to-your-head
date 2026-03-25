@@ -56,8 +56,6 @@ func _ready() -> void:
 	globals.infamy = game_data["infamy"]
 	globals.coin = game_data["coin"]
 	globals.cards_list = game_data["current_cards"].duplicate_deep()
-	globals.current_event = game_data["current_event"].duplicate_deep()
-	globals.render_event.emit()
 	globals.lives = game_data["lives"]
 	globals.tutorial_played = game_data["tutorial_played"]
 	print(globals.tutorial_played)
@@ -113,11 +111,6 @@ func advance_days() -> void:
 		
 	globals.generate_cards.emit()
 	
-	if (randf() > 0.7):
-		globals.pick_event.emit()
-		print("Picking a random event...")
-	else:
-		globals.current_event = globals.default_event_data
 	
 	save_data({
 		"high_score_weeks": globals.high_score_weeks,
@@ -131,12 +124,9 @@ func advance_days() -> void:
 		"current_cards": globals.cards_list.duplicate_deep(),
 		"new_game": false,
 		"lives": globals.lives,
-		"current_event": globals.current_event.duplicate_deep(),
 		"tutorial_played": true
 	})
 	
-	print(str("Saving event: ", globals.current_event))
-	globals.render_event.emit()
 	
 func play_death(title, text):
 	globals.current_screen = "death"
@@ -218,7 +208,6 @@ func reset_save() -> void:
 	globals.infamy = game_data["infamy"]
 	globals.coin = game_data["coin"]
 	globals.lives = game_data["lives"]
-	globals.current_event = game_data["current_event"]
 	globals.tutorial_played = true
 
 func _on_restart_button_pressed() -> void:

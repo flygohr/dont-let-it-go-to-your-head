@@ -6,7 +6,6 @@
 [ext_resource type="Theme" uid="uid://c3nwkja6hedpd" path="res://game_theme.tres" id="3_j7yda"]
 [ext_resource type="PackedScene" uid="uid://cxa744vjtwvmg" path="res://card.tscn" id="3_norob"]
 [ext_resource type="Script" uid="uid://sibnmefin87h" path="res://confirm_button.gd" id="3_yla3h"]
-[ext_resource type="Script" uid="uid://bcs1c3k50l4hf" path="res://event_screen.gd" id="4_6mti6"]
 [ext_resource type="Script" uid="uid://dghbu625b5s0w" path="res://progress_bar.gd" id="5_lxtpa"]
 [ext_resource type="Texture2D" uid="uid://4cuxxxn2nvw1" path="res://assets/imgs/DLIGTYH_pixelart_quest.png" id="6_n5qm3"]
 [ext_resource type="Script" uid="uid://cwat317pb6trj" path="res://lives_tracker.gd" id="8_pdgdj"]
@@ -139,10 +138,9 @@ card_number_in_stack = 2
 position = Vector2(-19, 60)
 card_number_in_stack = 3
 
-[node name="EventScreen" type="Node2D" parent="GameScreen/MiddleSection" unique_id=1898083742]
-script = ExtResource("4_6mti6")
+[node name="QuestManager" type="Node2D" parent="GameScreen/MiddleSection" unique_id=1898083742]
 
-[node name="MiddleScreenBG2" type="ColorRect" parent="GameScreen/MiddleSection/EventScreen" unique_id=2080017904]
+[node name="QuestManagerOuterBG" type="ColorRect" parent="GameScreen/MiddleSection/QuestManager" unique_id=2080017904]
 offset_left = 5.0
 offset_top = 41.0
 offset_right = 86.0
@@ -150,7 +148,7 @@ offset_bottom = 137.0
 mouse_filter = 2
 color = Color(0.89411765, 0.75686276, 0.5137255, 1)
 
-[node name="MiddleScreenBG3" type="ColorRect" parent="GameScreen/MiddleSection/EventScreen" unique_id=1845573694]
+[node name="QuestManagerInnerBG" type="ColorRect" parent="GameScreen/MiddleSection/QuestManager" unique_id=1845573694]
 offset_left = 6.0
 offset_top = 42.0
 offset_right = 85.0
@@ -158,7 +156,7 @@ offset_bottom = 136.0
 mouse_filter = 2
 color = Color(0.9019608, 0.85490197, 0.77254903, 1)
 
-[node name="MiddleScreenBG4" type="ColorRect" parent="GameScreen/MiddleSection/EventScreen" unique_id=336548299]
+[node name="QuestManagerTitleBG" type="ColorRect" parent="GameScreen/MiddleSection/QuestManager" unique_id=336548299]
 offset_left = 7.0
 offset_top = 53.0
 offset_right = 83.0
@@ -166,7 +164,7 @@ offset_bottom = 64.0
 mouse_filter = 2
 color = Color(0.89411765, 0.75686276, 0.5137255, 0.4509804)
 
-[node name="TextSectionCopy" type="Label" parent="GameScreen/MiddleSection/EventScreen" unique_id=1229398251]
+[node name="QuestManagerText" type="Label" parent="GameScreen/MiddleSection/QuestManager" unique_id=1229398251]
 offset_left = 8.0
 offset_top = 67.0
 offset_right = 83.0
@@ -185,12 +183,12 @@ Failure:
 +20 INFAMY"
 autowrap_mode = 2
 
-[node name="QuestIcon" type="Sprite2D" parent="GameScreen/MiddleSection/EventScreen" unique_id=1147832190]
+[node name="QuestIcon" type="Sprite2D" parent="GameScreen/MiddleSection/QuestManager" unique_id=1147832190]
 position = Vector2(7, 43)
 texture = ExtResource("6_n5qm3")
 centered = false
 
-[node name="TextSectionTitle" type="Label" parent="GameScreen/MiddleSection/EventScreen" unique_id=309318019]
+[node name="QuestManagerHeader" type="Label" parent="GameScreen/MiddleSection/QuestManager" unique_id=309318019]
 offset_left = 16.0
 offset_top = 44.0
 offset_right = 84.0
@@ -203,7 +201,7 @@ theme_override_font_sizes/font_size = 8
 text = "CURRENT QUEST:"
 autowrap_mode = 2
 
-[node name="QuestName" type="Label" parent="GameScreen/MiddleSection/EventScreen" unique_id=1616657028]
+[node name="QuestManagerQuest" type="Label" parent="GameScreen/MiddleSection/QuestManager" unique_id=1616657028]
 offset_left = 8.0
 offset_top = 55.0
 offset_right = 82.0
@@ -214,7 +212,6 @@ theme_override_constants/line_spacing = 1
 theme_override_fonts/font = ExtResource("2_norob")
 theme_override_font_sizes/font_size = 8
 text = "Survive 12 days"
-autowrap_mode = 2
 
 [node name="GameTime" type="Node2D" parent="GameScreen" unique_id=923130690]
 
