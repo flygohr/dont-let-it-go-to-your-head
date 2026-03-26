@@ -45,18 +45,13 @@ var default_quest_data: Dictionary = {
 		"health": 0,
 		"coin": 0
 	},
-	"text": "
-		Status: 1/5\n
-		Reward:\n
-		-10 INFAMY\n
-		+5 COIN\n
-		\n
-		Failure:\n
-		+10 INFAMY\n
-	"
+	"text": "Status: 1/5\nReward:\n-10 INFAMY\n+5 COIN\n\nFailure:\n+10 INFAMY\n",
+	"reward_text": "You got: \n+10 HEALTH, +10 COIN",
+	"failure_text": "Failed: \n+10 INFAMY"
 }
-var quest_level:int = 1
-var just_completed: bool = false
+var quest_level: int = 1
+var quests_completed: int = 0
+var just_completed: bool = false # toggle true on completion, and on next check, toggle false
 var current_quest: Dictionary = default_quest_data
 
 var default_card_data_new: Dictionary =  {

@@ -14,7 +14,6 @@ func _ready() -> void:
 	globals.render_quest.connect(render_quest)
 	globals.generate_quest.connect(generate_quest)
 
-
 func render_quest() -> void:
 	quest_manager_header.text = "CURRENT QUEST:"
 	quest_manager_quest.text = str(globals.current_quest["name"]).to_upper()
@@ -62,6 +61,10 @@ func generate_quest() -> void:
 		"coin": 0
 	}
 	var quest_failure_dict: Dictionary = quest_rewards_dict.duplicate_deep()
+	var quest_reward_text: String
+	var quest_failure_text: String
+	
+	#TODO: if quest_type == "survive" strip the failure thing and double the rewards
 	
 	if number_of_rewards == 1:
 		# build quest text with one reward here
@@ -87,6 +90,16 @@ func generate_quest() -> void:
 			reward_sign, quest_rewards_dict[quest_reward_1], " ", quest_reward_1.to_upper(), "\n\n",
 			"Failure:\n",
 			failure_sign, quest_failure_dict[quest_failure], " ", quest_failure.to_upper(), "\n"
+		)
+		
+		quest_reward_text = str(
+			"You got: \n",
+			reward_sign, quest_rewards_dict[quest_reward_1], " ", quest_reward_1.to_upper()
+		)
+		
+		quest_failure_text = str(
+			"Failed: \n",
+			failure_sign, quest_failure_dict[quest_failure], " ", quest_failure.to_upper()
 		)
 		
 	else: # 2 rewards
@@ -122,6 +135,17 @@ func generate_quest() -> void:
 			failure_sign, quest_failure_dict[quest_failure], " ", quest_failure.to_upper(), "\n"
 		)
 		
+		quest_reward_text = str(
+			"You got: \n",
+			reward_1_sign, quest_rewards_dict[quest_reward_1], " ", quest_reward_1.to_upper(), ", ",
+			reward_2_sign, quest_rewards_dict[quest_reward_2], " ", quest_reward_2.to_upper()
+		)
+		
+		quest_failure_text = str(
+			"Failed: \n",
+			failure_sign, quest_failure_dict[quest_failure], " ", quest_failure.to_upper()
+		)
+		
 	var quest_name = str(
 		quest_type.capitalize(),
 		" ", quest_target,
@@ -134,18 +158,22 @@ func generate_quest() -> void:
 		"current": 0,
 		"rewards": quest_rewards_dict,
 		"failure": quest_failure_dict,
-		"text": quest_text
+		"text": quest_text,
+		"reward_text": quest_reward_text,
+		"failure_text": quest_failure_text
 	}
 	
 	globals.render_quest.emit()
 	
-	# type survive: no failure condition ofc
+func quest_complete() -> void:
+	globals.just_completed = true
+	globals.quests_completed += 1
+	if globals.quests_completed % 3 == 0: globals.quest_level += 1 # increase quests level every 3 completed
+	quest_manager_header.text = "QUEST COMPLETED!"
+	quest_manager_quest.text = "New quest tomorrow!"
+	quest_manager_text.text = str(globals.current_quest["reward_text"])
 	
-	# type collect money
-	
-	# type collect 
-	
-	# pick rewards
-	# pick failures
-	
-	# generate bbcode
+func quest_failed() -> void:
+	quest_manager_header.text = "QUEST FAILED!"
+	quest_manager_quest.text = "New quest tomorrow!"
+	quest_manager_text.text = str(globals.current_quest["failure_text"])
