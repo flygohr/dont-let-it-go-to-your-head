@@ -2,7 +2,7 @@ extends Node2D
 
 @onready var quest_manager_header: Label = $QuestManagerHeader
 @onready var quest_manager_quest: Label = $QuestManagerQuest
-@onready var quest_manager_text: Label = $QuestManagerText
+@onready var quest_manager_text: RichTextLabel = $QuestManagerText
 
 var survive_base: int = 5
 var collect_base: int = 50
@@ -26,13 +26,22 @@ func generate_quest() -> void:
 	else: number_of_rewards = 1
 	
 	var quest_type: String = ["survive", "collect", "spend", "find"].pick_random()
-	
+	var objective_text: String = ""
 	var quest_target: int
 	match quest_type:
-		"survive": quest_target = survive_base*globals.quest_level
-		"collect": quest_target = collect_base*globals.quest_level
-		"spend": quest_target = spend_base*globals.quest_level
-		"find": quest_target = find_base*globals.quest_level
+		"survive": 
+			quest_target = survive_base*globals.quest_level
+			objective_text = "days"
+		"collect": 
+			quest_target = collect_base*globals.quest_level
+			objective_text = "COIN"
+		"spend": 
+			quest_target = spend_base*globals.quest_level
+			objective_text = "COIN"
+		"find": 
+			quest_target = find_base*globals.quest_level
+			objective_text = "nickels"
+			if quest_target == 1: objective_text = "nickel"
 	
 	var quest_reward_1: String
 	var quest_reward_2: String
@@ -56,11 +65,79 @@ func generate_quest() -> void:
 	
 	if number_of_rewards == 1:
 		# build quest text with one reward here
-		quest_rewards_dict[quest_reward_1] = clamp(globals.quest_level,0,8)
-		quest_failure_dict[quest_failure] = clamp(globals.quest_level,0,8)
-		#TODO: this negative and positive depend on stat
+		quest_rewards_dict[quest_reward_1] = clamp(globals.quest_level,0,8)*10
+		quest_failure_dict[quest_failure] = clamp(globals.quest_level,0,8)*10
+		
+		if (quest_reward_1 == "coin" and quest_type == "collect"): quest_rewards_dict[quest_reward_1] = (quest_rewards_dict[quest_reward_1]/10)*collect_base
+		if (quest_reward_1 == "coin" and quest_type == "spend"): quest_rewards_dict[quest_reward_1] = (quest_rewards_dict[quest_reward_1]/10)*spend_base
+		
+		if (quest_failure == "coin" and quest_type == "collect"): quest_failure_dict[quest_failure] = (quest_failure_dict[quest_failure]/10)*collect_base
+		if (quest_failure == "coin" and quest_type == "spend"): quest_failure_dict[quest_failure] = (quest_failure_dict[quest_failure]/10)*spend_base
+	
+		var reward_sign: String	= "+"
+		var failure_sign: String = "-"
+		
+		if (quest_reward_1 == "infamy" or quest_reward_1 == "hunger"): reward_sign = "-"
+		
+		if (quest_failure == "infamy" or quest_failure == "hunger"): failure_sign = "+"
+		
+		quest_text = str(
+			"Status: 0/", quest_target, "\n",
+			"Reward:\n",
+			reward_sign, quest_rewards_dict[quest_reward_1], " ", quest_reward_1.to_upper(), "\n\n",
+			"Failure:\n",
+			failure_sign, quest_failure_dict[quest_failure], " ", quest_failure.to_upper(), "\n"
+		)
+		
 	else: # 2 rewards
-		pass # build quest text with two rewards here
+		quest_rewards_dict[quest_reward_1] = clamp(globals.quest_level,0,8)*10
+		quest_rewards_dict[quest_reward_2] = clamp(globals.quest_level,0,8)*10
+		quest_failure_dict[quest_failure] = clamp(globals.quest_level,0,8)*10
+		
+		if (quest_reward_1 == "coin" and quest_type == "collect"): quest_rewards_dict[quest_reward_1] = (quest_rewards_dict[quest_reward_1]/10)*collect_base
+		if (quest_reward_1 == "coin" and quest_type == "spend"): quest_rewards_dict[quest_reward_1] = (quest_rewards_dict[quest_reward_1]/10)*spend_base
+		
+		if (quest_reward_2 == "coin" and quest_type == "collect"): quest_rewards_dict[quest_reward_2] = (quest_rewards_dict[quest_reward_2]/10)*collect_base
+		if (quest_reward_2 == "coin" and quest_type == "spend"): quest_rewards_dict[quest_reward_2] = (quest_rewards_dict[quest_reward_2]/10)*spend_base
+		
+		if (quest_failure == "coin" and quest_type == "collect"): quest_failure_dict[quest_failure] = (quest_failure_dict[quest_failure]/10)*collect_base
+		if (quest_failure == "coin" and quest_type == "spend"): quest_failure_dict[quest_failure] = (quest_failure_dict[quest_failure]/10)*spend_base
+	
+	
+		var reward_1_sign: String	= "+"
+		var reward_2_sign: String	= "+"
+		var failure_sign: String = "-"
+		
+		if (quest_reward_1 == "infamy" or quest_reward_1 == "hunger"): reward_1_sign = "-"
+		if (quest_reward_2 == "infamy" or quest_reward_2 == "hunger"): reward_2_sign = "-"
+		
+		if (quest_failure == "infamy" or quest_failure == "hunger"): failure_sign = "+"
+		
+		quest_text = str(
+			"Status: 0/", quest_target, "\n",
+			"Rewards:\n",
+			reward_1_sign, quest_rewards_dict[quest_reward_1], " ", quest_reward_1.to_upper(), "\n",
+			reward_2_sign, quest_rewards_dict[quest_reward_2], " ", quest_reward_2.to_upper(), "\n\n",
+			"Failure:\n",
+			failure_sign, quest_failure_dict[quest_failure], " ", quest_failure.to_upper(), "\n"
+		)
+		
+	var quest_name = str(
+		quest_type.capitalize(),
+		" ", quest_target,
+		" ", objective_text
+	)
+		
+	globals.current_quest = {
+		"name": quest_name,
+		"target": quest_target,
+		"current": 0,
+		"rewards": quest_rewards_dict,
+		"failure": quest_failure_dict,
+		"text": quest_text
+	}
+	
+	globals.render_quest.emit()
 	
 	# type survive: no failure condition ofc
 	

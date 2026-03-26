@@ -69,12 +69,17 @@ Stuff I'm already banging my head against (and I won't be able to include, proba
 	- Uploaded a better cover, adjusted tags
 - 2026-03-24
 	- Adjusting plans for final, "good enough" version
+- 2026-03-25
+	- Started implementing quests system
+	- Adjusted contrast for green and red card text
+- 2026-03-25
+	- Quests are generated and implemented correctly
 	
 ### Plans for post-jam "good enough" polish:
 - [ ] swap daily events system with a mini quest that stays there and scales with time
 - [ ] add more sounds
 - [ ] balance cards, remove temporary balance system
-- [ ] fix colorblind red contrast	
+- [x] fix colorblind red contrast	
 
 ### To-do:
 - [x] store cards in savegame, check for saved cards on resume

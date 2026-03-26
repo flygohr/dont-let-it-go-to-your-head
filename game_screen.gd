@@ -111,6 +111,7 @@ func advance_days() -> void:
 		
 	globals.generate_cards.emit()
 	
+	globals.generate_quest.emit()
 	
 	save_data({
 		"high_score_weeks": globals.high_score_weeks,

@@ -110,8 +110,10 @@ var current_week: int = 0
 var current_day: int = 1
 
 var color_green: String = "#A6F043"
+var color_dark_green: String = "#2c403c"
 var color_yellow: String = "#ca7c3b"
 var color_red: String = "#FF5452"
+var color_dark_red: String = "#682c32"
 
 var color_legendary: Color = Color.html("#fcb100")
 var color_epic: Color = Color.html("#ae4fce")
