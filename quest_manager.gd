@@ -64,18 +64,23 @@ func generate_quest() -> void:
 	var quest_reward_text: String
 	var quest_failure_text: String
 	
-	#TODO: if quest_type == "survive" strip the failure thing and double the rewards
-	
 	if number_of_rewards == 1:
 		# build quest text with one reward here
 		quest_rewards_dict[quest_reward_1] = clamp(globals.quest_level,0,8)*10
 		quest_failure_dict[quest_failure] = clamp(globals.quest_level,0,8)*10
 		
-		if (quest_reward_1 == "coin" and quest_type == "collect"): quest_rewards_dict[quest_reward_1] = (quest_rewards_dict[quest_reward_1]/10)*collect_base
-		if (quest_reward_1 == "coin" and quest_type == "spend"): quest_rewards_dict[quest_reward_1] = (quest_rewards_dict[quest_reward_1]/10)*spend_base
+		if (quest_reward_1 == "coin" and quest_type == "collect"): 
+			quest_rewards_dict[quest_reward_1] = (quest_rewards_dict[quest_reward_1]/10)*collect_base
+		if (quest_reward_1 == "coin" and quest_type == "spend"): 
+			quest_rewards_dict[quest_reward_1] = (quest_rewards_dict[quest_reward_1]/10)*spend_base
 		
-		if (quest_failure == "coin" and quest_type == "collect"): quest_failure_dict[quest_failure] = (quest_failure_dict[quest_failure]/10)*collect_base
-		if (quest_failure == "coin" and quest_type == "spend"): quest_failure_dict[quest_failure] = (quest_failure_dict[quest_failure]/10)*spend_base
+		if (quest_failure == "coin" and quest_type == "collect"): 
+			quest_failure_dict[quest_failure] = (quest_failure_dict[quest_failure]/10)*collect_base
+		if (quest_failure == "coin" and quest_type == "spend"): 
+			quest_failure_dict[quest_failure] = (quest_failure_dict[quest_failure]/10)*spend_base
+			
+		if quest_type == "survive":
+			quest_failure_dict[quest_failure] = 0
 	
 		var reward_sign: String	= "+"
 		var failure_sign: String = "-"
@@ -83,14 +88,21 @@ func generate_quest() -> void:
 		if (quest_reward_1 == "infamy" or quest_reward_1 == "hunger"): reward_sign = "-"
 		
 		if (quest_failure == "infamy" or quest_failure == "hunger"): failure_sign = "+"
-		
-		quest_text = str(
+	
+		if quest_type == "survive":
+			quest_text = str(
 			"Status: 0/", quest_target, "\n",
 			"Reward:\n",
-			reward_sign, quest_rewards_dict[quest_reward_1], " ", quest_reward_1.to_upper(), "\n\n",
-			"Failure:\n",
-			failure_sign, quest_failure_dict[quest_failure], " ", quest_failure.to_upper(), "\n"
+			reward_sign, quest_rewards_dict[quest_reward_1], " ", quest_reward_1.to_upper()
 		)
+		else:
+			quest_text = str(
+				"Status: 0/", quest_target, "\n",
+				"Reward:\n",
+				reward_sign, quest_rewards_dict[quest_reward_1], " ", quest_reward_1.to_upper(), "\n\n",
+				"Failure:\n",
+				failure_sign, quest_failure_dict[quest_failure], " ", quest_failure.to_upper(), "\n"
+			)
 		
 		quest_reward_text = str(
 			"You got: \n",
@@ -107,15 +119,23 @@ func generate_quest() -> void:
 		quest_rewards_dict[quest_reward_2] = clamp(globals.quest_level,0,8)*10
 		quest_failure_dict[quest_failure] = clamp(globals.quest_level,0,8)*10
 		
-		if (quest_reward_1 == "coin" and quest_type == "collect"): quest_rewards_dict[quest_reward_1] = (quest_rewards_dict[quest_reward_1]/10)*collect_base
-		if (quest_reward_1 == "coin" and quest_type == "spend"): quest_rewards_dict[quest_reward_1] = (quest_rewards_dict[quest_reward_1]/10)*spend_base
+		if (quest_reward_1 == "coin" and quest_type == "collect"): 
+			quest_rewards_dict[quest_reward_1] = (quest_rewards_dict[quest_reward_1]/10)*collect_base
+		if (quest_reward_1 == "coin" and quest_type == "spend"): 
+			quest_rewards_dict[quest_reward_1] = (quest_rewards_dict[quest_reward_1]/10)*spend_base
 		
-		if (quest_reward_2 == "coin" and quest_type == "collect"): quest_rewards_dict[quest_reward_2] = (quest_rewards_dict[quest_reward_2]/10)*collect_base
-		if (quest_reward_2 == "coin" and quest_type == "spend"): quest_rewards_dict[quest_reward_2] = (quest_rewards_dict[quest_reward_2]/10)*spend_base
+		if (quest_reward_2 == "coin" and quest_type == "collect"): 
+			quest_rewards_dict[quest_reward_2] = (quest_rewards_dict[quest_reward_2]/10)*collect_base
+		if (quest_reward_2 == "coin" and quest_type == "spend"): 
+			quest_rewards_dict[quest_reward_2] = (quest_rewards_dict[quest_reward_2]/10)*spend_base
 		
-		if (quest_failure == "coin" and quest_type == "collect"): quest_failure_dict[quest_failure] = (quest_failure_dict[quest_failure]/10)*collect_base
-		if (quest_failure == "coin" and quest_type == "spend"): quest_failure_dict[quest_failure] = (quest_failure_dict[quest_failure]/10)*spend_base
+		if (quest_failure == "coin" and quest_type == "collect"): 
+			quest_failure_dict[quest_failure] = (quest_failure_dict[quest_failure]/10)*collect_base
+		if (quest_failure == "coin" and quest_type == "spend"): 
+			quest_failure_dict[quest_failure] = (quest_failure_dict[quest_failure]/10)*spend_base
 	
+		if quest_type == "survive":
+			quest_failure_dict[quest_failure] = 0
 	
 		var reward_1_sign: String	= "+"
 		var reward_2_sign: String	= "+"
@@ -125,6 +145,23 @@ func generate_quest() -> void:
 		if (quest_reward_2 == "infamy" or quest_reward_2 == "hunger"): reward_2_sign = "-"
 		
 		if (quest_failure == "infamy" or quest_failure == "hunger"): failure_sign = "+"
+		
+		if quest_type == "survive":
+			quest_text = str(
+				"Status: 0/", quest_target, "\n",
+				"Rewards:\n",
+				reward_1_sign, quest_rewards_dict[quest_reward_1], " ", quest_reward_1.to_upper(), "\n",
+				reward_2_sign, quest_rewards_dict[quest_reward_2], " ", quest_reward_2.to_upper()
+			)
+		else:
+			quest_text = str(
+				"Status: 0/", quest_target, "\n",
+				"Rewards:\n",
+				reward_1_sign, quest_rewards_dict[quest_reward_1], " ", quest_reward_1.to_upper(), "\n",
+				reward_2_sign, quest_rewards_dict[quest_reward_2], " ", quest_reward_2.to_upper(), "\n\n",
+				"Failure:\n",
+				failure_sign, quest_failure_dict[quest_failure], " ", quest_failure.to_upper(), "\n"
+			)
 		
 		quest_text = str(
 			"Status: 0/", quest_target, "\n",
@@ -154,6 +191,7 @@ func generate_quest() -> void:
 		
 	globals.current_quest = {
 		"name": quest_name,
+		"type": quest_type,
 		"target": quest_target,
 		"current": 0,
 		"rewards": quest_rewards_dict,
@@ -165,6 +203,14 @@ func generate_quest() -> void:
 	
 	globals.render_quest.emit()
 	
+func advance_quest_status(value: int) -> void:
+	globals.current_quest["current"] += value
+	if globals.current_quest["current"] >= globals.current_quest["target"]:
+		quest_complete()
+		
+	#TODO: what is failure? there's no fail condition, just forward. did a bunch of work for nothing
+	
+
 func quest_complete() -> void:
 	globals.just_completed = true
 	globals.quests_completed += 1
