@@ -13,13 +13,26 @@ func _ready() -> void:
 	globals.render_quest.connect(render_quest)
 	globals.generate_quest.connect(generate_quest)
 	globals.check_quest.connect(check_quest)
+	globals.display_quest_end.connect(display_quest_end)
 
 func render_quest() -> void:
 	quest_manager_quest.text = str(globals.current_quest["name"]).to_upper()
 	
 	# build "Expires: X day(s)\n\n" and "Status: X/X\n\n" here
+	var expires_text: String = ""
+	if globals.current_quest["type"] != "survive":
+		expires_text = str(
+			"Expires: ", int(globals.current_quest["deadline"] - globals.current_quest["elapsed"]), " days\n\n"
+		)
+		
+	var status_text: String = str("Status: ", int(globals.current_quest["current"]),"/",int(globals.current_quest["target"]))
 	
-	quest_manager_text.text = str(globals.current_quest["text"])
+	var final_text: String = str(expires_text,status_text,)
+	
+	quest_manager_text.text = str(
+		final_text, "\n\n",
+		globals.current_quest["text"]
+		)
 
 func generate_quest() -> void:
 	globals.just_completed = false
@@ -204,15 +217,13 @@ func quest_complete() -> void:
 	globals.just_completed = true
 	globals.quests_completed += 1
 	if globals.quests_completed % 3 == 0: globals.quest_level += 1 # increase quests level every 3 completed
-	quest_manager_quest.text = "QUEST COMPLETED!"
-	quest_manager_text.text = str(globals.current_quest["reward_text"],"\n\nNew quest tomorrow!")
-	# apply positive quest effects here
+	display_success()
+	#TODO: apply positive quest effects here
 	
 func quest_failed() -> void:
 	globals.just_completed = true
-	quest_manager_quest.text = "QUEST FAILED!"
-	quest_manager_text.text = str(globals.current_quest["failure_text"],"\n\nNew quest tomorrow!")
-	# apply negative quest effects here
+	display_failure()
+	#TODO: apply negative quest effects here
 
 func check_quest(infamy: int, hunger: int, health: int, coin: int) -> void:
 	print(str("Checking quest for: infamy ", infamy, ", hunger: ",hunger, ", health: ", health, ", coin: ", coin))
@@ -234,3 +245,17 @@ func check_quest(infamy: int, hunger: int, health: int, coin: int) -> void:
 		quest_failed() 	# advance quest of 1 day, and if over target and not yet completed, fail it
 	else: render_quest()
 	
+func display_quest_end() -> void:
+	if globals.current_quest["current"] >= globals.current_quest["target"]:
+		display_success()
+	elif (globals.current_quest["elapsed"] >= globals.current_quest["deadline"]) and globals.just_completed == false:
+		display_failure() 	
+	else: render_quest()
+
+func display_success() -> void:
+	quest_manager_quest.text = "QUEST COMPLETED!"
+	quest_manager_text.text = str(globals.current_quest["reward_text"],"\n\nNew quest tomorrow!")
+	
+func display_failure() -> void:
+	quest_manager_quest.text = "QUEST FAILED!"
+	quest_manager_text.text = str(globals.current_quest["failure_text"],"\n\nNew quest tomorrow!")

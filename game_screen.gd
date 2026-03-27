@@ -63,7 +63,7 @@ func _ready() -> void:
 	globals.quest_level = game_data["quest_level"]
 	globals.just_completed = game_data["quest_just_completed"]
 	globals.current_screen = "title"
-	globals.render_quest.emit()
+	globals.display_quest_end.emit()
 	title_screen.show()
 	# print(game_data["new_game"])
 	# play / resume button depending on game state

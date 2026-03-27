@@ -13,7 +13,7 @@ var lives: int = 3
 
 var tutorial_played: bool = false
 
-const save_file_name: String = "user://dligtyh_save_19.json"
+const save_file_name: String = "user://dligtyh_save_20.json"
 
 var is_mobile: bool = false
 
@@ -31,7 +31,7 @@ var default_card_data: Dictionary = {
 
 var default_quest_data: Dictionary = {
 	"name": "Collect 50 COIN",
-	"type": "survive",
+	"type": "collect",
 	"deadline": 10,
 	"elapsed": 2,
 	"target": 50,
@@ -48,7 +48,7 @@ var default_quest_data: Dictionary = {
 		"health": 0,
 		"coin": 0
 	},
-	"text": "Expires: 8 days\n\nStatus: 1/5\n\nReward:\n-10 INFAMY\n+5 COIN\n\nFailure:\n+10 INFAMY\n",
+	"text": "Rewards:\n-10 INFAMY\n+5 COIN\n\nFailure:\n+10 INFAMY\n",
 	"reward_text": "You got: \n+10 HEALTH, +10 COIN",
 	"failure_text": "Failed: \n+10 INFAMY"
 }
@@ -161,3 +161,4 @@ signal toggle_audio()
 signal generate_quest() # pick quest, fetch level, store quest with bbcode
 signal render_quest() # pass the current quest to the questmanager display, quest complete dialog if just completed
 signal check_quest(infamy: int, hunger: int, health: int, coin: int)
+signal display_quest_end

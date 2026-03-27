@@ -81,6 +81,7 @@ Stuff I'm already banging my head against (and I won't be able to include, proba
 	- Save and load quests
 	- Advance quests
 	- Fixed game-breaking bug: infamy was applied on hunger due to me not typing the correct variable name :(
+	- Fixed conflicting popup, caught was overwriting hunger or health deaths, causing double screen
 	
 ### Plans for post-jam "good enough" polish:
 - [ ] swap daily events system with a mini quest that stays there and scales with time
