@@ -213,17 +213,38 @@ func generate_quest() -> void:
 	
 	render_quest()
 	
+func apply_stats(infamy: int, hunger: int, health: int, coin: int) -> void:
+	print("Quest resolved: ", infamy," infamy, ", hunger, " hunger", health, " health, ", coin, " coin")
+	globals.infamy += infamy
+	globals.hunger += hunger
+	globals.health += health
+	globals.coin += coin	
+
 func quest_complete() -> void:
 	globals.just_completed = true
 	globals.quests_completed += 1
 	if globals.quests_completed % 3 == 0: globals.quest_level += 1 # increase quests level every 3 completed
 	display_success()
-	#TODO: apply positive quest effects here
 	
+	#apply positive quest effects here
+	apply_stats(
+		-abs(globals.current_quest["rewards"]["infamy"]),
+		-abs(globals.current_quest["rewards"]["hunger"]),
+		globals.current_quest["rewards"]["health"],
+		globals.current_quest["rewards"]["coin"]
+	)
+	
+	#TODO: make sure the death checks are happening after applying quests
+		
 func quest_failed() -> void:
 	globals.just_completed = true
 	display_failure()
-	#TODO: apply negative quest effects here
+	apply_stats(
+		globals.current_quest["failure"]["infamy"],
+		globals.current_quest["failure"]["hunger"],
+		-abs(globals.current_quest["failure"]["health"]),
+		-abs(globals.current_quest["failure"]["coin"])
+	)
 
 func check_quest(infamy: int, hunger: int, health: int, coin: int) -> void:
 	print(str("Checking quest for: infamy ", infamy, ", hunger: ",hunger, ", health: ", health, ", coin: ", coin))
