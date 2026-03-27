@@ -74,6 +74,13 @@ Stuff I'm already banging my head against (and I won't be able to include, proba
 	- Adjusted contrast for green and red card text
 - 2026-03-25
 	- Quests are generated and implemented correctly
+- 2026-03-26
+	- They actually weren't, and won't for another day
+- 2026-03-27
+	- Truly finished the quest generation
+	- Save and load quests
+	- Advance quests
+	- Fixed game-breaking bug: infamy was applied on hunger due to me not typing the correct variable name :(
 	
 ### Plans for post-jam "good enough" polish:
 - [ ] swap daily events system with a mini quest that stays there and scales with time

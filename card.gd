@@ -242,7 +242,43 @@ func _execute_effect() -> void:
 		
 		print(str("Applying this card's effects: ", card_data))
 		
-		# apply infamy-----------------------------------------------------
+		# apply hunger-----------------------------------------------------
+		
+		#if(globals.current_day < 7 and globals.time_of_day == "Night"):
+			#globals.hunger = clamp((globals.hunger + globals.hunger_gained_per_day),0,100)
+			#print("Increasing hunger for the new day") / add a message clerly displaying this somewhere. or scrap the mechanic completely, or leave it to an event, like "hunger" -30 hunger incoming
+
+		var hunger_value = card_data["effect"]["hunger"]
+		print(str("Hunger effect of applied card is ",hunger_value))
+			
+		if hunger_value != 0:
+
+			globals.hunger = clamp((globals.hunger + hunger_value),0,100)
+				
+			if globals.hunger == 100: globals.play_death.emit("YOU DIED","You starved to death.")
+		
+		# apply health -----------------------------------------------------	
+		
+		var health_value = card_data["effect"]["health"]
+		print(str("Health effect of applied card is ",health_value))
+		
+		if health_value != 0:
+
+			globals.health = clamp((globals.health + health_value),0,100)
+			
+			if globals.health == 0: globals.play_death.emit("YOU DIED","Disease and sickness got you first")
+		
+		# apply coin --------------------------------------------------------
+		
+		var coin_value = card_data["effect"]["coin"]
+		print(str("Coin effect of applied card is ",coin_value))
+		
+		if coin_value != 0:
+
+			globals.coin = clamp((globals.coin + coin_value),0,999)
+		
+		
+				# apply infamy-----------------------------------------------------
 		
 		var infamy_value = card_data["effect"]["infamy"]
 		print(str("Infamy effect of applied card is ",infamy_value))
@@ -280,40 +316,8 @@ func _execute_effect() -> void:
 				if (globals.infamy == 100):
 					globals.play_death.emit("DECAPITATED","It got to your head in the end.")
 		
-		# apply hunger-----------------------------------------------------
 		
-		#if(globals.current_day < 7 and globals.time_of_day == "Night"):
-			#globals.hunger = clamp((globals.hunger + globals.hunger_gained_per_day),0,100)
-			#print("Increasing hunger for the new day") / add a message clerly displaying this somewhere. or scrap the mechanic completely, or leave it to an event, like "hunger" -30 hunger incoming
-
-		var hunger_value = card_data["effect"]["hunger"]
-		print(str("Hunger effect of applied card is ",hunger_value))
-			
-		if hunger_value != 0:
-
-			globals.hunger = clamp((globals.hunger + infamy_value),0,100)
-				
-			if globals.hunger == 100: globals.play_death.emit("YOU DIED","You starved to death.")
-		
-		# apply health -----------------------------------------------------	
-		
-		var health_value = card_data["effect"]["health"]
-		print(str("Health effect of applied card is ",health_value))
-		
-		if health_value != 0:
-
-			globals.health = clamp((globals.health + health_value),0,100)
-			
-			if globals.health == 0: globals.play_death.emit("YOU DIED","Disease and sickness got you first")
-		
-		# apply coin --------------------------------------------------------
-		
-		var coin_value = card_data["effect"]["coin"]
-		print(str("Coin effect of applied card is ",coin_value))
-		
-		if coin_value != 0:
-
-			globals.coin = clamp((globals.coin + coin_value),0,999)
+		globals.check_quest.emit(infamy_value, hunger_value, health_value, coin_value)
 		
 		select = false
 	

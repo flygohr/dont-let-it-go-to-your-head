@@ -12,12 +12,18 @@ var find_base: int = 1
 func _ready() -> void:
 	globals.render_quest.connect(render_quest)
 	globals.generate_quest.connect(generate_quest)
+	globals.check_quest.connect(check_quest)
 
 func render_quest() -> void:
 	quest_manager_quest.text = str(globals.current_quest["name"]).to_upper()
+	
+	# build "Expires: X day(s)\n\n" and "Status: X/X\n\n" here
+	
 	quest_manager_text.text = str(globals.current_quest["text"])
 
 func generate_quest() -> void:
+	globals.just_completed = false
+	
 	var number_of_rewards: int 
 	if (randf() > .75): number_of_rewards = 2
 	else: number_of_rewards = 1
@@ -63,6 +69,8 @@ func generate_quest() -> void:
 	var quest_failure_text: String
 	
 	var quest_deadline: int = clamp(globals.quest_level,0,8)*3
+	# if quest type survive deadline is number of days
+	if quest_type == "survive": quest_deadline = quest_target
 	
 	if number_of_rewards == 1:
 		# build quest text with one reward here
@@ -91,14 +99,11 @@ func generate_quest() -> void:
 	
 		if quest_type == "survive":
 			quest_text = str(
-			"Status: 0/", quest_target, "\n\n",
 			"Reward:\n",
 			reward_sign, quest_rewards_dict[quest_reward_1], " ", quest_reward_1.to_upper()
 		)
 		else:
 			quest_text = str(
-				"Expires: ", quest_deadline, " days\n\n",
-				"Status: 0/", quest_target, "\n",
 				"Reward:\n",
 				reward_sign, quest_rewards_dict[quest_reward_1], " ", quest_reward_1.to_upper(), "\n\n",
 				"Failure:\n",
@@ -149,15 +154,12 @@ func generate_quest() -> void:
 		
 		if quest_type == "survive":
 			quest_text = str(
-				"Status: 0/", quest_target, "\n\n",
 				"Rewards:\n",
 				reward_1_sign, quest_rewards_dict[quest_reward_1], " ", quest_reward_1.to_upper(), "\n",
 				reward_2_sign, quest_rewards_dict[quest_reward_2], " ", quest_reward_2.to_upper()
 			)
 		else:
 			quest_text = str(
-				"Expires: ", quest_deadline, " days\n\n",
-				"Status: 0/", quest_target, "\n\n",
 				"Rewards:\n",
 				reward_1_sign, quest_rewards_dict[quest_reward_1], " ", quest_reward_1.to_upper(), "\n",
 				reward_2_sign, quest_rewards_dict[quest_reward_2], " ", quest_reward_2.to_upper(), "\n\n",
@@ -196,22 +198,39 @@ func generate_quest() -> void:
 		"failure_text": quest_failure_text
 	}
 	
-	globals.render_quest.emit()
+	render_quest()
 	
-func advance_quest_status(value: int) -> void:
-	globals.current_quest["current"] += value
-	if globals.current_quest["current"] >= globals.current_quest["target"]:
-		quest_complete()
-		
-	#TODO: what is failure? there's no fail condition, just forward. did a bunch of work for nothing
-
 func quest_complete() -> void:
 	globals.just_completed = true
 	globals.quests_completed += 1
 	if globals.quests_completed % 3 == 0: globals.quest_level += 1 # increase quests level every 3 completed
 	quest_manager_quest.text = "QUEST COMPLETED!"
 	quest_manager_text.text = str(globals.current_quest["reward_text"],"\n\nNew quest tomorrow!")
+	# apply positive quest effects here
 	
 func quest_failed() -> void:
+	globals.just_completed = true
 	quest_manager_quest.text = "QUEST FAILED!"
 	quest_manager_text.text = str(globals.current_quest["failure_text"],"\n\nNew quest tomorrow!")
+	# apply negative quest effects here
+
+func check_quest(infamy: int, hunger: int, health: int, coin: int) -> void:
+	print(str("Checking quest for: infamy ", infamy, ", hunger: ",hunger, ", health: ", health, ", coin: ", coin))
+	print(globals.current_quest)
+	match globals.current_quest["type"]:
+		"survive":
+			globals.current_quest["current"] += 1
+		"collect":
+			if coin > 0: globals.current_quest["current"] += coin
+		"spend":
+			if coin < 0: globals.current_quest["current"] += abs(coin)
+	print(globals.current_quest)
+	# update quest text field here
+	
+	globals.current_quest["elapsed"] += 1
+	if globals.current_quest["current"] >= globals.current_quest["target"]:
+		quest_complete()
+	elif (globals.current_quest["elapsed"] >= globals.current_quest["deadline"]) and globals.just_completed == false:
+		quest_failed() 	# advance quest of 1 day, and if over target and not yet completed, fail it
+	else: render_quest()
+	

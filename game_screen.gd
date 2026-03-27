@@ -58,8 +58,12 @@ func _ready() -> void:
 	globals.cards_list = game_data["current_cards"].duplicate_deep()
 	globals.lives = game_data["lives"]
 	globals.tutorial_played = game_data["tutorial_played"]
-	print(globals.tutorial_played)
+	globals.current_quest = game_data["current_quest"].duplicate_deep()
+	globals.quests_completed = game_data["quests_completed"]
+	globals.quest_level = game_data["quest_level"]
+	globals.just_completed = game_data["quest_just_completed"]
 	globals.current_screen = "title"
+	globals.render_quest.emit()
 	title_screen.show()
 	# print(game_data["new_game"])
 	# play / resume button depending on game state
@@ -95,6 +99,7 @@ func _process(_delta: float) -> void:
 	lives_label.text = str("LIVES: ", globals.lives)
 	
 func _on_confirm_button_pressed() -> void:
+	if globals.just_completed == true : globals.generate_quest.emit()
 	globals.apply_effect.emit()
 	confirm_button_bg.hide()
 	confirm_button.disabled = true
@@ -111,8 +116,6 @@ func advance_days() -> void:
 		
 	globals.generate_cards.emit()
 	
-	globals.generate_quest.emit()
-	
 	save_data({
 		"high_score_weeks": globals.high_score_weeks,
 		"high_score_days": globals.high_score_days,
@@ -125,7 +128,11 @@ func advance_days() -> void:
 		"current_cards": globals.cards_list.duplicate_deep(),
 		"new_game": false,
 		"lives": globals.lives,
-		"tutorial_played": true
+		"tutorial_played": true,
+		"current_quest": globals.current_quest.duplicate_deep(),
+		"quests_completed": globals.quests_completed,
+		"quest_level": globals.quest_level,
+		"quest_just_completed": globals.just_completed
 	})
 	
 	
@@ -210,6 +217,9 @@ func reset_save() -> void:
 	globals.coin = game_data["coin"]
 	globals.lives = game_data["lives"]
 	globals.tutorial_played = true
+	globals.quests_completed = 0
+	globals.quest_level = 1
+	globals.generate_quest.emit()
 
 func _on_restart_button_pressed() -> void:
 	globals.current_screen = "game"

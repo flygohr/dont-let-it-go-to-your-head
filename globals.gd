@@ -13,7 +13,7 @@ var lives: int = 3
 
 var tutorial_played: bool = false
 
-const save_file_name: String = "user://dligtyh_save_18.json"
+const save_file_name: String = "user://dligtyh_save_19.json"
 
 var is_mobile: bool = false
 
@@ -96,6 +96,8 @@ var default_save_data: Dictionary = {
 	"new_game": true,
 	"current_quest": default_quest_data,
 	"quest_level": 1,
+	"quests_completed": 0,
+	"quest_just_completed": false,
 	"tutorial_played": false
 }
 
@@ -158,3 +160,4 @@ signal toggle_quit_screen()
 signal toggle_audio()
 signal generate_quest() # pick quest, fetch level, store quest with bbcode
 signal render_quest() # pass the current quest to the questmanager display, quest complete dialog if just completed
+signal check_quest(infamy: int, hunger: int, health: int, coin: int)
