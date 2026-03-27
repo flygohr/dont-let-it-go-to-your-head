@@ -30,9 +30,12 @@ var default_card_data: Dictionary = {
 }
 
 var default_quest_data: Dictionary = {
-	"name": "Survive 5 days",
-	"target": 5,
-	"current": 1,
+	"name": "Collect 50 COIN",
+	"type": "survive",
+	"deadline": 10,
+	"elapsed": 2,
+	"target": 50,
+	"current": 10,
 	"rewards": {
 		"infamy": -1,
 		"hunger": 0,
@@ -45,7 +48,7 @@ var default_quest_data: Dictionary = {
 		"health": 0,
 		"coin": 0
 	},
-	"text": "Status: 1/5\nReward:\n-10 INFAMY\n+5 COIN\n\nFailure:\n+10 INFAMY\n",
+	"text": "Expires: 8 days\n\nStatus: 1/5\n\nReward:\n-10 INFAMY\n+5 COIN\n\nFailure:\n+10 INFAMY\n",
 	"reward_text": "You got: \n+10 HEALTH, +10 COIN",
 	"failure_text": "Failed: \n+10 INFAMY"
 }

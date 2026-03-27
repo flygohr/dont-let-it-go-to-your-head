@@ -1,6 +1,5 @@
 extends Node2D
 
-@onready var quest_manager_header: Label = $QuestManagerHeader
 @onready var quest_manager_quest: Label = $QuestManagerQuest
 @onready var quest_manager_text: RichTextLabel = $QuestManagerText
 
@@ -15,7 +14,6 @@ func _ready() -> void:
 	globals.generate_quest.connect(generate_quest)
 
 func render_quest() -> void:
-	quest_manager_header.text = "CURRENT QUEST:"
 	quest_manager_quest.text = str(globals.current_quest["name"]).to_upper()
 	quest_manager_text.text = str(globals.current_quest["text"])
 
@@ -24,7 +22,7 @@ func generate_quest() -> void:
 	if (randf() > .75): number_of_rewards = 2
 	else: number_of_rewards = 1
 	
-	var quest_type: String = ["survive", "collect", "spend", "find"].pick_random()
+	var quest_type: String = ["survive", "collect", "spend"].pick_random() # removed "find", nickels too rare and too much logic
 	var objective_text: String = ""
 	var quest_target: int
 	match quest_type:
@@ -64,6 +62,8 @@ func generate_quest() -> void:
 	var quest_reward_text: String
 	var quest_failure_text: String
 	
+	var quest_deadline: int = clamp(globals.quest_level,0,8)*3
+	
 	if number_of_rewards == 1:
 		# build quest text with one reward here
 		quest_rewards_dict[quest_reward_1] = clamp(globals.quest_level,0,8)*10
@@ -91,12 +91,13 @@ func generate_quest() -> void:
 	
 		if quest_type == "survive":
 			quest_text = str(
-			"Status: 0/", quest_target, "\n",
+			"Status: 0/", quest_target, "\n\n",
 			"Reward:\n",
 			reward_sign, quest_rewards_dict[quest_reward_1], " ", quest_reward_1.to_upper()
 		)
 		else:
 			quest_text = str(
+				"Expires: ", quest_deadline, " days\n\n",
 				"Status: 0/", quest_target, "\n",
 				"Reward:\n",
 				reward_sign, quest_rewards_dict[quest_reward_1], " ", quest_reward_1.to_upper(), "\n\n",
@@ -136,7 +137,7 @@ func generate_quest() -> void:
 	
 		if quest_type == "survive":
 			quest_failure_dict[quest_failure] = 0
-	
+			
 		var reward_1_sign: String	= "+"
 		var reward_2_sign: String	= "+"
 		var failure_sign: String = "-"
@@ -148,29 +149,21 @@ func generate_quest() -> void:
 		
 		if quest_type == "survive":
 			quest_text = str(
-				"Status: 0/", quest_target, "\n",
+				"Status: 0/", quest_target, "\n\n",
 				"Rewards:\n",
 				reward_1_sign, quest_rewards_dict[quest_reward_1], " ", quest_reward_1.to_upper(), "\n",
 				reward_2_sign, quest_rewards_dict[quest_reward_2], " ", quest_reward_2.to_upper()
 			)
 		else:
 			quest_text = str(
-				"Status: 0/", quest_target, "\n",
+				"Expires: ", quest_deadline, " days\n\n",
+				"Status: 0/", quest_target, "\n\n",
 				"Rewards:\n",
 				reward_1_sign, quest_rewards_dict[quest_reward_1], " ", quest_reward_1.to_upper(), "\n",
 				reward_2_sign, quest_rewards_dict[quest_reward_2], " ", quest_reward_2.to_upper(), "\n\n",
 				"Failure:\n",
 				failure_sign, quest_failure_dict[quest_failure], " ", quest_failure.to_upper(), "\n"
 			)
-		
-		quest_text = str(
-			"Status: 0/", quest_target, "\n",
-			"Rewards:\n",
-			reward_1_sign, quest_rewards_dict[quest_reward_1], " ", quest_reward_1.to_upper(), "\n",
-			reward_2_sign, quest_rewards_dict[quest_reward_2], " ", quest_reward_2.to_upper(), "\n\n",
-			"Failure:\n",
-			failure_sign, quest_failure_dict[quest_failure], " ", quest_failure.to_upper(), "\n"
-		)
 		
 		quest_reward_text = str(
 			"You got: \n",
@@ -192,6 +185,8 @@ func generate_quest() -> void:
 	globals.current_quest = {
 		"name": quest_name,
 		"type": quest_type,
+		"deadline": quest_deadline,
+		"elapsed": 0,
 		"target": quest_target,
 		"current": 0,
 		"rewards": quest_rewards_dict,
@@ -209,17 +204,14 @@ func advance_quest_status(value: int) -> void:
 		quest_complete()
 		
 	#TODO: what is failure? there's no fail condition, just forward. did a bunch of work for nothing
-	
 
 func quest_complete() -> void:
 	globals.just_completed = true
 	globals.quests_completed += 1
 	if globals.quests_completed % 3 == 0: globals.quest_level += 1 # increase quests level every 3 completed
-	quest_manager_header.text = "QUEST COMPLETED!"
-	quest_manager_quest.text = "New quest tomorrow!"
-	quest_manager_text.text = str(globals.current_quest["reward_text"])
+	quest_manager_quest.text = "QUEST COMPLETED!"
+	quest_manager_text.text = str(globals.current_quest["reward_text"],"\n\nNew quest tomorrow!")
 	
 func quest_failed() -> void:
-	quest_manager_header.text = "QUEST FAILED!"
-	quest_manager_quest.text = "New quest tomorrow!"
-	quest_manager_text.text = str(globals.current_quest["failure_text"])
+	quest_manager_quest.text = "QUEST FAILED!"
+	quest_manager_text.text = str(globals.current_quest["failure_text"],"\n\nNew quest tomorrow!")
