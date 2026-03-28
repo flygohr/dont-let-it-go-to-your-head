@@ -26,3 +26,11 @@ func _on_pressed() -> void:
 		texture_hover = DLIGTYH_PIXELART_TOGGLE_AUDIO_4
 		texture_pressed = DLIGTYH_PIXELART_TOGGLE_AUDIO_4
 		toggle = true
+
+
+func _on_mouse_entered() -> void:
+	globals.play_click.emit()
+
+
+func _on_audio_toggle_button_mouse_entered() -> void:
+	globals.play_click.emit()

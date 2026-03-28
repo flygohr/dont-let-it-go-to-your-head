@@ -253,6 +253,8 @@ func move_game_screen_in() -> void:
 func _on_confirm_button_mouse_entered() -> void:
 	if (confirm_button.disabled == false):
 		confirm_button_bg.show()
+		globals.play_click.emit()
+
 
 func _on_confirm_button_mouse_exited() -> void:
 	confirm_button_bg.hide()
@@ -268,6 +270,7 @@ func _on_give_up_button_pressed() -> void:
 
 func _on_give_up_button_mouse_entered() -> void:
 	give_up_button_bg.show()
+	globals.play_click.emit()
 
 func _on_give_up_button_mouse_exited() -> void:
 	give_up_button_bg.hide()

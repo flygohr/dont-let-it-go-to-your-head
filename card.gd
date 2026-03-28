@@ -179,6 +179,7 @@ func set_border_color(rarity_string) -> void:
 	card_name.set("theme_override_colors/font_color", color)
 
 func _on_card_collision_mouse_entered() -> void:
+	globals.play_click.emit()
 	if globals.is_mobile == false:
 		hover = true	
 	else:

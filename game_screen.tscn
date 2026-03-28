@@ -21,7 +21,10 @@
 [ext_resource type="AudioStream" uid="uid://b80jswt864wqm" path="res://assets/8BitBattleLoop.ogg" id="14_pgvsy"]
 [ext_resource type="Script" uid="uid://d0qvfh0imgesv" path="res://audio_stream_player_2d.gd" id="15_1r444"]
 [ext_resource type="Texture2D" uid="uid://eou2ykqax1wl" path="res://assets/imgs/DLIGTYH_pixelart_title.png" id="16_pdgdj"]
+[ext_resource type="Script" uid="uid://1cm8bey0aa4d" path="res://play_resume_button.gd" id="19_24skr"]
 [ext_resource type="Texture2D" uid="uid://de0wixh0lufw6" path="res://assets/imgs/DLITGTYH_LOGO.png" id="20_qfr2e"]
+[ext_resource type="AudioStream" uid="uid://c3qgipwld0aqj" path="res://assets/click.wav" id="23_48n56"]
+[ext_resource type="Script" uid="uid://cjsooq7hse3e2" path="res://click_sound.gd" id="24_24skr"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3vj30"]
 bg_color = Color(0.47843137, 0.38431373, 0.3764706, 0.49019608)
@@ -791,6 +794,7 @@ theme = ExtResource("3_j7yda")
 theme_override_fonts/font = ExtResource("2_norob")
 theme_override_font_sizes/font_size = 8
 text = "PLAY"
+script = ExtResource("19_24skr")
 
 [node name="TitleImage" type="Sprite2D" parent="TitleScreen" unique_id=2129641712]
 position = Vector2(96, 58)
@@ -806,11 +810,17 @@ centered = false
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=1544658110]
 stream = ExtResource("14_pgvsy")
+volume_db = -2.0
 autoplay = true
 playback_type = 1
 parameters/looping = false
 script = ExtResource("15_1r444")
 
+[node name="ClickSound" type="AudioStreamPlayer2D" parent="." unique_id=1649722678]
+stream = ExtResource("23_48n56")
+script = ExtResource("24_24skr")
+
+[connection signal="mouse_entered" from="GameScreen/BottomSection/AudioToggle/AudioToggleButton" to="GameScreen/BottomSection/AudioToggle/AudioToggleButton" method="_on_mouse_entered"]
 [connection signal="mouse_entered" from="GameScreen/BottomSection/ConfirmButton" to="." method="_on_confirm_button_mouse_entered"]
 [connection signal="mouse_exited" from="GameScreen/BottomSection/ConfirmButton" to="." method="_on_confirm_button_mouse_exited"]
 [connection signal="pressed" from="GameScreen/BottomSection/ConfirmButton" to="." method="_on_confirm_button_pressed"]
@@ -821,5 +831,7 @@ script = ExtResource("15_1r444")
 [connection signal="pressed" from="QuitConfirmationScreen/Yes" to="QuitConfirmationScreen" method="_on_yes_pressed"]
 [connection signal="pressed" from="QuitConfirmationScreen/No" to="QuitConfirmationScreen" method="_on_no_pressed"]
 [connection signal="pressed" from="MessageScreen/ContinueButton" to="MessageScreen" method="_on_continue_button_pressed"]
+[connection signal="mouse_entered" from="TitleScreen/PlayResumeButton" to="TitleScreen/PlayResumeButton" method="_on_mouse_entered"]
 [connection signal="pressed" from="TitleScreen/PlayResumeButton" to="." method="_on_play_resume_button_pressed"]
+[connection signal="mouse_entered" from="TitleScreen/AudioToggleButton" to="GameScreen/BottomSection/AudioToggle/AudioToggleButton" method="_on_audio_toggle_button_mouse_entered"]
 [connection signal="finished" from="AudioStreamPlayer2D" to="AudioStreamPlayer2D" method="_on_finished"]

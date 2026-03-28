@@ -162,4 +162,5 @@ signal toggle_audio()
 signal generate_quest() # pick quest, fetch level, store quest with bbcode
 signal render_quest() # pass the current quest to the questmanager display, quest complete dialog if just completed
 signal check_quest(infamy: int, hunger: int, health: int, coin: int)
-signal display_quest_end
+signal display_quest_end()
+signal play_click()

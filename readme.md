@@ -86,6 +86,7 @@ Stuff I'm already banging my head against (and I won't be able to include, proba
 	- fix purple contrast, all contrasts
 	- adjust parameters for quests generation: survive gives too little rewards and scales badly
 	- fixed a lot of bugs related to quests, but now they really should be fully operational and I can focus on something else
+	- started adding sounds
 	
 ### Plans for post-jam "good enough" polish:
 - [x] swap daily events system with a mini quest that stays there and scales with time
@@ -143,3 +144,4 @@ Stuff I'm already banging my head against (and I won't be able to include, proba
 - Cover font: https://www.1001fonts.com/bitmgothic-font.html
 - Some colors from: https://lospec.com/palette-list/ty-celestial-sapien-26
 - Background sound loop: https://opengameart.org/content/8-bit-battle-loop
+- SFX from: https://sfxr.me
