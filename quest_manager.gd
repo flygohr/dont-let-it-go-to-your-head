@@ -3,7 +3,7 @@ extends Node2D
 @onready var quest_manager_quest: Label = $QuestManagerQuest
 @onready var quest_manager_text: RichTextLabel = $QuestManagerText
 
-var survive_base: int = 5
+var survive_base: int = 3
 var collect_base: int = 50
 var spend_base: int = 50
 var find_base: int = 1
@@ -36,7 +36,7 @@ func render_quest() -> void:
 
 func generate_quest() -> void:
 	globals.just_completed = false
-	
+	globals.quest_just_generated = true
 	var number_of_rewards: int 
 	if (randf() > .75): number_of_rewards = 2
 	else: number_of_rewards = 1
@@ -215,10 +215,10 @@ func generate_quest() -> void:
 	
 func apply_stats(infamy: int, hunger: int, health: int, coin: int) -> void:
 	print("Quest resolved: ", infamy," infamy, ", hunger, " hunger", health, " health, ", coin, " coin")
-	globals.infamy += infamy
-	globals.hunger += hunger
-	globals.health += health
-	globals.coin += coin	
+	globals.infamy = clamp(globals.infamy+infamy,0,100)
+	globals.hunger = clamp(globals.hunger+hunger,0,100)
+	globals.health = clamp(globals.health+health,0,100)
+	globals.coin = clamp(globals.coin+coin,0,999)
 
 func quest_complete() -> void:
 	globals.just_completed = true
@@ -234,7 +234,7 @@ func quest_complete() -> void:
 		globals.current_quest["rewards"]["coin"]
 	)
 	
-	#TODO: make sure the death checks are happening after applying quests
+	#make sure the death checks are happening after applying quests
 		
 func quest_failed() -> void:
 	globals.just_completed = true

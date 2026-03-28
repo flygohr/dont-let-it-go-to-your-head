@@ -82,9 +82,13 @@ Stuff I'm already banging my head against (and I won't be able to include, proba
 	- Advance quests
 	- Fixed game-breaking bug: infamy was applied on hunger due to me not typing the correct variable name :(
 	- Fixed conflicting popup, caught was overwriting hunger or health deaths, causing double screen
+- 2026-03-28
+	- fix purple contrast, all contrasts
+	- adjust parameters for quests generation: survive gives too little rewards and scales badly
+	- fixed a lot of bugs related to quests, but now they really should be fully operational and I can focus on something else
 	
 ### Plans for post-jam "good enough" polish:
-- [ ] swap daily events system with a mini quest that stays there and scales with time
+- [x] swap daily events system with a mini quest that stays there and scales with time
 - [ ] add more sounds
 - [ ] balance cards, remove temporary balance system
 - [x] fix colorblind red contrast	

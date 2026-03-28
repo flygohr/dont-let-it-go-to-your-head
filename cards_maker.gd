@@ -161,7 +161,7 @@ func generate_new_cards() -> void:
 		
 		# print(globals.cards_list)
 	
-	#TODO: check for gold softlock, and re-do the generation if needed
+	#check for gold softlock, and re-do the generation if needed
 	
 	if (not_enough_gold_cards < 3): globals.populate_card_slot.emit()
 	else: 

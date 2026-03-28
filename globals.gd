@@ -56,6 +56,7 @@ var quest_level: int = 1
 var quests_completed: int = 0
 var just_completed: bool = false # toggle true on completion, and on next check, toggle false
 var current_quest: Dictionary = default_quest_data
+var quest_just_generated: bool = false
 
 var default_card_data_new: Dictionary =  {
 	"name": "placeholder",
@@ -116,9 +117,9 @@ var color_red: String = "#FF5452"
 var color_dark_red: String = "#682c32"
 
 var color_legendary: Color = Color.html("#fcb100")
-var color_epic: Color = Color.html("#ae4fce")
-var color_rare: Color = Color.html("#4fa1d9")
-var color_uncommon: Color = Color.html("#3ec427")
+var color_epic: Color = Color.html("#f443ff")
+var color_rare: Color = Color.html("#5bb1ff")
+var color_uncommon: Color = Color.html("#49e52e")
 var color_common: Color = Color.html("#ffffff")
 
 var color_hover: Color = Color.html("#e6dac5")

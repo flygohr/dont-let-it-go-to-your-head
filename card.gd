@@ -238,7 +238,14 @@ func _execute_effect() -> void:
 	if select == true: # only if this is the card selected
 		
 		# special card effects here, one day
+		var hunger_value = card_data["effect"]["hunger"]
+		var health_value = card_data["effect"]["health"]
+		var infamy_value = card_data["effect"]["infamy"]
+		var coin_value = card_data["effect"]["coin"]
 		
+		if globals.quest_just_generated == false:
+			globals.check_quest.emit(infamy_value, hunger_value, health_value, coin_value)  # skip is quest has just been generated
+		else: globals.quest_just_generated = false
 		
 		print(str("Applying this card's effects: ", card_data))
 		
@@ -248,7 +255,6 @@ func _execute_effect() -> void:
 			#globals.hunger = clamp((globals.hunger + globals.hunger_gained_per_day),0,100)
 			#print("Increasing hunger for the new day") / add a message clerly displaying this somewhere. or scrap the mechanic completely, or leave it to an event, like "hunger" -30 hunger incoming
 
-		var hunger_value = card_data["effect"]["hunger"]
 		print(str("Hunger effect of applied card is ",hunger_value))
 			
 		if hunger_value != 0:
@@ -259,7 +265,6 @@ func _execute_effect() -> void:
 		
 		# apply health -----------------------------------------------------	
 		
-		var health_value = card_data["effect"]["health"]
 		print(str("Health effect of applied card is ",health_value))
 		
 		if health_value != 0:
@@ -270,7 +275,6 @@ func _execute_effect() -> void:
 		
 		# apply coin --------------------------------------------------------
 		
-		var coin_value = card_data["effect"]["coin"]
 		print(str("Coin effect of applied card is ",coin_value))
 		
 		if coin_value != 0:
@@ -280,7 +284,6 @@ func _execute_effect() -> void:
 		
 				# apply infamy-----------------------------------------------------
 		
-		var infamy_value = card_data["effect"]["infamy"]
 		print(str("Infamy effect of applied card is ",infamy_value))
 		
 		# the effect from the textbox event needs to be applied to the picked card, not globally
@@ -315,9 +318,6 @@ func _execute_effect() -> void:
 				
 				if (globals.infamy == 100):
 					globals.play_death.emit("DECAPITATED","It got to your head in the end.")
-		
-		
-		globals.check_quest.emit(infamy_value, hunger_value, health_value, coin_value)
 		
 		select = false
 	

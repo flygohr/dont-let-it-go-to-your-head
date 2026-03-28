@@ -99,8 +99,8 @@ func _process(_delta: float) -> void:
 	lives_label.text = str("LIVES: ", globals.lives)
 	
 func _on_confirm_button_pressed() -> void:
-	if globals.just_completed == true : globals.generate_quest.emit()
-	globals.apply_effect.emit()
+	if globals.just_completed == true : globals.generate_quest.emit() # if I move this down the finished quest dialog is skipped
+	globals.apply_effect.emit() # effects are applied on newly generated quest :(
 	confirm_button_bg.hide()
 	confirm_button.disabled = true
 	text_next_to_button.text = str("Pick a card")
@@ -205,6 +205,12 @@ func reset_save() -> void:
 	globals.default_save_data["high_score_weeks"] = globals.high_score_weeks
 	globals.default_save_data["high_score_days"] = globals.high_score_days
 	globals.default_save_data["tutorial_played"] = true
+	globals.quests_completed = 0
+	globals.quest_level = 1
+	globals.default_save_data["quests_completed"] = 0
+	globals.default_save_data["quest_level"] = 1
+	globals.generate_quest.emit()
+	globals.default_save_data["current_quest"] = globals.current_quest.duplicate_deep()
 	save_data(globals.default_save_data)
 	var game_data: Dictionary = load_data()
 	globals.high_score_weeks = game_data["high_score_weeks"]
@@ -217,9 +223,7 @@ func reset_save() -> void:
 	globals.coin = game_data["coin"]
 	globals.lives = game_data["lives"]
 	globals.tutorial_played = true
-	globals.quests_completed = 0
-	globals.quest_level = 1
-	globals.generate_quest.emit()
+	globals.current_quest = game_data["current_quest"].duplicate_deep()
 
 func _on_restart_button_pressed() -> void:
 	globals.current_screen = "game"
