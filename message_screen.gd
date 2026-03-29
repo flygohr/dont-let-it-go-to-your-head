@@ -27,10 +27,12 @@ func _display_message(title, text):
 	# move game screen out from here?
 	message_screen_label.text = title
 	message_screen_text.text = text
+	globals.lower_volume.emit()
 
 func _on_continue_button_pressed() -> void:
 	globals.play_confirm.emit()
 	if globals.tutorial_played == true:
+		globals.reset_volume.emit()
 		globals.move_game_screen_in.emit()
 		var tween = get_tree().create_tween()
 		tween.tween_property(self, "position", Vector2(240,0), 0.2)
@@ -52,5 +54,6 @@ func play_tutorial() -> void:
 		position = Vector2(240,0)
 		globals.tutorial_played = true
 		globals.move_game_screen_in.emit()
+		globals.reset_volume.emit()
 		print("Finished tutorial")
 		continue_button.text = "CONTINUE"

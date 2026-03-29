@@ -11,6 +11,7 @@ func _ready() -> void:
 
 func toggle_screen() -> void:
 	if is_screen_out == false:
+		globals.lower_volume.emit()
 		position = Vector2(0,160)
 		var tween = get_tree().create_tween()
 		tween.tween_property(game_screen, "position", Vector2(0,-160), 0.2)
@@ -18,6 +19,7 @@ func toggle_screen() -> void:
 		tween_b.tween_property(self, "position", Vector2(0,0), 0.2)
 		is_screen_out = true
 	else:
+		globals.reset_volume.emit()
 		var tween = get_tree().create_tween()
 		tween.tween_property(game_screen, "position", Vector2(0,0), 0.2)
 		var tween_b = get_tree().create_tween()

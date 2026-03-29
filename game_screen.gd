@@ -139,6 +139,7 @@ func advance_days() -> void:
 	
 func play_death(title, text):
 	globals.play_death_sound.emit()
+	globals.lower_volume.emit()
 	globals.current_screen = "death"
 	var tween = get_tree().create_tween()
 	tween.tween_property(death_screen, "position", Vector2(0,0), 0.2)
@@ -228,7 +229,9 @@ func reset_save() -> void:
 	globals.current_quest = game_data["current_quest"].duplicate_deep()
 
 func _on_restart_button_pressed() -> void:
+	globals.reset_volume.emit()
 	globals.play_confirm.emit()
+	globals.play_restart_sound.emit()
 	globals.current_screen = "game"
 	reset_save()
 	globals.generate_cards.emit()

@@ -13,7 +13,7 @@ var lives: int = 3
 
 var tutorial_played: bool = false
 
-const save_file_name: String = "user://dligtyh_save_20.json"
+const save_file_name: String = "user://dligtyh_save_22.json"
 
 var is_mobile: bool = false
 
@@ -167,3 +167,11 @@ signal play_click()
 signal play_confirm()
 signal play_advance()
 signal play_death_sound()
+signal play_restart_sound()
+signal play_success_sound()
+signal play_failure_sound()
+signal lower_volume()
+signal reset_volume()
+
+func wait(seconds: float) -> void:
+  await get_tree().create_timer(seconds).timeout

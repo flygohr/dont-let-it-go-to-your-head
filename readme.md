@@ -87,15 +87,17 @@ Stuff I'm already banging my head against (and I won't be able to include, proba
 	- adjust parameters for quests generation: survive gives too little rewards and scales badly
 	- fixed a lot of bugs related to quests, but now they really should be fully operational and I can focus on something else
 	- started adding sounds
+- 2026-03-29
+	- finished adding sounds
 	
 ### Plans for post-jam "good enough" polish:
 - [x] swap daily events system with a mini quest that stays there and scales with time
-- [ ] add more sounds
-	- [ ] longer death sound
-	- [ ] lower volume for background sound loop on certain screen
-	- [ ] quest complete fanfare
-	- [ ] quest failed sound
-	- [ ] "reshuffle" sound on restart
+- [x] add more sounds
+	- [x] longer death sound
+	- [x] lower volume for background sound loop on certain screen
+	- [x] quest complete fanfare
+	- [x] quest failed sound
+	- [x] "reshuffle" sound on restartg
 - [ ] balance cards, remove temporary balance system
 - [x] fix colorblind red contrast	
 
@@ -149,4 +151,4 @@ Stuff I'm already banging my head against (and I won't be able to include, proba
 - Cover font: https://www.1001fonts.com/bitmgothic-font.html
 - Some colors from: https://lospec.com/palette-list/ty-celestial-sapien-26
 - Background sound loop: https://opengameart.org/content/8-bit-battle-loop
-- SFX from: https://sfxr.me
+- SFX from: https://sfxr.me, https://freesound.org/people/JonnyRuss01/sounds/478196/, https://freesound.org/people/bernhoftbret/sounds/655157/, https://freesound.org/people/jimbo555/sounds/630498/

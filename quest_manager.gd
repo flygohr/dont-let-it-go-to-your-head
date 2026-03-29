@@ -221,6 +221,7 @@ func apply_stats(infamy: int, hunger: int, health: int, coin: int) -> void:
 	globals.coin = clamp(globals.coin+coin,0,999)
 
 func quest_complete() -> void:
+	globals.play_success_sound.emit()
 	globals.just_completed = true
 	globals.quests_completed += 1
 	if globals.quests_completed % 3 == 0: globals.quest_level += 1 # increase quests level every 3 completed
@@ -237,6 +238,7 @@ func quest_complete() -> void:
 	#make sure the death checks are happening after applying quests
 		
 func quest_failed() -> void:
+	globals.play_failure_sound.emit()
 	globals.just_completed = true
 	display_failure()
 	apply_stats(
