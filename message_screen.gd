@@ -29,6 +29,7 @@ func _display_message(title, text):
 	message_screen_text.text = text
 
 func _on_continue_button_pressed() -> void:
+	globals.play_confirm.emit()
 	if globals.tutorial_played == true:
 		globals.move_game_screen_in.emit()
 		var tween = get_tree().create_tween()

@@ -200,6 +200,7 @@ func _on_card_collision_input_event(_viewport: Node, _event: InputEvent, _shape_
 			
 func select_this() -> void:
 	select = true
+	globals.play_confirm.emit()
 	globals.card_selected.emit(self)
 	
 	# check if enough gold

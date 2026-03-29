@@ -91,6 +91,11 @@ Stuff I'm already banging my head against (and I won't be able to include, proba
 ### Plans for post-jam "good enough" polish:
 - [x] swap daily events system with a mini quest that stays there and scales with time
 - [ ] add more sounds
+	- [ ] longer death sound
+	- [ ] lower volume for background sound loop on certain screen
+	- [ ] quest complete fanfare
+	- [ ] quest failed sound
+	- [ ] "reshuffle" sound on restart
 - [ ] balance cards, remove temporary balance system
 - [x] fix colorblind red contrast	
 

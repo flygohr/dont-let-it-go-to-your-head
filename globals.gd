@@ -164,3 +164,6 @@ signal render_quest() # pass the current quest to the questmanager display, ques
 signal check_quest(infamy: int, hunger: int, health: int, coin: int)
 signal display_quest_end()
 signal play_click()
+signal play_confirm()
+signal play_advance()
+signal play_death_sound()

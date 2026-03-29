@@ -26,8 +26,10 @@ func toggle_screen() -> void:
 
 func _on_no_pressed() -> void:
 	globals.toggle_quit_screen.emit()
+	globals.play_confirm.emit()
 
 func _on_yes_pressed() -> void:
+	globals.play_confirm.emit()
 	var tween_b = get_tree().create_tween()
 	tween_b.tween_property(self, "position", Vector2(0,-160), 0.2)
 	is_screen_out = false

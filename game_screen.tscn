@@ -25,6 +25,12 @@
 [ext_resource type="Texture2D" uid="uid://de0wixh0lufw6" path="res://assets/imgs/DLITGTYH_LOGO.png" id="20_qfr2e"]
 [ext_resource type="AudioStream" uid="uid://c3qgipwld0aqj" path="res://assets/click.wav" id="23_48n56"]
 [ext_resource type="Script" uid="uid://cjsooq7hse3e2" path="res://click_sound.gd" id="24_24skr"]
+[ext_resource type="AudioStream" uid="uid://bm31isemfrhew" path="res://assets/pickupCoin.wav" id="26_7iogq"]
+[ext_resource type="Script" uid="uid://bsbdyawyrxv86" path="res://confirm_sound.gd" id="27_62yp8"]
+[ext_resource type="AudioStream" uid="uid://br3btxt6evpxs" path="res://assets/advance.wav" id="28_165gv"]
+[ext_resource type="Script" uid="uid://daut5ls655v1o" path="res://advance_sound.gd" id="29_rcguu"]
+[ext_resource type="AudioStream" uid="uid://cpmh4qtbg3g8r" path="res://assets/death.wav" id="30_rcguu"]
+[ext_resource type="Script" uid="uid://dppdx1r2vg0hm" path="res://death_sound.gd" id="31_ludt0"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3vj30"]
 bg_color = Color(0.47843137, 0.38431373, 0.3764706, 0.49019608)
@@ -818,7 +824,23 @@ script = ExtResource("15_1r444")
 
 [node name="ClickSound" type="AudioStreamPlayer2D" parent="." unique_id=1649722678]
 stream = ExtResource("23_48n56")
+volume_db = 2.5
 script = ExtResource("24_24skr")
+
+[node name="ConfirmSound" type="AudioStreamPlayer2D" parent="." unique_id=944922745]
+stream = ExtResource("26_7iogq")
+volume_db = -2.5
+script = ExtResource("27_62yp8")
+
+[node name="AdvanceSound" type="AudioStreamPlayer2D" parent="." unique_id=1486045910]
+stream = ExtResource("28_165gv")
+volume_db = 1.0
+script = ExtResource("29_rcguu")
+
+[node name="DeathSound" type="AudioStreamPlayer2D" parent="." unique_id=558789972]
+stream = ExtResource("30_rcguu")
+volume_db = 1.0
+script = ExtResource("31_ludt0")
 
 [connection signal="mouse_entered" from="GameScreen/BottomSection/AudioToggle/AudioToggleButton" to="GameScreen/BottomSection/AudioToggle/AudioToggleButton" method="_on_mouse_entered"]
 [connection signal="mouse_entered" from="GameScreen/BottomSection/ConfirmButton" to="." method="_on_confirm_button_mouse_entered"]
@@ -827,9 +849,13 @@ script = ExtResource("24_24skr")
 [connection signal="mouse_entered" from="GameScreen/BottomSection/GiveUpButton" to="." method="_on_give_up_button_mouse_entered"]
 [connection signal="mouse_exited" from="GameScreen/BottomSection/GiveUpButton" to="." method="_on_give_up_button_mouse_exited"]
 [connection signal="pressed" from="GameScreen/BottomSection/GiveUpButton" to="." method="_on_give_up_button_pressed"]
+[connection signal="mouse_entered" from="DeathScreen/RestartButton" to="." method="_on_restart_button_mouse_entered"]
 [connection signal="pressed" from="DeathScreen/RestartButton" to="." method="_on_restart_button_pressed"]
+[connection signal="mouse_entered" from="QuitConfirmationScreen/Yes" to="." method="_on_yes_mouse_entered"]
 [connection signal="pressed" from="QuitConfirmationScreen/Yes" to="QuitConfirmationScreen" method="_on_yes_pressed"]
+[connection signal="mouse_entered" from="QuitConfirmationScreen/No" to="." method="_on_no_mouse_entered"]
 [connection signal="pressed" from="QuitConfirmationScreen/No" to="QuitConfirmationScreen" method="_on_no_pressed"]
+[connection signal="mouse_entered" from="MessageScreen/ContinueButton" to="." method="_on_continue_button_mouse_entered"]
 [connection signal="pressed" from="MessageScreen/ContinueButton" to="MessageScreen" method="_on_continue_button_pressed"]
 [connection signal="mouse_entered" from="TitleScreen/PlayResumeButton" to="TitleScreen/PlayResumeButton" method="_on_mouse_entered"]
 [connection signal="pressed" from="TitleScreen/PlayResumeButton" to="." method="_on_play_resume_button_pressed"]

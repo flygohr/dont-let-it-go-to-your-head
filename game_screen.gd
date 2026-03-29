@@ -99,6 +99,7 @@ func _process(_delta: float) -> void:
 	lives_label.text = str("LIVES: ", globals.lives)
 	
 func _on_confirm_button_pressed() -> void:
+	globals.play_advance.emit()
 	if globals.just_completed == true : globals.generate_quest.emit() # if I move this down the finished quest dialog is skipped
 	globals.apply_effect.emit() # effects are applied on newly generated quest :(
 	confirm_button_bg.hide()
@@ -137,6 +138,7 @@ func advance_days() -> void:
 	
 	
 func play_death(title, text):
+	globals.play_death_sound.emit()
 	globals.current_screen = "death"
 	var tween = get_tree().create_tween()
 	tween.tween_property(death_screen, "position", Vector2(0,0), 0.2)
@@ -226,6 +228,7 @@ func reset_save() -> void:
 	globals.current_quest = game_data["current_quest"].duplicate_deep()
 
 func _on_restart_button_pressed() -> void:
+	globals.play_confirm.emit()
 	globals.current_screen = "game"
 	reset_save()
 	globals.generate_cards.emit()
@@ -236,6 +239,7 @@ func _on_restart_button_pressed() -> void:
 	tween_b.tween_property(game_screen, "position", Vector2(0,0), 0.2)
 	
 func _on_play_resume_button_pressed() -> void:
+	globals.play_confirm.emit()
 	globals.current_screen = "game"
 	title_screen.hide()
 	if globals.tutorial_played == false: globals.play_tutorial.emit()
@@ -267,6 +271,7 @@ func change_confirm_text(_string : String) -> void:
 
 func _on_give_up_button_pressed() -> void:
 	globals.toggle_quit_screen.emit()
+	globals.play_confirm.emit()
 
 func _on_give_up_button_mouse_entered() -> void:
 	give_up_button_bg.show()
@@ -274,3 +279,19 @@ func _on_give_up_button_mouse_entered() -> void:
 
 func _on_give_up_button_mouse_exited() -> void:
 	give_up_button_bg.hide()
+
+
+func _on_continue_button_mouse_entered() -> void:
+	globals.play_click.emit()
+
+
+func _on_yes_mouse_entered() -> void:
+	globals.play_click.emit()
+
+
+func _on_no_mouse_entered() -> void:
+	globals.play_click.emit()
+
+
+func _on_restart_button_mouse_entered() -> void:
+	globals.play_click.emit()
