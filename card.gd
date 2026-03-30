@@ -245,7 +245,7 @@ func _execute_effect() -> void:
 		var infamy_value = card_data["effect"]["infamy"]
 		var coin_value = card_data["effect"]["coin"]
 		
-		if globals.quest_just_generated == false:
+		if globals.quest_just_generated == false: # 
 			globals.check_quest.emit(infamy_value, hunger_value, health_value, coin_value)  # skip is quest has just been generated
 		else: globals.quest_just_generated = false
 		

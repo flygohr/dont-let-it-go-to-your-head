@@ -70,6 +70,8 @@ func _ready() -> void:
 	if (game_data["new_game"] == true):
 		play_resume_button.text = "PLAY"
 		globals.generate_cards.emit()
+		globals.generate_quest.emit()
+		globals.quest_just_generated = false
 		if (globals.high_score_days+(globals.high_score_weeks*7)>0):
 			title_screen_score.text = str("Highest score: ", return_weeks_days_text(globals.high_score_weeks,globals.high_score_days))
 		else:
@@ -227,7 +229,8 @@ func reset_save() -> void:
 	globals.lives = game_data["lives"]
 	globals.tutorial_played = true
 	globals.current_quest = game_data["current_quest"].duplicate_deep()
-
+	globals.quest_just_generated = false
+	
 func _on_restart_button_pressed() -> void:
 	globals.reset_volume.emit()
 	globals.play_confirm.emit()

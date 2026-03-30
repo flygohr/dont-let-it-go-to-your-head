@@ -92,6 +92,7 @@ Stuff I'm already banging my head against (and I won't be able to include, proba
 - 2026-03-30
 	- balancing cards
 	- updated card type picker formula
+	- re-publishing the game
 	
 ### Plans for post-jam "good enough" polish:
 - [x] swap daily events system with a mini quest that stays there and scales with time
@@ -101,7 +102,7 @@ Stuff I'm already banging my head against (and I won't be able to include, proba
 	- [x] quest complete fanfare
 	- [x] quest failed sound
 	- [x] "reshuffle" sound on restartg
-- [ ] balance cards, remove temporary balance system
+- [x] balance cards, remove temporary balance system
 - [x] fix colorblind red contrast	
 
 ### To-do:

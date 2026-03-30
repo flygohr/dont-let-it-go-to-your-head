@@ -36,7 +36,6 @@ func render_quest() -> void:
 
 func generate_quest() -> void:
 	globals.just_completed = false
-	globals.quest_just_generated = true
 	var number_of_rewards: int 
 	if (randf() > .75): number_of_rewards = 2
 	else: number_of_rewards = 1
@@ -212,6 +211,7 @@ func generate_quest() -> void:
 	}
 	
 	render_quest()
+	globals.quest_just_generated = true
 	
 func apply_stats(infamy: int, hunger: int, health: int, coin: int) -> void:
 	print("Quest resolved: ", infamy," infamy, ", hunger, " hunger", health, " health, ", coin, " coin")
