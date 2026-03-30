@@ -109,7 +109,7 @@ script = ExtResource("1_xwjjp")
 
 [node name="GameCamera" type="Camera2D" parent="." unique_id=2043063389]
 anchor_mode = 0
-zoom = Vector2(4, 4)
+zoom = Vector2(8, 8)
 
 [node name="GameScreen" type="Node2D" parent="." unique_id=196972561]
 position = Vector2(0, -160)

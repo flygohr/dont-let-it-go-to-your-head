@@ -13,7 +13,7 @@ var lives: int = 3
 
 var tutorial_played: bool = false
 
-const save_file_name: String = "user://dligtyh_save_25.json"
+const save_file_name: String = "user://dligtyh_save_26.json"
 
 var is_mobile: bool = false
 
