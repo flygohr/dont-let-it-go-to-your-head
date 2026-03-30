@@ -205,8 +205,9 @@ func pick_card_rarity() -> String:
 	else: return "legendary"
 
 func pick_card_type() -> String:
-	return [ # lmao look at these weights :D
-		"theft", "theft", "theft", "theft", "theft", 
-		"rest", "rest", "rest", 
-		"move", "move", 
-		"event"].pick_random()
+	var picker: float = randf()
+	
+	if picker < 0.3: return "theft"
+	elif picker >= 0.3 and picker < 0.6: return "rest"
+	elif picker >= 0.6 and picker < 0.8: return "event"
+	else: return "move"

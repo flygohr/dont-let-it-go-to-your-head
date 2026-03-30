@@ -89,6 +89,9 @@ Stuff I'm already banging my head against (and I won't be able to include, proba
 	- started adding sounds
 - 2026-03-29
 	- finished adding sounds
+- 2026-03-30
+	- balancing cards
+	- updated card type picker formula
 	
 ### Plans for post-jam "good enough" polish:
 - [x] swap daily events system with a mini quest that stays there and scales with time

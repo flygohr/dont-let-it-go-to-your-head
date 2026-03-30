@@ -9,7 +9,7 @@ var tutorial: Array = [
 	["PICK YOUR OPTIONS","You struggle to get by, and your days don't have much choice. Every day, you'll be presented with three cards that will affect your INFAMY, HUNGER, HEALTH and COIN."],
 	["INFAMY","If your INFAMY reaches 100, the executioner will get you! First offenders will get their finger cut off. Repeat offenders lose an ear. And if you get caught after that.. they'll get to your head!"],
 	["DEATH","Aside from losing your head, you can also die of starvation when your HUNGER reaches 100, or by disease if your HEALTH reaches 0."],
-	["YOUR OBJECTIVE","Survive as long as you can! Some days will not be like the others, and will apply modifiers to the card you pick. Use them to offset some of the tougher choices..."]
+	["YOUR OBJECTIVE","Survive as long as you can! You can also complete some side quests for extra rewards...but mind the failure penalties!"]
 ]
 
 var tutorial_slide: int = 0
