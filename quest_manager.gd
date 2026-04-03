@@ -40,7 +40,15 @@ func generate_quest() -> void:
 	if (randf() > .75): number_of_rewards = 2
 	else: number_of_rewards = 1
 	
-	var quest_type: String = ["survive", "collect", "spend"].pick_random() # removed "find", nickels too rare and too much logic
+	var quest_type: String = ""
+		
+	if globals.is_first_quest == false:
+		quest_type = ["survive", "collect", "spend"].pick_random()
+	else:
+		quest_type = ["survive", "collect"].pick_random() # avoid spend as first quest
+		globals.is_first_quest = false
+		
+	
 	var objective_text: String = ""
 	var quest_target: int
 	match quest_type:
@@ -53,10 +61,6 @@ func generate_quest() -> void:
 		"spend": 
 			quest_target = spend_base*globals.quest_level
 			objective_text = "COIN"
-		"find": 
-			quest_target = find_base*globals.quest_level
-			objective_text = "nickels"
-			if quest_target == 1: objective_text = "nickel"
 	
 	var quest_reward_1: String
 	var quest_reward_2: String
@@ -210,12 +214,17 @@ func generate_quest() -> void:
 		"failure_text": quest_failure_text
 	}
 	
+	print(globals.current_quest)
+	
 	render_quest()
 	globals.quest_just_generated = true
 	
 func apply_stats(infamy: int, hunger: int, health: int, coin: int) -> void:
 	print("Quest resolved: ", infamy," infamy, ", hunger, " hunger", health, " health, ", coin, " coin")
-	globals.infamy = clamp(globals.infamy+infamy,0,100)
+	match globals.lives:
+		3: globals.infamy = clamp(globals.infamy+infamy,0,100)
+		2: globals.infamy = clamp(globals.infamy+infamy,20,100)
+		1: globals.infamy = clamp(globals.infamy+infamy,50,100)
 	globals.hunger = clamp(globals.hunger+hunger,0,100)
 	globals.health = clamp(globals.health+health,0,100)
 	globals.coin = clamp(globals.coin+coin,0,999)

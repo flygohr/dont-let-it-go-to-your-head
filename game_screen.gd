@@ -63,9 +63,12 @@ func _ready() -> void:
 	globals.quest_level = game_data["quest_level"]
 	globals.just_completed = game_data["quest_just_completed"]
 	globals.current_screen = "title"
+	globals.is_first_quest = game_data["is_first_quest"]
 	globals.display_quest_end.emit()
 	title_screen.show()
 	# print(game_data["new_game"])
+	print(globals.is_first_quest)
+	
 	# play / resume button depending on game state
 	if (game_data["new_game"] == true):
 		play_resume_button.text = "PLAY"
@@ -110,7 +113,6 @@ func _on_confirm_button_pressed() -> void:
 	advance_days()
 	
 func advance_days() -> void:
-
 	if(globals.current_day < 7):
 		globals.current_day += 1
 	else:
@@ -135,8 +137,11 @@ func advance_days() -> void:
 		"current_quest": globals.current_quest.duplicate_deep(),
 		"quests_completed": globals.quests_completed,
 		"quest_level": globals.quest_level,
-		"quest_just_completed": globals.just_completed
+		"quest_just_completed": globals.just_completed,
+		"is_first_quest": globals.is_first_quest
 	})
+	
+	print(globals.is_first_quest)
 	
 	
 func play_death(title, text):
@@ -214,6 +219,7 @@ func reset_save() -> void:
 	globals.quest_level = 1
 	globals.default_save_data["quests_completed"] = 0
 	globals.default_save_data["quest_level"] = 1
+	globals.is_first_quest = true
 	globals.generate_quest.emit()
 	globals.default_save_data["current_quest"] = globals.current_quest.duplicate_deep()
 	save_data(globals.default_save_data)

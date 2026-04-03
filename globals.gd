@@ -13,7 +13,7 @@ var lives: int = 3
 
 var tutorial_played: bool = false
 
-const save_file_name: String = "user://dligtyh_save_26.json"
+const save_file_name: String = "user://dligtyh_save_27.json"
 
 var is_mobile: bool = false
 
@@ -57,6 +57,7 @@ var quests_completed: int = 0
 var just_completed: bool = false # toggle true on completion, and on next check, toggle false
 var current_quest: Dictionary = default_quest_data
 var quest_just_generated: bool = false
+var is_first_quest: bool = true
 
 var default_card_data_new: Dictionary =  {
 	"name": "placeholder",
@@ -96,6 +97,7 @@ var default_save_data: Dictionary = {
 	"current_cards": [default_card_data,default_card_data,default_card_data],
 	"new_game": true,
 	"current_quest": default_quest_data,
+	"is_first_quest": true,
 	"quest_level": 1,
 	"quests_completed": 0,
 	"quest_just_completed": false,
